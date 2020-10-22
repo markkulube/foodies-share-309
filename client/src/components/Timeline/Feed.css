@@ -1,0 +1,16 @@
+/* Stylesheet for the Feed component. */
+
+#feed-header {
+    display: flex;
+}
+
+.profile {
+    width: 50px;
+    border-radius: 50%;
+    margin: 10px;
+}
+
+#post-button {
+    height: 20px;
+    margin: auto 0;  /* vertical align center */
+}
