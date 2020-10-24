@@ -1,5 +1,6 @@
 import React from "react";
 import { uid } from "react-uid";
+import { Link } from "react-router-dom";
 
 import "./Feed.css";
 import profile from "../../images/eggie.jpg";
@@ -16,18 +17,24 @@ export default class Feed extends React.Component {
         const { posts } = this.props;  // obtain the list of post objects from props
 
         return (
-            <div>
+            <div id={"feed-container"}>
                 <div id={"feed-header"}>
-                    <img className={"profile"} src={profile} alt={"profile"}/>
-                    <button id={"post-button"}>Post a recipe</button>
+                    <Link id={"profile-container"} to={"profile"}>  {/* TODO: replace with link to user profile page */}
+                        <img id={"profile"} src={profile} alt={"profile"}/>
+                    </Link>
+                    <Link id={"post-button"} to={"create-post"}>  {/* TODO: replace with link to "create post" page */}
+                        <button>Post a recipe</button>
+                    </Link>
                 </div>
-                <hr />
+                <hr/>
                 {
-                    // TODO: replace inner <div> with <Post> component once Keren creates it
                     posts.map(post => {
                         return (
                             <div key={uid(post)}>
-                                <div>Placeholder Post {posts.indexOf(post) + 1}</div>  {/* TODO: replace this */}
+                                {/* TODO: replace this <div> with a <Post> component once Keren creates it */}
+                                <div style={{"height": "300px"}}>
+                                    Placeholder Post {posts.indexOf(post) + 1}: {post.title}
+                                </div>
                                 <hr />
                             </div>
                         );
