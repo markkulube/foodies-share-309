@@ -6,9 +6,9 @@ import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import './App.css';
 
 // Importing the Queue and our simple Home Page
-import SignUp from './react-components/SignUp';
-import LogIn from './react-components/LogIn';
-import Home from './react-components/Home';
+import SignUp from './components/SignUp';
+import LogIn from './components/LogIn';
+import Home from './components/Home';
 import Timeline from './components/Timeline';
 
 class App extends React.Component {

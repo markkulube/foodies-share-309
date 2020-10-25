@@ -7,18 +7,20 @@ import Input from "./../Input";
 
 import "./styles.css";
 
-/* Component for the Home page */
-class LogInForm extends React.Component {
+/* Component for the SignUpForm page */
+class SignUpForm extends React.Component {
   render() {
     const {
       userName,
       password,
+      age,
+      favMeal,
       handleChange,
-      checkAccount
+      addAccount
     } = this.props;
 
     return (
-      <Grid className="logIn-form" container spacing={6}>
+      <Grid className="signUp-form" container spacing={6}>
         {/* Inputs to add account */}
         <Input
           name="userName"
@@ -34,24 +36,39 @@ class LogInForm extends React.Component {
           label="Password"
         />
 
+        <Input
+          name="age"
+          value={age}
+          onChange={handleChange}
+          label="Age"
+        />
+
+        <Input
+          name="favMeal"
+          value={favMeal}
+          onChange={handleChange}
+          label="Favourite Meal"
+        />
+
         <Grid
-          className="logIn-form_button-grid"
+          className="signUp-form_button-grid"
           item
           xs={12}
         >
+         <Link className="signUp_button-link" to={"./Timeline"}>
           <Button
             variant="contained"
             color="primary"
-            onClick={checkAccount}
-            className="logIn-form__submit-button"
+            onClick={addAccount}
+            className="signUp-form__submit-button"
           >
-          <Link className="logIn_button-link" to={"./components/Timeline"}></Link>
             Sign Up
-          </Button>   
+          </Button>
+        </Link>
         </Grid>
       </Grid>
     );
   }
 }
 
-export default LogInForm;
+export default SignUpForm;
