@@ -10,6 +10,7 @@ import SignUp from './components/SignUp';
 import LogIn from './components/LogIn';
 import Home from './components/Home';
 import Timeline from './components/Timeline';
+import AccountInfo from './components/AccountInfo/AccountInfo';
 
 class App extends React.Component {
 
@@ -32,6 +33,8 @@ class App extends React.Component {
                             (<LogIn appState={this.state}/>)}/>
             <Route exact path='/Timeline' render={() => 
                             (<Timeline appState={this.state}/>)}/>
+            <Route exact path='/AccountInfo' render={() => 
+                            (<AccountInfo appState={this.state}/>)}/>
           </Switch>
         </BrowserRouter>
       </div>
