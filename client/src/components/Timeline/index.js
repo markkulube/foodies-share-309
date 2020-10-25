@@ -41,7 +41,7 @@ export default class Timeline extends React.Component {
                 </div>
                 <Feed posts={this.state.posts}/>
                 <div className={"side-container"}>
-                    <Link to={"home"}>  {/* TODO: replace with link to home page */}
+                    <Link to={""}>  {/* TODO: replace with link to home page */}
                         <button>Sign out</button>
                     </Link>
                 </div>
