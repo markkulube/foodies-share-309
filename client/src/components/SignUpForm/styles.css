@@ -1,0 +1,22 @@
+/* Styles for the SignUpForm React component */
+
+.signUp-form {
+  justify-content: center;
+  direction:"column";
+  alignItems:"center";
+}
+
+.MuiButton-root.signUp-form__submit-button {
+  background-color: #457474;
+}
+
+.signUp-form__button-grid {
+  line-height: 5;
+   justify-content: center;
+  direction:"column";
+  alignItems:"center";
+}
+
+.signUp_button-link {
+  text-decoration: none;
+}
