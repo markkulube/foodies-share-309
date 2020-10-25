@@ -146,7 +146,10 @@ class AccountInfo extends Component {
                     <div id="account-info-header">
                         <h2>My Account</h2>
                         <Link to={"/"}>  {/* TODO: replace with link to time line */}
-                            <button>Home</button>
+                            <button className={"account-info-nav-buttons"}>Home</button>
+                        </Link>
+                        <Link to={"/Timeline"}>  {/* TODO: replace with link to time line */}
+                            <button className={"account-info-nav-buttons"}>Timeline</button>
                         </Link>
                     </div>
                     <div className="imgcontainer">
