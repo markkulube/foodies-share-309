@@ -7,7 +7,7 @@ import Timeline from "../../components/Timeline";
 // Importing actions/required methods
 import { addAccount } from "../../actions/signup";
 
-/* Component for the Home page */
+/* Component for the SignUp page */
 class SignUp extends React.Component {
 
   state = {
@@ -32,7 +32,6 @@ class SignUp extends React.Component {
   render() {
     return (
       <div className="App">
-        {/* Header component with text props. */}
         <SignUpForm
           userName={this.state.userName}
           password={this.state.password}

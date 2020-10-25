@@ -1,20 +1,20 @@
 import React from "react";
-import { Route, Switch, BrowserRouter } from 'react-router-dom';
+import { Route, Switch, Redirect, BrowserRouter } from 'react-router-dom';
 
-import SignUpForm from "./../SignUpForm";
+import LogInForm from "./../LogInForm";
 import Timeline from "../../components/Timeline";
 
 // Importing actions/required methods
-import { addAccount } from "../../actions/signup";
+import { checkAccount } from "../../actions/signup";
+import "./styles.css";
 
-/* Component for the Home page */
-class SignUp extends React.Component {
+/* Component for the LogIn page */
+class LogIn extends React.Component {
 
-  state = {
+   state = {
     username: "",
     password: "",
-    age: "",
-    typeMeal: "",
+    flag:false,
     accounts:[]
   };
 
@@ -32,24 +32,21 @@ class SignUp extends React.Component {
   render() {
     return (
       <div className="App">
-        {/* Header component with text props. */}
-        <SignUpForm
+        <LogInForm
           userName={this.state.userName}
           password={this.state.password}
-          age={this.state.age}
-          favMeal={this.state.favMeal}
           handleChange={this.handleInputChange}
-          addAccount={() => addAccount(this)}
+          checkAccount={() => checkAccount(this)}
         />
         <BrowserRouter>
-          <Switch>
-            <Route exact path='/Timeline' render={() => 
+          {this.state.flag&&
+            <Redirect to="/Timeline" render={() => 
                             (<Timeline appState={this.state}/>)}/>
-          </Switch>
+          }
         </BrowserRouter>
       </div>
     );
   }
 }
 
-export default SignUp;
+export default LogIn;
