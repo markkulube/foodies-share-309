@@ -9,11 +9,11 @@ import './App.css';
 import SignUp from './react-components/SignUp';
 import LogIn from './react-components/LogIn';
 import Home from './react-components/Home';
+import Timeline from './components/Timeline';
 
 class App extends React.Component {
 
   // a 'global' state that you can pass through to any child componenets of App.
-  //   In the Routes below they are passed to both the Home and Queue states.
   state = {
     
   }
@@ -30,6 +30,8 @@ class App extends React.Component {
                             (<SignUp appState={this.state}/>)}/>
             <Route exact path='/LogIn' render={() => 
                             (<LogIn appState={this.state}/>)}/>
+            <Route exact path='/Timeline' render={() => 
+                            (<Timeline appState={this.state}/>)}/>
           </Switch>
         </BrowserRouter>
       </div>

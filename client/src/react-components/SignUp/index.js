@@ -1,14 +1,52 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import Button from "@material-ui/core/Button";
+import { Route, Switch, BrowserRouter } from 'react-router-dom';
 
-import "./styles.css";
+import SignUpForm from "./../SignUpForm";
+import Timeline from "../../components/Timeline";
+
+// Importing actions/required methods
+import { addAccount } from "../../actions/signup";
 
 /* Component for the Home page */
 class SignUp extends React.Component {
+
+  state = {
+    username: "",
+    password: "",
+    age: "",
+    typeMeal: "",
+    accounts:[]
+  };
+
+  // Generic handler for whenever we type in an input box.
+  handleInputChange = event => {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value // [name] sets the object property name to the value of the `name` variable.
+    });
+  };
+
   render() {
     return (
-      <div>
+      <div className="App">
+        {/* Header component with text props. */}
+        <SignUpForm
+          userName={this.state.userName}
+          password={this.state.password}
+          age={this.state.age}
+          favMeal={this.state.favMeal}
+          handleChange={this.handleInputChange}
+          addAccount={() => addAccount(this)}
+        />
+        <BrowserRouter>
+          <Switch>
+            <Route exact path='/Timeline' render={() => 
+                            (<Timeline appState={this.state}/>)}/>
+          </Switch>
+        </BrowserRouter>
       </div>
     );
   }
