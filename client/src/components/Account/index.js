@@ -6,7 +6,7 @@ import TextField from 'material-ui/TextField';
 
 import "./styles.css";
 
-/* Component for the Home page */
+/* Component for the SignUp page */
 class SignUp extends React.Component {
 
   state = {
