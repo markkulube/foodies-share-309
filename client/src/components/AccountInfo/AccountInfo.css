@@ -9,7 +9,6 @@ body {
 }
 
 
-
 #form {
     border: 3px solid  #f44336;
     border-radius: 5%;
@@ -18,7 +17,7 @@ body {
     background-color:#4dffdb;
     display: inline-block;
     margin: 0 auto;
-    margin-top: 5%;
+    margin-top: 0%;
 }
 
 #account-info-header {
@@ -33,20 +32,26 @@ body {
 .container input[type=text], input[type=password] {
   width: 50%;
   padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
+  margin: 8px auto;
+  /* display: inline-block; */
   border: 1px solid #ccc;
   box-sizing: border-box;
 }
 
-.container button {
+.container .edit-input {
+  display: none;
+}
+
+.container button, #account-info-header button {
   background-color:  #f44336;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
   border: none;
+  border-radius: 5%;
   cursor: pointer;
   width: 50%;
+  display: inline-block;
 }
 
 .container button:hover {
@@ -65,7 +70,7 @@ body {
 }
 
 img.avatar {
-  width: 20%;
+  width: 25%;
   border-radius: 50%;
 }
 
