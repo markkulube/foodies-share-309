@@ -32,7 +32,7 @@ export default class Timeline extends React.Component {
             <div id={"timeline"}>
                 <div className={"side-container"}>
                     <img id={"logo"} src={logo} alt={logo}/>
-                    <Link id={"profile-link"} to={"profile"}>Profile</Link>  {/* TODO: replace with link to user page */}
+                    <Link id={"profile-link"} to={"AccountInfo"}>Profile</Link>
                     <button onClick={() => handleFilter(this, "home")}>Home</button>
                     <button onClick={() => handleFilter(this, "breakfast")}>Breakfast</button>
                     <button onClick={() => handleFilter(this, "lunch")}>Lunch</button>
@@ -41,7 +41,7 @@ export default class Timeline extends React.Component {
                 </div>
                 <Feed posts={this.state.posts}/>
                 <div className={"side-container"}>
-                    <Link to={""}>  {/* TODO: replace with link to home page */}
+                    <Link to={""}>
                         <button>Sign out</button>
                     </Link>
                 </div>
