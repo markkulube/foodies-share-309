@@ -1,5 +1,6 @@
 import React from "react";
 import Stars from "./Stars";
+import Review from "./Review"
 
 /* styles and images */
 import "./style.css";
@@ -31,15 +32,19 @@ export default class Index extends React.Component {
                 <button>close</button>
                 <hr/>
                 <div>  {/* the block to write a review */}
-                    <img id={"profile"} src={profile} alt={"profile"}/>
                     <div>
-                        <textarea onChange={this.handleContentUpdate} rows={8} cols={30}
+                        <img id={"profile"} src={profile} alt={"profile"}/>
+                        {/* TODO: vertical line to visually "connect" reviews */}
+                    </div>
+                    <div>
+                        <textarea onChange={this.handleContentUpdate} rows={4} cols={30}
                                   placeholder={"Write a review"}/>
                         <Stars rating={this.state.currentRating} updateStar={updateStar} parent={this}/>
                         <button>Post</button>
                     </div>
                 </div>
-                {/* TODO: list of <Review/>'s */}
+                {/* TODO: replace with map onto list of reviews (eventually from API call) */}
+                <hr/><Review name={"Eddie Shao"} content={"This is the body of the review"} rating={4}/>
             </div>
         );
     }

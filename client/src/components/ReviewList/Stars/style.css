@@ -1,9 +1,5 @@
 /* Stylesheet for the Stars component. */
 
-#review-list-container {
-    background-color: white;
-}
-
 .star {
     width: 20px;
 }

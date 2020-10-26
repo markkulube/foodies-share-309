@@ -14,14 +14,17 @@ export default class Stars extends React.Component {
      * @param {int} rating  The rating number from 0-5.
      */
     drawStars(rating) {
+        const updateStar = this.props.updateStar;  // obtain function to update parent state
+        const parent = this.props.parent;  // obtain parent to update
+
         let stars = [];  // list of stars to render
 
         for (let i = 0; i < 5; i++) {
             if (i < rating) {
-                stars.push(<img key={uid(i)} onClick={() => this.props.updateStar(this.props.parent, i + 1)}
+                stars.push(<img key={uid(i)} onClick={() => updateStar(parent, i + 1)}
                                 className={"star"} src={filledStar} alt={"empty star"}/>);
             } else {
-                stars.push(<img key={uid(i)} onClick={() => this.props.updateStar(this.props.parent, i + 1)}
+                stars.push(<img key={uid(i)} onClick={() => updateStar(parent, i + 1)}
                                 className={"star"} src={emptyStar} alt={"filled star"}/>);
             }
         }
