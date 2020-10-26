@@ -2,7 +2,7 @@ import React from "react";
 import Stars from "./Stars";
 
 /* styles and images */
-import "./ReviewList.css";
+import "./style.css";
 import profile from "../../images/eggie.jpg";
 
 /* import logic */

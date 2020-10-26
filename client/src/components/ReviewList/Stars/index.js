@@ -2,9 +2,9 @@ import React from "react";
 import { uid } from "react-uid";
 
 /* styles and images */
-import "./Stars.css";
-import emptyStar from "../../images/star-empty.png";
-import filledStar from "../../images/star-filled.png";
+import "./style.css";
+import emptyStar from "../../../images/star-empty.png";
+import filledStar from "../../../images/star-filled.png";
 
 export default class Stars extends React.Component {
 
