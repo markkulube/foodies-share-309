@@ -18,6 +18,8 @@ class LogInForm extends React.Component {
     } = this.props;
 
     return (
+     <div className="parent">
+     <img className="logo_image"></img>
       <Grid className="logIn-form" container spacing={6}>
         {/* Inputs to add account */}
         <Input
@@ -32,6 +34,7 @@ class LogInForm extends React.Component {
           value={password}
           onChange={handleChange}
           label="Password"
+          type="password"
         />
 
         <Grid
@@ -45,10 +48,11 @@ class LogInForm extends React.Component {
             onClick={checkAccount}
             className="logIn-form__submit-button"
           >
-            Sign Up
+            Log In
           </Button>   
         </Grid>
       </Grid>
+      </div>
     );
   }
 }

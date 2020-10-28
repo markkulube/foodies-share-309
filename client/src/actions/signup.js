@@ -33,8 +33,8 @@ export const checkAccount = signup => {
   const temp = account.userName
   const temp2 = account.password
 
-  if (temp.valueOf()==="user"){
-    if (temp2.valueOf()===("user")){
+  if (temp.valueOf()==="user"||temp.valueOf()==="admin"){
+    if (temp2.valueOf()===("user")||temp.valueOf()==="admin"){
       log("true");
       signup.setState({
         flag:true
