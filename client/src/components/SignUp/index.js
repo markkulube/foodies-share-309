@@ -15,7 +15,8 @@ class SignUp extends React.Component {
     password: "",
     age: "",
     typeMeal: "",
-    accounts:[]
+    accounts:[{ username: "user", password: "user", age: "404", typeMeal: "Filet Mignon"},
+      { username: "admin", password: "admin", age: "30", typeMeal: "Sliced Oranges" }]
   };
 
   // Generic handler for whenever we type in an input box.

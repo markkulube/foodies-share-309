@@ -7,12 +7,13 @@ import "./styles.css";
 /* Component for the Input field*/
 class Input extends React.Component {
   render() {
-    const { label, value, onChange, name } = this.props;
+    const { label, value, onChange, name, type } = this.props;
 
     return (
       <Grid className="input-form" item xs={12}>
-        <TextField
+        <TextField 
           name={name}
+          type={type}
           label={label}
           id="margin-normal"
           defaultValue={value || ""}

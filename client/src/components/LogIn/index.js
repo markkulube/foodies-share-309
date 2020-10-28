@@ -15,7 +15,8 @@ class LogIn extends React.Component {
     username: "",
     password: "",
     flag:false,
-    accounts:[]
+    accounts:[{ username: "user", password: "user" },
+      { username: "admin", password: "admin" }]
   };
 
   // Generic handler for whenever we type in an input box.
@@ -38,12 +39,10 @@ class LogIn extends React.Component {
           handleChange={this.handleInputChange}
           checkAccount={() => checkAccount(this)}
         />
-        <BrowserRouter>
           {this.state.flag&&
             <Redirect to="/Timeline" render={() => 
                             (<Timeline appState={this.state}/>)}/>
           }
-        </BrowserRouter>
       </div>
     );
   }
