@@ -1,9 +1,9 @@
 import React from "react";
 
 /* styles and images */
-import "./style.css";
+import "./Review.css";
 import profile from "../../../images/eggie.jpg";
-import Stars from "../Stars";
+import Stars from "../Stars/Stars";
 
 /**
  * A review of a recipe post.

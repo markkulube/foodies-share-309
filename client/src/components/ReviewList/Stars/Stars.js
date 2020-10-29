@@ -2,7 +2,7 @@ import React from "react";
 import { uid } from "react-uid";
 
 /* styles and images */
-import "./style.css";
+import "./Stars.css";
 import emptyStar from "../../../images/star-empty.png";
 import filledStar from "../../../images/star-filled.png";
 

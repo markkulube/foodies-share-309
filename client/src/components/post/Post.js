@@ -4,7 +4,7 @@ import Recipe from "../Recipe/Recipe"
 import { UnmountClosed } from "react-collapse";
 
 import "./Post.css"
-import ReviewList from "../ReviewList";
+import ReviewList from "../ReviewList/ReviewList";
 
 class Post extends React.Component{
     constructor(props) {

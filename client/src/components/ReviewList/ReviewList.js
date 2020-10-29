@@ -1,10 +1,10 @@
 import React from "react";
 import { uid } from "react-uid";
-import Stars from "./Stars";
-import Review from "./Review"
+import Stars from "./Stars/Stars";
+import Review from "./Review/Review"
 
 /* styles and images */
-import "./style.css";
+import "./ReviewList.css";
 
 /* import logic */
 import { updateStar, handlePostReview } from "./ReviewListLogic";
