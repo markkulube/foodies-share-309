@@ -2,9 +2,10 @@
 
 
 .input-form {
-  justify-content: center;
+  outline:none;
+  justify-content: right;
   direction:"column";
-  alignItems:"center";
+  alignItems:"right";
 }
 
 .input {

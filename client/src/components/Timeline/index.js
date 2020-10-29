@@ -4,7 +4,7 @@ import Feed from "./Feed";
 
 // styles and images
 import "./Timeline.css";
-import logo from "../../images/placeholder-logo.png";
+import logo from "../../images/foodies.png";
 
 // import logic from logic file
 import { handleFilter } from "./TimelineLogic";
@@ -36,8 +36,8 @@ export default class Timeline extends React.Component {
                     <button onClick={() => handleFilter(this, "home")}>Home</button>
                     <button onClick={() => handleFilter(this, "breakfast")}>Breakfast</button>
                     <button onClick={() => handleFilter(this, "lunch")}>Lunch</button>
-                    <button onClick={() => handleFilter(this, "dinner")}>dinner</button>
-                    <button onClick={() => handleFilter(this, "dessert")}>dessert</button>
+                    <button onClick={() => handleFilter(this, "dinner")}>Dinner</button>
+                    <button onClick={() => handleFilter(this, "dessert")}>Dessert</button>
                 </div>
                 <Feed posts={this.state.posts}/>
                 <div className={"side-container"}>

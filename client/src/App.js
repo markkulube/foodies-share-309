@@ -16,7 +16,8 @@ class App extends React.Component {
 
   // a 'global' state that you can pass through to any child componenets of App.
   state = {
-    
+    accounts:[{ username: "user", password: "user", age: "404", typeMeal: "Filet Mignon"},
+      { username: "admin", password: "admin", age: "30", typeMeal: "Sliced Oranges" }]
   }
 
   render() {

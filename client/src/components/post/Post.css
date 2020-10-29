@@ -1,0 +1,17 @@
+.profilePic{
+    width:40px;
+    float:left;
+    margin-left:10px;
+    border-radius: 50%;
+    
+}
+
+.username{
+    float: left;
+    margin-left: 20px;
+    
+}
+
+.block{
+    display: block;
+}

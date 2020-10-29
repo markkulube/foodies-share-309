@@ -1,7 +1,7 @@
 import React from "react";
 import { uid } from "react-uid";
 import { Link } from "react-router-dom";
-
+import Post from "../post/Post.js"
 import "./Feed.css";
 import profile from "../../images/eggie.jpg";
 
@@ -22,7 +22,7 @@ export default class Feed extends React.Component {
                     <Link id={"profile-container"} to={"AccountInfo"}>
                         <img id={"profile"} src={profile} alt={"profile"}/>
                     </Link>
-                    <Link id={"post-button"} to={"create-post"}>  {/* TODO: replace with link to "create post" page */}
+                    <Link id={"post-button"} to={"./PostRecipe"}>  {/* TODO: replace with link to "create post" page */}
                         <button>Post a recipe</button>
                     </Link>
                 </div>
@@ -32,9 +32,18 @@ export default class Feed extends React.Component {
                         return (
                             <div key={uid(post)}>
                                 {/* TODO: replace this <div> with a <Post> component once Keren creates it */}
+                                
                                 <div style={{"height": "300px"}}>
-                                    Placeholder Post {posts.indexOf(post) + 1}: {post.title}
+                                <Post 
+                                    username="bob"
+                                    profilePic= {profile}
+                                    title = "Food" 
+                                    desc="o" 
+                                    ingredients = {["food", "a lot of food"]}
+                                    steps = {["you put ingredients", "you cook it"]}
+                                />
                                 </div>
+                                
                                 <hr />
                             </div>
                         );
