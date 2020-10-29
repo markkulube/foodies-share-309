@@ -9,10 +9,10 @@ import "./Recipe.css";
  * A written recipe.
  *
  * Required props:
- *  - title (string): The title of the recipe.
- *  - desc (string): The summary description of the recipe shown at the top of the recipe.
- *  - ingredients (string[]): A list of ingredients required.
- *  - steps (string[]): The list of instructions to follow. The array indices indicate the order of instructions.
+ *  - title         {string}    The title of the recipe.
+ *  - desc          {string}    The summary description of the recipe shown at the top of the recipe.
+ *  - ingredients   {string[]}  A list of ingredients required.
+ *  - steps         {string[]}  The list of instructions to follow. Array indices indicate the order of instructions.
  */
 export default class Recipe extends React.Component {
 

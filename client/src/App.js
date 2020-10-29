@@ -11,6 +11,7 @@ import LogIn from './components/LogIn';
 import Home from './components/Home';
 import Timeline from './components/Timeline';
 import AccountInfo from './components/AccountInfo/AccountInfo';
+import PostRecipe from "./components/PostRecipe";
 
 class App extends React.Component {
 
@@ -36,6 +37,8 @@ class App extends React.Component {
                             (<Timeline appState={this.state}/>)}/>
             <Route exact path='/AccountInfo' render={() => 
                             (<AccountInfo appState={this.state}/>)}/>
+            <Route exact path='/PostRecipe' render={() =>
+                            (<PostRecipe appState={this.state}/>)}/>
           </Switch>
         </BrowserRouter>
       </div>

@@ -5,11 +5,19 @@ import Review from "./Review"
 
 /* styles and images */
 import "./style.css";
-import profile from "../../images/eggie.jpg";
 
 /* import logic */
 import { updateStar, handlePostReview } from "./ReviewListLogic";
 
+/**
+ * A list of reviews with a block to add a new review.
+ *
+ * Required props:
+ *  - name          {string}    The username of whom is viewing and potentially adding a new review.
+ *  - profilePic    {string}    The path to the profile picture of the user with the given name.
+ *  - post          {string}    The unique identifier of the post this list of reviews are for.
+ *  TODO: post is just a name for now, change it to whatever unique identifier we end up using later on
+ */
 export default class ReviewList extends React.Component {
 
     constructor(props) {
@@ -17,14 +25,10 @@ export default class ReviewList extends React.Component {
 
         // Note: calling handleFilter (aka. calling setState) in constructor somehow doesn't update the state.
         //  Therefore, we need to make a manual API call to retrieve initial list of reviews.
-        const initReviews = [  // TODO: replace this with API call to retrieve reviews
-            {name: "Eddie Shao", content: "This is the review body.", rating: 4},
-            {name: "Mark Kulube", content: "This dish is seriously lacking some taste...", rating: 2},
-            {name: "Brandon Jozwik", content: "Wow, this dish is amazing. Please lend me the recipe!", rating: 5}
-        ]
         this.state = {
             currentRating: 0,  // rating of the current in-progress review
             content: "",  // content of the current in-progress review
+            // TODO: replace initReviews with API call to retrieve reviews
             reviews: initReviews  // list of existing reviews
         }
     }
@@ -37,15 +41,13 @@ export default class ReviewList extends React.Component {
     }
 
     render() {
-        const { name, post } = this.props;  // obtain the name of the reviewer and the post they are reviewing
+        const { name, profilePic, post } = this.props;  // obtain the name of the reviewer and the post they are reviewing
 
         return(
             <div id={"review-list-container"}>
-                <button>close</button>
-                <hr/>
                 <div>  {/* the block to write a review */}
                     <div>
-                        <img id={"profile"} src={profile} alt={"profile"}/>
+                        <img id={"profile"} src={profilePic} alt={"profile"}/>
                         {/* TODO: vertical line to visually "connect" reviews */}
                     </div>
                     <div>
@@ -74,3 +76,10 @@ export default class ReviewList extends React.Component {
     }
 
 }
+
+// TODO: mock data - remove once API calls are implemented
+const initReviews = [
+    {name: "Eddie", content: "This is the review body.", rating: 4},
+    {name: "Mark", content: "This dish is seriously lacking some taste...", rating: 2},
+    {name: "Brandon", content: "Wow, this dish is amazing. Please lend me the recipe!", rating: 5}
+]

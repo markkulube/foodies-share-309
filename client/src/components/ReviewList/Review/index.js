@@ -5,6 +5,14 @@ import "./style.css";
 import profile from "../../../images/eggie.jpg";
 import Stars from "../Stars";
 
+/**
+ * A review of a recipe post.
+ *
+ * Required props:
+ *  - name      {string}    The username of this review.
+ *  - content   {string}    The body of this review.
+ *  - rating    {int}       The rating given to this review.
+ */
 export default class Review extends React.Component {
 
     render() {
