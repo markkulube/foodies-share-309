@@ -1,0 +1,16 @@
+#admin {
+  margin: 0 auto;
+}
+#admin #admin-left-side {
+  display: inline-block;
+  border: 0.1pc solid  black;
+  background: cornflowerblue;
+  width: 30%;
+}
+
+#admin #admin-main {
+  display: inline-block;
+  border: 0.1pc solid  red;
+  text-align: center;
+  width: 67.5999%;
+}
