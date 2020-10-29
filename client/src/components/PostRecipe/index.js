@@ -42,13 +42,15 @@ class PostRecipe extends React.Component {
                     label="instruction"
                 />
 
-                <Button
-                    variant="contained"
-                    color="secondary"
-                    onClick={addRecipe}
-                >
-                Post it on Foodies
-                </Button>
+                <Link to={"Timeline"}>
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        onClick={addRecipe}
+                    >
+                        Post it on Foodies
+                    </Button>
+                </Link>
             </div>
         );
     }

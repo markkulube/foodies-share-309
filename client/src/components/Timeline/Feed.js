@@ -9,7 +9,7 @@ import profile from "../../images/eggie.jpg";
  * The main section of the Timeline page containing a collection of posts.
  *
  * Required props:
- *  - posts (Object[]): An list of objects with data about a single post (title, desc, ingredients, steps).
+ *  - posts {Object[]}  An list of objects with data about a single post (title, desc, ingredients, steps).
  */
 export default class Feed extends React.Component {
 
@@ -31,19 +31,14 @@ export default class Feed extends React.Component {
                     posts.map(post => {
                         return (
                             <div key={uid(post)}>
-                                {/* TODO: replace this <div> with a <Post> component once Keren creates it */}
-                                
-                                <div style={{"height": "300px"}}>
                                 <Post 
-                                    username="bob"
-                                    profilePic= {profile}
-                                    title = "Food" 
-                                    desc="o" 
-                                    ingredients = {["food", "a lot of food"]}
-                                    steps = {["you put ingredients", "you cook it"]}
+                                    username={post.username}
+                                    profilePic={post.profilePic}
+                                    title={post.title}
+                                    desc={post.desc}
+                                    ingredients={post.ingredients}
+                                    steps={post.steps}
                                 />
-                                </div>
-                                
                                 <hr />
                             </div>
                         );
