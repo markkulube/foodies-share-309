@@ -1,6 +1,10 @@
-// Logic files for the Timeline component.
+/* Logic files for the Timeline component. */
 
-import profile from "../../images/eggie.jpg";
+// TODO: figure out how to store "link" to image in posts array and import at runtime
+import eddie from "../../images/eddie.jpg";
+import brandon from "../../images/brandon.png";
+import keren from "../../images/keren.png";
+import mark from "../../images/mark.png";
 
 /**
  * Obtain a list of posts according to the given filter <option> and update <timeline>'s state with these posts.
@@ -35,10 +39,10 @@ export const handleFilter = (timeline, option) => {
 }
 
 // TODO: Mock data - remove once API calls are implemented below
-const posts = [
+export const posts = [
     {
         username: "Eddie",
-        profilePic: profile,
+        profilePic: eddie,
         title: "Blueberry Pancakes",
         desc: "This is a great recipe that I found in my Grandma's recipe book. Judging from the weathered look of " +
             "this recipe card, this was a family favorite.",
@@ -60,7 +64,7 @@ const posts = [
     },
     {
         username: "Mark",
-        profilePic: profile,
+        profilePic: mark,
         title: "Steak Sandwich",
         desc: "I tried for years to make a cheese steak as good as the takeout sub shops of southeastern " +
             "Massachusetts. I think this is about as close as you can come at home. Freezing the steak the day " +
@@ -92,7 +96,7 @@ const posts = [
     },
     {
         username: "Keren",
-        profilePic: profile,
+        profilePic: keren,
         title: "Chicken Parmesan",
         desc: "My version of chicken parmesan is a little different than what they do in the restaurants, with less " +
             "sauce and a crispier crust.",
@@ -133,7 +137,7 @@ const posts = [
     },
     {
         username: "Brandon",
-        profilePic: profile,
+        profilePic: brandon,
         title: "Apple Pie",
         desc: "",
         ingredients: [
