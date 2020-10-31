@@ -8,7 +8,8 @@ import logo from "../../images/foodies.png";
 import profilePic from "../../images/profile.png";  // TODO: remove import once implemented pass as prop from App.js
 
 // import logic from logic file
-import { handleFilter, posts } from "./TimelineLogic";  // TODO: remove posts import once replaced with API call below
+// TODO: remove posts import once replaced with API call below
+import { handleFilter, handleSearchFilter, posts } from "./TimelineLogic";
 
 /**
  * The main page after the login procedure. Display timeline of posts, option to create a post, and other navigation
@@ -49,7 +50,13 @@ export default class Timeline extends React.Component {
                     <button onClick={() => handleFilter(this, "dessert")}>Dessert</button>
                 </div>
                 {/* TODO: replace profilePic and <username> with collected props from login */}
-                <Feed posts={this.state.posts} profilePic={profilePic} username={"<username>"}/>
+                <Feed
+                    posts={this.state.posts}
+                    profilePic={profilePic}
+                    username={"<username>"}
+                    handleSearchFilter={handleSearchFilter}
+                    parent={this}
+                />
                 <div className={"side-container"}>
                     <Link to={""}>
                         <button>Sign out</button>

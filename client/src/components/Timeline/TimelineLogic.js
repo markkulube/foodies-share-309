@@ -7,7 +7,7 @@ import keren from "../../images/keren.png";
 import mark from "../../images/mark.png";
 
 /**
- * Obtain a list of posts according to the given filter <option> and update <timeline>'s state with these posts.
+ * Update the timeline's state with the posts specified by the option.
  *
  * @param {Timeline}    timeline    The timeline component to update state.
  * @param {string}      option      The option to filter posts by.
@@ -36,6 +36,30 @@ export const handleFilter = (timeline, option) => {
             // should never reach this
             throw new Error("invalid filter option for timeline feed");
     }
+}
+
+/**
+ * Update the timeline's state with the posts specified by the search bar value.
+ *
+ * @param event     {Object}            The event to obtain filter option value from.
+ * @param timeline  {React.Component}   The timeline to update posts for.
+ */
+export const handleSearchFilter = (event, timeline) => {
+    event.preventDefault();
+    const value = event.target.value;
+    console.log("filtering post with parameter:", value);
+
+    // TODO: for loop filter below will be implemented by API instead
+    const targetPosts = [];
+    for (let post of posts) {
+        if (post.title.includes(value)) {
+            targetPosts.push(post)
+        }
+    }
+
+    timeline.setState({
+        posts: targetPosts
+    })
 }
 
 // TODO: Mock data - remove once API calls are implemented below
@@ -138,7 +162,7 @@ export const posts = [
     {
         username: "Brandon",
         profilePic: brandon,
-        title: "Apple Pie",
+        title: "Starfruit Pie",
         desc: "",
         ingredients: [
             "1/2 cup sugar",
@@ -147,7 +171,7 @@ export const posts = [
             "1 teaspoon ground cinnamon",
             "1/4 teaspoon ground ginger",
             "1/4 teaspoon ground nutmeg",
-            "6 to 7 cups thinly sliced peeled tart apples",
+            "6 to 7 cups thinly sliced peeled starfruit",
             "1 tablespoon lemon juice",
             "Pastry for double-crust pie",
             "1 tablespoon butter",
@@ -155,9 +179,9 @@ export const posts = [
             "Additional sugar"
         ],
         steps: [
-            "In a small bowl, combine the sugars, flour and spices; set aside. In a large bowl, toss apples with " +
+            "In a small bowl, combine the sugars, flour and spices; set aside. In a large bowl, toss starfruit with " +
             "lemon juice. Add sugar mixture; toss to coat.",
-            "Line a 9-in. pie plate with bottom crust; trim even with edge. Fill with apple mixture; dot with " +
+            "Line a 9-in. pie plate with bottom crust; trim even with edge. Fill with starfruit mixture; dot with " +
             "butter. Roll remaining crust to fit top of pie; place over filling. Trim, seal and flute edges. Cut " +
             "slits in crust.",
             "Beat egg white until foamy; brush over crust. Sprinkle with sugar. Cover edges loosely with foil.",
