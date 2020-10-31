@@ -6,6 +6,22 @@ import { UnmountClosed } from "react-collapse";
 import "./Post.css"
 import ReviewList from "../ReviewList/ReviewList";
 
+/**
+ * A post of a recipe.
+ *
+ * Required props:
+ *  - username {string} Name of the user viewing this post.
+ *  - profilePic {string} Path to the profile picture of the user viewing this post.
+ *  - post {Object} An Object containing data about this post.
+ *      post: {
+ *          username    {string}    Username of this recipe's writer.
+ *          profilePic  {string}    Path to the profile picture of this recipe's writer.
+ *          title       {string}    Title of this recipe.
+ *          desc        {string}    Description of this recipe.
+ *          ingredients {string[]}  List of ingredients needed to follow this recipe.
+ *          steps       {string[]}  List of steps the recipe tells you to follow.
+ *      }
+ */
 class Post extends React.Component{
     constructor(props) {
         super(props);
@@ -30,35 +46,35 @@ class Post extends React.Component{
         }
     }
 
-    render(){
-        const { username, profilePic, title, desc, ingredients, steps } = this.props;
+    render() {
+        // obtain the username and profile picture of the viewer and data of the post.
+        const { username, profilePic, post } = this.props;
 
         return(
             <div className = "App">
                 <div className ="block">
-                    <img src={profilePic} className="profilePic"/>
-                    <h3 className="username">{username}</h3>
+                    <img src={post.profilePic} className="profilePic"/>
+                    <h3 className="username">{post.username}</h3>
                 </div>
                 <div className="block">
 
                     <Recipe
-                        title= {title}
-                        desc= {desc}
-                        ingredients= {ingredients}
-                        steps= {steps}
+                        title={post.title}
+                        desc={post.desc}
+                        ingredients={post.ingredients}
+                        steps={post.steps}
                     />
                     {/* buttons component, implementing next
                      <LikeButton />
-                     <DislikeBUtton />
+                     <DislikeButton />
                      */}
                     <button onClick={this.toggleShowHide}>{this.state.reviewsButton}</button>
                     <UnmountClosed isOpened={this.state.isOpened}>
-                        <ReviewList name={"<my here>"} profilePic={profilePic} post={title}/>
+                        {/* TODO: rename post to postTitle (cascade) */}
+                        <ReviewList username={username} profilePic={profilePic} post={post.title}/>
                     </UnmountClosed>
                 </div>
             </div>
-            
-
         );
     }
 
