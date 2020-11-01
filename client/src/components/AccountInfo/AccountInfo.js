@@ -12,15 +12,15 @@ class AccountInfo extends Component {
         super(props)
     
         this.state = {
-            username: "testuser",
-            password: "pass123",
-            email: "testuser@email.com",
+            username: "user",
+            password: "user",
+            email: "user@user.com",
             favmeal: "pasta",
 
             user: {
-                    username: "testuser",
-                    password: "pass123",
-                    email: "testuser@email.com",
+                    username: "user",
+                    password: "user",
+                    email: "user@user.com",
                     favmeal: "pasta"
             }
         }
@@ -31,7 +31,7 @@ class AccountInfo extends Component {
         this.handleTyping = this.handleTyping.bind(this)
     }
 
-    handleEditClick(e) {
+    handleEditClick = (e) => {
 
         document.querySelector("#psw-default").style.display="none"
         document.querySelector("#edit").style.display="none"
@@ -46,7 +46,7 @@ class AccountInfo extends Component {
 
     }
 
-    handleCancelClick(e) {
+    handleCancelClick = (e) => {
 
         document.querySelector("#psw-default").style.display="block"
         document.querySelector("#edit").style.display="inline-block"
@@ -70,17 +70,13 @@ class AccountInfo extends Component {
           });
     }
 
-    handleUpdateClick(e) {
-        let username = this.state.username
-        let password = this.state.password
-        let email = this.state.email
-        let favmeal = this.state.favmeal
+    handleUpdateClick = (e) => {
 
-        let newuser = {
-            username: username,
-            password: password,
-            email: email,
-            favmeal: favmeal
+      let newuser = {
+            username: this.state.username,
+            password: this.state.password,
+            email: this.state.email,
+            favmeal: this.state.favmeal
         }
 
         this.setState({
@@ -145,7 +141,7 @@ class AccountInfo extends Component {
 
                     <div id="account-info-header">
                         <h2>My Account</h2>
-                        <Link to={"/"}>  {/* TODO: replace with link to time line */}
+                        <Link to={"/"}>  {/* TODO: replace with link to home page */}
                             <button className={"account-info-nav-buttons"}>Home</button>
                         </Link>
                         <Link to={"/Timeline"}>  {/* TODO: replace with link to time line */}
