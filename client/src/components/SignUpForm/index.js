@@ -9,18 +9,21 @@ import "./styles.css";
 
 /* Component for the SignUpForm page */
 class SignUpForm extends React.Component {
-  render() {
+  render() 
+  {
     const {
       userName,
       password,
       age,
       favMeal,
       handleChange,
-      addAccount
+      addAccount,
     } = this.props;
-
+    
     return (
-      <Grid className="signUp-form" container spacing={6}>
+    <div className="parent">
+     <img className="logo_image"></img>
+      <Grid className="signUp-form" container spacing={2}>
         {/* Inputs to add account */}
         <Input
           name="userName"
@@ -28,12 +31,13 @@ class SignUpForm extends React.Component {
           onChange={handleChange}
           label="Username"
         />
-
+        
         <Input
           name="password"
           value={password}
           onChange={handleChange}
           label="Password"
+          type="password"
         />
 
         <Input
@@ -67,6 +71,8 @@ class SignUpForm extends React.Component {
         </Link>
         </Grid>
       </Grid>
+
+     </div>
     );
   }
 }

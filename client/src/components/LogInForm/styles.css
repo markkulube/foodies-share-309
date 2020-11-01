@@ -1,18 +1,38 @@
 /* Styles for the LogInForm React component */
 
+.parent {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.logo_image {
+  background-size: cover;
+  position:relative;
+  top:20px;
+  width: 800px;
+  height: 500px;
+  border: solid 4px #8cc63f;
+  background-image: url("../../images/foodies.png");
+  outline:none;
+}
+
 .logIn-form {
+position:absolute;
+  top: 575px;
+  left: 30px;
   justify-content: center;
   direction:"column";
   alignItems:"center";
 }
 
 .MuiButton-root.logIn-form__submit-button {
-  background-color: #457474;
+  background-color: #33522c;
 }
 
 .logIn-form__button-grid {
   line-height: 5;
-   justify-content: center;
+  justify-content: center;
   direction:"column";
   alignItems:"center";
 }
