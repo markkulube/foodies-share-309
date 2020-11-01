@@ -2,17 +2,39 @@
     border: 1px solid black;
     border-collapse: collapse;
     background: white;
-  }
-  th, td {
-    padding: 15px;
-  }
+}
 
-  #admin tr:nth-child(even) {
-    background-color: #dddddd;
-  }
+th, td {
+  padding: 15px;
+}
 
-  #admin-table {
-    display: inline-block;
-    margin: 0 auto;
+#admin tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+#admin-table {
+  display: inline-block;
+  margin: 0 auto;
+
   
-  }
+}
+
+
+#admin-table button, .add {
+  background-color:  #f44336;
+  color: white;
+  padding: 4%;
+  border: none;
+  border-radius: 5%;
+  cursor: pointer;
+  width: 100%;
+  display: inline-block;
+}
+
+#admin-table .save, .edit {
+  margin-bottom: 0.5pc
+}
+
+#admin-table .add {
+  height: 5%;
+}
