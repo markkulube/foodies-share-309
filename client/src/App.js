@@ -11,15 +11,20 @@ import LogIn from './components/LogIn';
 import Home from './components/Home';
 import Timeline from './components/Timeline';
 import AccountInfo from './components/AccountInfo/AccountInfo';
+import Admin from './components/Admin/Admin';
 import PostRecipe from "./components/PostRecipe";
 
 class App extends React.Component {
 
   // a 'global' state that you can pass through to any child componenets of App.
   state = {
-    accounts:[{ username: "user", password: "user", age: "404", typeMeal: "Filet Mignon"},
-      { username: "admin", password: "admin", age: "30", typeMeal: "Sliced Oranges" }]
+    accounts:[{ userName: "user", password: "user", age: "404", favMeal: "Filet Mignon", posts:[], isLoggedIn:false, isAdmin:false},
+      { userName: "admin", password: "admin", age: "30", favMeal: "Sliced Oranges", posts:[], isLoggedIn:false, isAdmin:true}],
+      posts: [],
+      currentUser: null
   }
+  
+  
 
   render() {
     return (
@@ -37,6 +42,8 @@ class App extends React.Component {
                             (<Timeline appState={this.state}/>)}/>
             <Route exact path='/AccountInfo' render={() => 
                             (<AccountInfo appState={this.state}/>)}/>
+            <Route exact path='/Admin' render={() => 
+                            (<Admin appState={this.state}/>)}/>
             <Route exact path='/PostRecipe' render={() =>
                             (<PostRecipe appState={this.state}/>)}/>
           </Switch>
