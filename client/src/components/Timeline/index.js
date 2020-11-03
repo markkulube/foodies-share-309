@@ -9,6 +9,7 @@ import profilePic from "../../images/profile.png";  // TODO: remove import once 
 
 // import logic from logic file
 import { handleFilter, posts } from "./TimelineLogic";  // TODO: remove posts import once replaced with API call below
+import {signOut} from "../../actions/signup";
 
 /**
  * The main page after the login procedure. Display timeline of posts, option to create a post, and other navigation
@@ -28,8 +29,14 @@ export default class Timeline extends React.Component {
         // TODO: implement API call to obtain a list of all posts.
         // const posts = getPostsAPI();
 
+        this.props.appState.posts = {
+             posts  // TODO: replace with data from API call above
+        }
+
+        console.log(this.props.appState)
+
         this.state = {
-            posts: posts  // TODO: replace with data from API call above
+            posts: posts
         }
     }
 
@@ -52,7 +59,7 @@ export default class Timeline extends React.Component {
                 <Feed posts={this.state.posts} profilePic={profilePic} username={"<username>"}/>
                 <div className={"side-container"}>
                     <Link to={""}>
-                        <button>Sign out</button>
+                        <button onClick={() => signOut(this)}>Sign out</button>
                     </Link>
                 </div>
             </div>
