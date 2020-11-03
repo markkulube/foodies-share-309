@@ -17,9 +17,12 @@ import ReviewList from "../ReviewList/ReviewList";
  *          username    {string}    Username of this recipe's writer.
  *          profilePic  {string}    Path to the profile picture of this recipe's writer.
  *          title       {string}    Title of this recipe.
+ *          category    {string}    The category this recipe belongs to.
  *          desc        {string}    Description of this recipe.
+ *          datePosted  {Date}      The date and time this recipe was posted to Foodies.
  *          ingredients {string[]}  List of ingredients needed to follow this recipe.
  *          steps       {string[]}  List of steps the recipe tells you to follow.
+ *          reviews     {Object[]}  list of reviews on this recipe.
  *      }
  */
 class Post extends React.Component{
@@ -70,8 +73,7 @@ class Post extends React.Component{
                      */}
                     <button onClick={this.toggleShowHide}>{this.state.reviewsButton}</button>
                     <UnmountClosed isOpened={this.state.isOpened}>
-                        {/* TODO: rename post to postTitle (cascade) */}
-                        <ReviewList username={username} profilePic={profilePic} post={post.title}/>
+                        <ReviewList username={username} profilePic={profilePic} reviews={post.reviews}/>
                     </UnmountClosed>
                 </div>
             </div>

@@ -5,7 +5,7 @@ import Feed from "./Feed";
 // styles and images
 import "./Timeline.css";
 import logo from "../../images/foodies.png";
-import profilePic from "../../images/profile.png";
+import profilePic from "../../images/profile.png";  // TODO: remove once account data contains profilePic
 import homePic from "../../images/home.png";
 import breakfastPic from "../../images/breakfast.png";
 import lunchPic from "../../images/lunch.png";
@@ -55,7 +55,9 @@ export default class Timeline extends React.Component {
     }
 
     render() {
-        const username = this.props.appState.currentUser;
+        const username = this.props.appState.currentUser.userName;
+        // TODO: create a profilePic field in accounts global data and ask Brandon to add it when assigning currentUser.
+        // const profilePic = this.props.appState.currentUser.profilePic;
 
         return(
             <div id={"timeline"}>
@@ -87,7 +89,6 @@ export default class Timeline extends React.Component {
                         Sign Out</button>
                     </Link>
                 </div>
-                {/* TODO: how do we get the profile picture from appState? */}
                 <Feed
                     posts={this.state.posts}
                     profilePic={profilePic}

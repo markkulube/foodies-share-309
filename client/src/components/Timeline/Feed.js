@@ -9,13 +9,16 @@ import "./Feed.css";
  *
  * Required props:
  *  - posts {Object[]} An list of objects with data about a single post.
- *      posts[element]: {
+ *      posts[Object]: {
  *          username    {string}    Username of this recipe's writer.
  *          profilePic  {string}    Path to the profile picture of this recipe's writer.
  *          title       {string}    Title of this recipe.
+ *          category    {string}    The category this recipe belongs to.
  *          desc        {string}    Description of this recipe.
+ *          datePosted  {Date}      The date and time this recipe was posted to Foodies.
  *          ingredients {string[]}  List of ingredients needed to follow this recipe.
  *          steps       {string[]}  List of steps the recipe tells you to follow.
+ *          reviews     {Object[]}  list of reviews on this recipe.
  *      }
  *  - profilePic            {string}            Path to the profile picture of the given user.
  *  - username              {string}            Name of the user viewing this Feed.

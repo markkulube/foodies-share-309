@@ -7,7 +7,7 @@ import Review from "./Review/Review"
 import "./ReviewList.css";
 
 /* import logic */
-import { updateStar, handleCreateReview, reviews } from "./ReviewListLogic";
+import { updateStar, handleCreateReview } from "./ReviewListLogic";
 
 /**
  * A list of reviews with a block to add a new review.
@@ -15,20 +15,16 @@ import { updateStar, handleCreateReview, reviews } from "./ReviewListLogic";
  * Required props:
  *  - username      {string}    The username of user who is viewing and potentially adding a new review.
  *  - profilePic    {string}    The path to the profile picture of the user with the given name.
- *  - post          {string}    The unique identifier of the post this list of reviews are for.
+ *  - reviews       {string[]}  The existing list of reviews to display.
  */
 export default class ReviewList extends React.Component {
 
     constructor(props) {
         super(props);
-
-        // TODO: implement API call to obtain a list of all reviews for the given post.
-        // const reviews = getReviewsAPI(this.props.post);
-
         this.state = {
             currentRating: 0,  // rating of the current in-progress review
             content: "",  // content of the current in-progress review
-            reviews: reviews  // list of existing reviews  TODO: replace with data from API call above
+            reviews: this.props.reviews  // list of existing reviews
         }
     }
 
@@ -40,8 +36,8 @@ export default class ReviewList extends React.Component {
     }
 
     render() {
-        // get the username and profile picture of the user viewing the ReviewList of the obtained post.
-        const { username, profilePic, post } = this.props;
+        // get the username and profile picture of the user viewing this ReviewList.
+        const { username, profilePic } = this.props;
 
         return(
             <div id={"review-list-container"}>
@@ -52,7 +48,7 @@ export default class ReviewList extends React.Component {
                                   placeholder={"Write a review"}/>
                         <Stars rating={this.state.currentRating} updateStar={updateStar} parent={this}/>
                         <button onClick={() =>
-                            handleCreateReview(this, username, post, this.state.content, this.state.currentRating)}>
+                            handleCreateReview(this, username, this.state.content, this.state.currentRating)}>
                             Post
                         </button>
                     </div>
@@ -63,6 +59,7 @@ export default class ReviewList extends React.Component {
                         return (
                             <div key={uid(review)}>
                                 <Review username={review.username}
+                                        profilePic={review.profilePic}
                                         content={review.content}
                                         rating={review.rating}/>
                                 <hr/>

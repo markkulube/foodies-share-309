@@ -137,6 +137,12 @@ const eddiePosts = [{
     "center and pour in the milk, egg and melted butter; mix until smooth.",
     "Heat a lightly oiled griddle or frying pan over medium-high heat. Pour or scoop the batter onto the " +
     "griddle, using approximately 1/4 cup for each pancake. Brown on both sides and serve hot."
+  ],
+  reviews: [
+    {username: "user", profilePic: profilePic, content: "This is my review on this dish.", rating: 4},
+    {username: "Keren", profilePic: keren, content: "Very tasty and light, I didn't feel groggy after eating.", rating: 4},
+    {username: "Mark", profilePic: mark, content: "This dish is seriously lacking some taste...", rating: 2},
+    {username: "Brandon", profilePic: brandon, content: "Wow, this dish is amazing. Please lend me the recipe!", rating: 5}
   ]
 }]
 
@@ -172,6 +178,12 @@ const markPosts = [{
     "pepper to the pan. Cook until heated through.",
     "Turn off the heat, and place the slices of cheese over the top of the pile so they can melt. Scoop the " +
     "whole pile into the awaiting bread, making sure to pour some of the juices onto that wonderful sandwich."
+  ],
+  reviews: [
+    {username: "user", profilePic: profilePic, content: "This is my review on this dish.", rating: 4},
+    {username: "Keren", profilePic: keren, content: "Very tasty and light, I didn't feel groggy after eating.", rating: 4},
+    {username: "Eddie", profilePic: eddie, content: "This dish is seriously lacking some taste...", rating: 2},
+    {username: "Brandon", profilePic: brandon, content: "Wow, this dish is amazing. Please lend me the recipe!", rating: 5}
   ]
 }]
 
@@ -216,6 +228,12 @@ const kerenPosts = [{
     "Bake in the preheated oven until cheese is browned and bubbly, and chicken breasts are no longer pink " +
     "in the center, 15 to 20 minutes. An instant-read thermometer inserted into the center should read at " +
     "least 165 degrees F (74 degrees C)."
+  ],
+  reviews: [
+    {username: "user", profilePic: profilePic, content: "This is my review on this dish.", rating: 4},
+    {username: "Eddie", profilePic: eddie, content: "Very tasty and light, I didn't feel groggy after eating.", rating: 4},
+    {username: "Mark", profilePic: mark, content: "This dish is seriously lacking some taste...", rating: 2},
+    {username: "Brandon", profilePic: brandon, content: "Wow, this dish is amazing. Please lend me the recipe!", rating: 5}
   ]
 }]
 
@@ -249,6 +267,12 @@ const brandonPosts = [{
     "Beat egg white until foamy; brush over crust. Sprinkle with sugar. Cover edges loosely with foil.",
     "Bake at 375° for 25 minutes. Remove foil and bake until crust is golden brown and filling is bubbly, " +
     "20-25 minutes longer. Cool on a wire rack."
+  ],
+  reviews: [
+    {username: "user", profilePic: profilePic, content: "This is my review on this dish.", rating: 4},
+    {username: "Keren", profilePic: keren, content: "Very tasty and light, I didn't feel groggy after eating.", rating: 4},
+    {username: "Mark", profilePic: mark, content: "This dish is seriously lacking some taste...", rating: 2},
+    {username: "Eddie", profilePic: eddie, content: "Wow, this dish is amazing. Please lend me the recipe!", rating: 5}
   ]
 }]
 
@@ -268,5 +292,11 @@ const userPosts = [{
       "These are the",
       "steps to follow",
       "when using my recipe."
+  ],
+  reviews: [
+    {username: "Eddie", profilePic: eddie, content: "This is my review on this dish.", rating: 4},
+    {username: "Keren", profilePic: keren, content: "Very tasty and light, I didn't feel groggy after eating.", rating: 4},
+    {username: "Mark", profilePic: mark, content: "This dish is seriously lacking some taste...", rating: 2},
+    {username: "Brandon", profilePic: brandon, content: "Wow, this dish is amazing. Please lend me the recipe!", rating: 5}
   ]
 }]
