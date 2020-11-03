@@ -12,7 +12,7 @@ import Home from './components/Home';
 import Timeline from './components/Timeline';
 import AccountInfo from './components/AccountInfo/AccountInfo';
 import Admin from './components/Admin/Admin';
-import PostRecipe from "./components/PostRecipe";
+import PostRecipePage from "./components/PostRecipePage";
 
 class App extends React.Component {
 
@@ -44,8 +44,8 @@ class App extends React.Component {
                             (<AccountInfo appState={this.state}/>)}/>
             <Route exact path='/Admin' render={() => 
                             (<Admin appState={this.state}/>)}/>
-            <Route exact path='/PostRecipe' render={() =>
-                            (<PostRecipe appState={this.state}/>)}/>
+            <Route exact path='/PostRecipePage' render={() =>
+                            (<PostRecipePage appState={this.state}/>)}/>
           </Switch>
         </BrowserRouter>
       </div>

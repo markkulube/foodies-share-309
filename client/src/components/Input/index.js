@@ -20,6 +20,7 @@ class Input extends React.Component {
           className="input"
           margin="normal"
           onChange={onChange}
+          multiline={false}
         />
       </Grid>
     );
