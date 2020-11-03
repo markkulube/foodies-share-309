@@ -46,7 +46,7 @@ export const handleFilter = (timeline, option) => {
  */
 export const handleSearchFilter = (event, timeline) => {
     event.preventDefault();
-    const value = event.target.value;
+    const value = event.target.value.toLowerCase();
     console.log("filtering post with parameter:", value);
 
     // TODO: for loop filter below will be implemented by API instead
