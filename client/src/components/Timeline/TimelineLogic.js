@@ -52,7 +52,7 @@ export const handleSearchFilter = (event, timeline) => {
     // TODO: for loop filter below will be implemented by API instead
     const targetPosts = [];
     for (let post of posts) {
-        if (post.title.includes(value)) {
+        if (post.title.toLowerCase().includes(value)) {
             targetPosts.push(post)
         }
     }
