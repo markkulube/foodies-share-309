@@ -26,12 +26,12 @@ export default class Feed extends React.Component {
 
         return (
             <div id={"feed-container"}>
-                <div id={"feed-header"}>
+                <div className={"feed-header"}>
                     <Link id={"profile-container"} to={"AccountInfo"}>
                         <img id={"profile"} src={profilePic} alt={"profile picture"}/>
                     </Link>
                     <Link id={"post-button"} to={"./PostRecipe"}>  {/* TODO: replace with link to "create post" page */}
-                        <button>Post a recipe</button>
+                        <button>Post A Recipe</button>
                     </Link>
                 </div>
                 <hr/>
