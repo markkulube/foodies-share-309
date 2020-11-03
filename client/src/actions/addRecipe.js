@@ -1,17 +1,22 @@
-
-
-
-
-export const addRecipe = post => {
-    
-    const postList = post.state.postList;
+export const addRecipeFunc = addRecipe => {
   
-    const posting = {
-      username: post.state.studentName,
-      post: post.state.studentCourse,
-      recipeTitle: post.state.recipeTitle
-    };
+    const post = {  
+       recipeName: addRecipe.state.recipeName,
+       description: addRecipe.state.description,
+       category: addRecipe.state.category,
+       ingredients: addRecipe.state.ingredients,
+       instructions: addRecipe.state.instructions
+   };
 
-    postList.push(post);
+   const app_accountList = addRecipe.props.appState.accounts;
+  
+   for(let i=0; i<app_accountList.length; i++)
+   {
+        if(app_accountList[i].isLoggedIn.valueOf()===(true))
+        {
+          app_accountList[i].posts.push(post);
+          break;
+        }
+   }
 
 }
