@@ -3,7 +3,6 @@ import React from "react";
 /* styles and images */
 import "./Review.css";
 import Stars from "../Stars/Stars";
-import profilePic from "../../../images/profile.png"
 
 /**
  * A review of a recipe post.
@@ -16,15 +15,12 @@ import profilePic from "../../../images/profile.png"
 export default class Review extends React.Component {
 
     render() {
-        const { username, content, rating } = this.props;  // obtain username, review content, and rating
-
-        // TODO: implement API call to obtain the profile picture of the user with the given username.
-        //  Replace src of <img> below with this profile picture.
-        // const profilePic = getProfilePicAPI(username);
+        // obtain username and profile of the current user, and the content and rating of the in-progress review.
+        const { username, profilePic, content, rating } = this.props;
 
         return (
             <div>
-                <img className={"profile"} src={profilePic} alt={"profile"}/>  {/* TODO: replace profilePic */}
+                <img className={"profile"} src={profilePic} alt={"profile"}/>
                 <div>
                     <h1>{username}</h1>
                     <p>{content}</p>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch, BrowserRouter } from 'react-router-dom';
+import { Route, Switch, BrowserRouter, Link } from 'react-router-dom';
 
 import PostRecipe from "./../PostRecipe";
 import Timeline from "./../Timeline";
@@ -46,12 +46,6 @@ constructor(props) {
            handleChange={this.handleInputChange}
            addRecipeFunc={() => addRecipeFunc(this)}
         />
-        <BrowserRouter>
-          <Switch>
-            <Route exact path='/Timeline' render={() => 
-                            (<Timeline appState={this.state}/>)}/>
-          </Switch>
-        </BrowserRouter>
       </div>
     );
   }

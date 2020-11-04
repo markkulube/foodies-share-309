@@ -1,3 +1,5 @@
+import profilePic from "../images/profile.png";
+
 // Methods in this file modifies the SignUp component state
 const log = console.log;
 
@@ -7,6 +9,7 @@ export const addAccount = signup => {
 
   const account = {
     userName: signup.state.userName,
+    profilePic: profilePic,
     password: signup.state.password,
     age: signup.state.age,
     favMeal: signup.state.favMeal,

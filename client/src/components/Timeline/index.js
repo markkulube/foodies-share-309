@@ -5,7 +5,7 @@ import Feed from "./Feed";
 // styles and images
 import "./Timeline.css";
 import logo from "../../images/foodies.png";
-import profilePic from "../../images/profile.png";  // TODO: remove import once implemented pass as prop from App.js
+import profilePic from "../../images/profile.png";  // TODO: remove once account data contains profilePic
 import homePic from "../../images/home.png";
 import breakfastPic from "../../images/breakfast.png";
 import lunchPic from "../../images/lunch.png";
@@ -14,7 +14,7 @@ import dessertPic from "../../images/dessert.png";
 import signOutPic from "../../images/signout.png";
 
 // import logic from logic file
-import { handleFilter, posts } from "./TimelineLogic";  // TODO: remove posts import once replaced with API call below
+import { handleFilter, handleSearchFilter } from "./TimelineLogic";
 import {signOut} from "../../actions/signup";
 
 /**
@@ -22,33 +22,42 @@ import {signOut} from "../../actions/signup";
  * options.
  *
  * Required props:
- *  - username      {string} Name of the current user.
- *  - profilePic    {string} Path to the profile picture of the current user.
+ *  - appState {Object} The global state of the app.
  */
 export default class Timeline extends React.Component {
 
     constructor(props) {
         super(props);
-
-        // Note: calling handleFilter (aka. calling setState) in constructor somehow doesn't update the state.
-        //  Therefore, we need to make a manual API call to retrieve "home" data
-        // TODO: implement API call to obtain a list of all posts.
-        // const posts = getPostsAPI();
-
-        this.props.appState.posts = {
-             posts  // TODO: replace with data from API call above
-        }
-
-        console.log(this.props.appState)
-
         this.state = {
-            posts: posts
+            posts: []
         }
     }
 
+    /**
+     * Return a list of all existing posts sorted by date posted (earliest first).
+     */
+    getAllPosts = () => {
+        // get a list of all existing posts from appState
+        let posts = []  // this will contain all posts
+        for (let account of this.props.appState.accounts) {
+            posts = posts.concat(account.posts);
+        }
+
+        // sort the posts by descending date posted
+        posts.sort((a, b) => b.datePosted - a.datePosted);
+
+        return posts;
+    }
+
+    componentDidMount() {
+        // begin by showing all posts
+        this.setState({ posts: this.getAllPosts() })
+    }
+
     render() {
-        {/* TODO: uncomment props collection once implemented from login page */}
-        // const { username, profilePic } = this.props;
+        const username = this.props.appState.currentUser.userName;
+        // TODO: create a profilePic field in accounts global data and ask Brandon to add it when assigning currentUser.
+        // const profilePic = this.props.appState.currentUser.profilePic;
 
         return(
             <div id={"timeline"}>
@@ -80,8 +89,13 @@ export default class Timeline extends React.Component {
                         Sign Out</button>
                     </Link>
                 </div>
-                {/* TODO: replace profilePic and <username> with collected props from login */}
-                <Feed posts={this.state.posts} profilePic={profilePic} username={"<username>"}/>
+                <Feed
+                    posts={this.state.posts}
+                    profilePic={profilePic}
+                    username={username}
+                    handleSearchFilter={handleSearchFilter}
+                    parent={this}
+                />
                 <div className={"side-container"}>
                 </div>
             </div>
