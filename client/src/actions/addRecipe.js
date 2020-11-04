@@ -1,11 +1,17 @@
 export const addRecipeFunc = addRecipe => {
-  
-    const post = {  
-       recipeName: addRecipe.state.recipeName,
-       description: addRecipe.state.description,
-       category: addRecipe.state.category,
-       ingredients: addRecipe.state.ingredients,
-       instructions: addRecipe.state.instructions
+    const currentUser = addRecipe.props.appState.currentUser;
+
+    // Note: this follows the structure of posts defined in the global state.
+    const post = {
+        username: currentUser.userName,
+        profilePic: currentUser.profilePic,
+        title: addRecipe.state.recipeName,
+        category: addRecipe.state.category,
+        desc: addRecipe.state.description,
+        datePosted: new Date(),
+        ingredients: addRecipe.state.ingredients.split(", "),
+        steps: addRecipe.state.instruction.split(", "),
+        reviews: []
    };
 
    const app_accountList = addRecipe.props.appState.accounts;

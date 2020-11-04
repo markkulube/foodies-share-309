@@ -28,6 +28,7 @@ class App extends React.Component {
     accounts: [
       {
         userName: "user",
+        profilePic: profilePic,
         password: "user",
         age: "404",
         favMeal: "Filet Mignon",
@@ -37,6 +38,7 @@ class App extends React.Component {
       },
       {
         userName: "admin",
+        profilePic: profilePic,
         password: "admin",
         age: "30",
         favMeal: "Sliced Oranges",
@@ -46,6 +48,7 @@ class App extends React.Component {
       },
       {
         userName: "Eddie",
+        profilePic: eddie,
         password: "password",
         age: "20",
         favMeal: "Pho",
@@ -55,6 +58,7 @@ class App extends React.Component {
       },
       {
         userName: "Mark",
+        profilePic: mark,
         password: "password",
         age: "23",
         favMeal: "Apple Pie",
@@ -64,6 +68,7 @@ class App extends React.Component {
       },
       {
         userName: "Keren",
+        profilePic: keren,
         password: "password",
         age: "21",
         favMeal: "Japanese Curry",
@@ -73,6 +78,7 @@ class App extends React.Component {
       },
       {
         userName: "Brandon",
+        profilePic: brandon,
         password: "password",
         age: "22",
         favMeal: "Cheeseburger",
