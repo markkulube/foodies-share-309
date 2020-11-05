@@ -20,6 +20,7 @@ const saveChanges = (recipe) => {
                     console.log("saving changes to recipe");
                     // this is the correct post to modify
                     post.desc = recipe.state.desc;
+                    post.title = recipe.state.title;
                     // TODO: modify other fields here
                     return;
                 }
