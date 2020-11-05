@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import AdminTable from './AdminTable'
+import AdminPostTable from './AdminPostTable'
 import { Link } from "react-router-dom";
 
 import "./Admin.css"
@@ -23,7 +24,9 @@ class Admin extends Component {
 
                 <div id={"admin-main"}>
                 <h3>Foodie Users</h3>
-                    <AdminTable></AdminTable>
+                    <AdminTable appState={this.props.appState}></AdminTable>
+                    <h3>Foodie Posts</h3>
+                    <AdminPostTable appState={this.props.appState}></AdminPostTable>
                 </div>
 
             </div>
