@@ -26,11 +26,12 @@ import ReviewList from "../ReviewList/ReviewList";
  *      }
  */
 class Post extends React.Component{
+
     constructor(props) {
         super(props);
         this.state = {
             isOpened: false,
-            reviewsButton: "Reviews"
+            reviewsButton: "Reviews",  // state of the reviews button
         }
     }
 
@@ -62,15 +63,14 @@ class Post extends React.Component{
                 <div className="block">
 
                     <Recipe
+                        canEdit={username === post.username}
                         title={post.title}
                         desc={post.desc}
                         ingredients={post.ingredients}
                         steps={post.steps}
                     />
-                    {/* buttons component, implementing next
-                     <LikeButton />
-                     <DislikeButton />
-                     */}
+                    <button>Like</button>
+                    <button>Dislike</button>
                     <button onClick={this.toggleShowHide}>{this.state.reviewsButton}</button>
                     <UnmountClosed isOpened={this.state.isOpened}>
                         <ReviewList username={username} profilePic={profilePic} reviews={post.reviews}/>

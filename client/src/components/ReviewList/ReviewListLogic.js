@@ -35,7 +35,8 @@ export const handleCreateReview = (reviewList, username, content, rating) => {
 
     // TODO: adding to mock data, replace with API calls.
     const reviews = reviewList.state.reviews;
-    reviews.unshift({username: username, content: content, rating: rating})
+    const profilePic = reviewList.props.profilePic
+    reviews.unshift({username: username, profilePic: profilePic, content: content, rating: rating})
 
     // TODO: this will instead be settings state to what we obtain from a GET request for the reviews of given post
     reviewList.setState({reviews: reviews});

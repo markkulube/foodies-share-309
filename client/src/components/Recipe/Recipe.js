@@ -20,7 +20,9 @@ export default class Recipe extends React.Component {
         super(props);
         this.state = {
             isOpened: false,
-            button: "Show"
+            button: "Show",
+            editing: false,
+            editButton: "Edit"
         }
     }
 
@@ -41,7 +43,8 @@ export default class Recipe extends React.Component {
 
     render() {
         // obtain the recipe title, description, and list of ingredients and steps to display
-        const { title, desc, ingredients, steps } = this.props;
+        // also obtain whether or not this recipe should be editable (correct account logged in)
+        const { title, desc, ingredients, steps, canEdit } = this.props;
 
         return (
             <div className={"recipe-container"}>
@@ -60,6 +63,9 @@ export default class Recipe extends React.Component {
                     </ol>
                 </UnmountClosed>
                 <button onClick={this.toggleShowHide}>{this.state.button}</button>
+                { canEdit &&
+                    <button>{this.state.editButton}</button>
+                }
             </div>
         );
     }
