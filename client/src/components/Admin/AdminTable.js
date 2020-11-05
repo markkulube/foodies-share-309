@@ -96,10 +96,44 @@ class AdminTable extends Component {
           });
     }
 
+    generateTableRows() {
+        // TODO: Dynamically populate Table from building JSX on appState
+        const saveStyle = {
+            display: 'none'
+        }
+
+        let accounts = this.props.appState.accounts
+
+        let row = 1
+
+        let tableRows = []
+        let tableRow
+        accounts.forEach(account => {
+            tableRow = <tr id={"row"+row}>
+                            <td id={"username"+row}>{account.userName}</td>
+                            <td id={"email"+row}>{account.age}</td>
+                            <td id={"password"+row}>{account.password}</td>
+                            <td id={"favmeal"+row}>{account.favMeal}</td>
+                            <td>
+                                <button id={"edit_button"+row} value="Edit" className="edit" name={row} onClick={this.editRow}>Edit</button>
+                                <button id={"save_button"+row}  value="Save" style={saveStyle} className="save" name={row} onClick={this.saveRow}>Save</button>
+                                <button id={"delete_button"+row} value="Delete" className="delete" name={row} onClick={this.deleteRow}>Delete</button>
+                            </td>
+                        </tr>
+
+            tableRows.push(tableRow)
+            row++
+        });
+
+        return tableRows
+
+    }
     render() {
         const saveStyle = {
             display: 'none'
         }
+
+        let tableRows = this.generateTableRows()
 
         return (
 
@@ -125,29 +159,7 @@ class AdminTable extends Component {
 
                     <tbody>
 
-                        <tr id="row1">
-                            <td id="username1">user</td>
-                            <td id="email1">user@user.com</td>
-                            <td id="password1">user</td>
-                            <td id="favmeal1">pasta</td>
-                            <td>
-                                <button id="edit_button1" value="Edit" className="edit" name="1" onClick={this.editRow}>Edit</button>
-                                <button id="save_button1" value="Save" style={saveStyle} className="save" name="1" onClick={this.saveRow}>Save</button>
-                                <button id="delete_button1" value="Delete" className="delete" name="1" onClick={this.deleteRow}>Delete</button>
-                            </td>
-                        </tr>
-
-                        <tr id="row2">
-                            <td id="username2">admin</td>
-                            <td id="email2">admin@admin.com</td>
-                            <td id="password2">admin</td>
-                            <td id="favmeal2">beef</td>
-                            <td>
-                                <button id="edit_button2" value="Edit" className="edit" name="2" onClick={this.editRow}>Edit</button>
-                                <button id="save_button2" value="Save" style={saveStyle} className="save" name="2" onClick={this.saveRow}>Save</button>
-                                <button id="delete_button2" value="Delete" className="delete" name="2" onClick={this.deleteRow}>Delete</button>
-                            </td>
-                        </tr>
+                        {tableRows}
 
                     </tbody>
                 </table>
