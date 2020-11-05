@@ -42,7 +42,7 @@ class App extends React.Component {
         password: "admin",
         age: "30",
         favMeal: "Sliced Oranges",
-        posts: [],
+        posts: adminPosts,
         isLoggedIn: false,
         isAdmin: true
       },
@@ -122,7 +122,7 @@ export default App;
 
 // TODO: below statements contain mock data - remove once API is implemented
 const eddiePosts = [{
-  username: "Eddie",
+  userName: "Eddie",
   profilePic: eddie,
   title: "Blueberry Pancakes",
   category: "breakfast",
@@ -145,15 +145,15 @@ const eddiePosts = [{
     "griddle, using approximately 1/4 cup for each pancake. Brown on both sides and serve hot."
   ],
   reviews: [
-    {username: "user", profilePic: profilePic, content: "This is my review on this dish.", rating: 4},
-    {username: "Keren", profilePic: keren, content: "Very tasty and light, I didn't feel groggy after eating.", rating: 4},
-    {username: "Mark", profilePic: mark, content: "This dish is seriously lacking some taste...", rating: 2},
-    {username: "Brandon", profilePic: brandon, content: "Wow, this dish is amazing. Please lend me the recipe!", rating: 5}
+    {userName: "user", profilePic: profilePic, content: "This is my review on this dish.", rating: 4},
+    {userName: "Keren", profilePic: keren, content: "Very tasty and light, I didn't feel groggy after eating.", rating: 4},
+    {userName: "Mark", profilePic: mark, content: "This dish is seriously lacking some taste...", rating: 2},
+    {userName: "Brandon", profilePic: brandon, content: "Wow, this dish is amazing. Please lend me the recipe!", rating: 5}
   ]
 }]
 
 const markPosts = [{
-  username: "Mark",
+  userName: "Mark",
   profilePic: mark,
   title: "Steak Sandwich",
   category: "lunch",
@@ -186,15 +186,15 @@ const markPosts = [{
     "whole pile into the awaiting bread, making sure to pour some of the juices onto that wonderful sandwich."
   ],
   reviews: [
-    {username: "user", profilePic: profilePic, content: "This is my review on this dish.", rating: 4},
-    {username: "Keren", profilePic: keren, content: "Very tasty and light, I didn't feel groggy after eating.", rating: 4},
-    {username: "Eddie", profilePic: eddie, content: "This dish is seriously lacking some taste...", rating: 2},
-    {username: "Brandon", profilePic: brandon, content: "Wow, this dish is amazing. Please lend me the recipe!", rating: 5}
+    {userName: "user", profilePic: profilePic, content: "This is my review on this dish.", rating: 4},
+    {userName: "Keren", profilePic: keren, content: "Very tasty and light, I didn't feel groggy after eating.", rating: 4},
+    {userName: "Eddie", profilePic: eddie, content: "This dish is seriously lacking some taste...", rating: 2},
+    {userName: "Brandon", profilePic: brandon, content: "Wow, this dish is amazing. Please lend me the recipe!", rating: 5}
   ]
 }]
 
 const kerenPosts = [{
-  username: "Keren",
+  userName: "Keren",
   profilePic: keren,
   title: "Chicken Parmesan",
   category: "dinner",
@@ -236,15 +236,15 @@ const kerenPosts = [{
     "least 165 degrees F (74 degrees C)."
   ],
   reviews: [
-    {username: "user", profilePic: profilePic, content: "This is my review on this dish.", rating: 4},
-    {username: "Eddie", profilePic: eddie, content: "Very tasty and light, I didn't feel groggy after eating.", rating: 4},
-    {username: "Mark", profilePic: mark, content: "This dish is seriously lacking some taste...", rating: 2},
-    {username: "Brandon", profilePic: brandon, content: "Wow, this dish is amazing. Please lend me the recipe!", rating: 5}
+    {userName: "user", profilePic: profilePic, content: "This is my review on this dish.", rating: 4},
+    {userName: "Eddie", profilePic: eddie, content: "Very tasty and light, I didn't feel groggy after eating.", rating: 4},
+    {userName: "Mark", profilePic: mark, content: "This dish is seriously lacking some taste...", rating: 2},
+    {userName: "Brandon", profilePic: brandon, content: "Wow, this dish is amazing. Please lend me the recipe!", rating: 5}
   ]
 }]
 
 const brandonPosts = [{
-  username: "Brandon",
+  userName: "Brandon",
   profilePic: brandon,
   title: "Starfruit Pie",
   category: "dessert",
@@ -275,10 +275,10 @@ const brandonPosts = [{
     "20-25 minutes longer. Cool on a wire rack."
   ],
   reviews: [
-    {username: "user", profilePic: profilePic, content: "This is my review on this dish.", rating: 4},
-    {username: "Keren", profilePic: keren, content: "Very tasty and light, I didn't feel groggy after eating.", rating: 4},
-    {username: "Mark", profilePic: mark, content: "This dish is seriously lacking some taste...", rating: 2},
-    {username: "Eddie", profilePic: eddie, content: "Wow, this dish is amazing. Please lend me the recipe!", rating: 5}
+    {userName: "user", profilePic: profilePic, content: "This is my review on this dish.", rating: 4},
+    {userName: "Keren", profilePic: keren, content: "Very tasty and light, I didn't feel groggy after eating.", rating: 4},
+    {userName: "Mark", profilePic: mark, content: "This dish is seriously lacking some taste...", rating: 2},
+    {userName: "Eddie", profilePic: eddie, content: "Wow, this dish is amazing. Please lend me the recipe!", rating: 5}
   ]
 }]
 
@@ -300,9 +300,34 @@ const userPosts = [{
       "when using my recipe."
   ],
   reviews: [
-    {username: "Eddie", profilePic: eddie, content: "This is my review on this dish.", rating: 4},
-    {username: "Keren", profilePic: keren, content: "Very tasty and light, I didn't feel groggy after eating.", rating: 4},
-    {username: "Mark", profilePic: mark, content: "This dish is seriously lacking some taste...", rating: 2},
-    {username: "Brandon", profilePic: brandon, content: "Wow, this dish is amazing. Please lend me the recipe!", rating: 5}
+    {userName: "Eddie", profilePic: eddie, content: "This is my review on this dish.", rating: 4},
+    {userName: "Keren", profilePic: keren, content: "Very tasty and light, I didn't feel groggy after eating.", rating: 4},
+    {userName: "Mark", profilePic: mark, content: "This dish is seriously lacking some taste...", rating: 2},
+    {userName: "Brandon", profilePic: brandon, content: "Wow, this dish is amazing. Please lend me the recipe!", rating: 5}
+  ]
+}]
+
+const adminPosts = [{
+  userName: "admin",
+  profilePic: profilePic,
+  title: "My Recipe",
+  category: "lunch",
+  desc: "This is the description of my recipe.",
+  datePosted: new Date(2020, 11, 1, 12, 1, 45, 991),
+  ingredients: [
+      "These are the",
+      "ingredients required to",
+      "follow my recipe."
+  ],
+  steps: [
+      "These are the",
+      "steps to follow",
+      "when using my recipe."
+  ],
+  reviews: [
+    {userName: "Eddie", profilePic: eddie, content: "This is my review on this dish.", rating: 4},
+    {userName: "Keren", profilePic: keren, content: "Very tasty and light, I didn't feel groggy after eating.", rating: 4},
+    {userName: "Mark", profilePic: mark, content: "This dish is seriously lacking some taste...", rating: 2},
+    {userName: "Brandon", profilePic: brandon, content: "Wow, this dish is amazing. Please lend me the recipe!", rating: 5}
   ]
 }]
