@@ -5,6 +5,9 @@ import { UnmountClosed } from "react-collapse";
 // stylesheet
 import "./Recipe.css";
 
+// logic
+import { toggleEdit, toggleShowHide } from "./RecipeLogic";
+
 /**
  * A written recipe.
  *
@@ -22,34 +25,40 @@ export default class Recipe extends React.Component {
             isOpened: false,
             button: "Show",
             editing: false,
-            editButton: "Edit"
+            editButton: "Edit",
+
+            desc: this.props.desc  // this description of this recipe.
         }
     }
 
     /**
-     * Show or hide full recipe body.
+     * Update the state of the target data field with the current event value.
+     *
+     * @param event {Object} The event with the value of the description input.
+     * @param field {string} The field field we are changing.
      */
-    toggleShowHide = () => {
-        this.setState({isOpened: !this.state.isOpened});
-
-        if (this.state.isOpened) {
-            this.setState({button: "Show"});
-            console.log("hid recipe");
-        } else {
-            this.setState({button: "Hide"});
-            console.log("showed recipe");
-        }
+    handleChange = (event, field) => {
+        const value = event.target.value;  // obtain new description from input
+        this.setState({ [field]: value });  // update the current description to the new one.
     }
 
     render() {
         // obtain the recipe title, description, and list of ingredients and steps to display
         // also obtain whether or not this recipe should be editable (correct account logged in)
-        const { title, desc, ingredients, steps, canEdit } = this.props;
+        const { title, ingredients, steps, canEdit } = this.props;
+
+        // depending on whether or not we are in "editing" state, show text or input fields.
+        let descElement;
+        if (this.state.editing) {
+            descElement = <input onChange={(event) => this.handleChange(event, "desc")} value={this.state.desc}/>
+        } else {
+            descElement = <p>{this.state.desc}</p>
+        }
 
         return (
             <div className={"recipe-container"}>
                 <h1>{title}</h1>
-                <p>{desc}</p>
+                {descElement}
                 <UnmountClosed isOpened={this.state.isOpened}>
                     <ul>
                         {ingredients.map(ingredient => (
@@ -62,9 +71,9 @@ export default class Recipe extends React.Component {
                         ))}
                     </ol>
                 </UnmountClosed>
-                <button onClick={this.toggleShowHide}>{this.state.button}</button>
+                <button onClick={() => toggleShowHide(this)}>{this.state.button}</button>
                 { canEdit &&
-                    <button>{this.state.editButton}</button>
+                    <button onClick={() => toggleEdit(this)}>{this.state.editButton}</button>
                 }
             </div>
         );

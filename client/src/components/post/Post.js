@@ -52,7 +52,7 @@ class Post extends React.Component{
 
     render() {
         // obtain the username and profile picture of the viewer and data of the post.
-        const { username, profilePic, post } = this.props;
+        const { username, profilePic, post, appState } = this.props;
 
         return(
             <div className = "App">
@@ -68,6 +68,9 @@ class Post extends React.Component{
                         desc={post.desc}
                         ingredients={post.ingredients}
                         steps={post.steps}
+                        appState={appState}
+                        username={username}
+                        datePosted={post.datePosted}
                     />
                     <button>Like</button>
                     <button>Dislike</button>
