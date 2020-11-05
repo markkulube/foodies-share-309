@@ -12,6 +12,26 @@ class AdminPostTable extends Component {
     // TODO: Remove post from corresponding users posts:[]
     deleteRow(e) {
         let no = e.target.name
+        let username = document.getElementById("post_username"+no+"").innerHTML
+        let datePosted = document.getElementById("post_date"+no+"").innerHTML
+        
+        let accounts = this.props.appState.accounts
+     
+        let posts
+        accounts.forEach(account => {
+
+            if (account.userName === username) {
+                posts = account.posts
+            }
+        });
+
+        for (let index = 0; index < posts.length; index++) {
+            const post = posts[index];
+
+            if (post.datePosted.toString() == datePosted) {
+                posts.splice(index, 1)
+            }
+        }
         document.getElementById("post_row"+no+"").outerHTML="";
     }
 
@@ -38,7 +58,7 @@ class AdminPostTable extends Component {
 
         allPosts.forEach(post => {
             tableRow = <tr id={"post_row"+post_row}>
-                            <td id={"post_id"+post_row}>{post.datePosted}</td>
+                            <td id={"post_date"+post_row}>{post.datePosted.toString()}</td>
                             <td id={"post_username"+post_row}>{post.userName}</td>
                             <td id={"title"+post_row}>{post.title}</td>
                             <td id={"description"+post_row}>{post.desc}</td>
