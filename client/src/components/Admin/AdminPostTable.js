@@ -88,7 +88,7 @@ class AdminPostTable extends Component {
         return (
             
             <div id={"admin-post-table"}>
-                <table  cellSpacing={2} cellPadding={5} id={"data_table"} border={1}>
+                <table  cellSpacing={2} cellPadding={2} id={"data_table"} border={1}>
                     <thead>
                         <tr>
                             <th>Post Date</th>
