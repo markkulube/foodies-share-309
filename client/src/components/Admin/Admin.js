@@ -11,15 +11,17 @@ class Admin extends Component {
             
             <div id={"admin"}>
 
-
                 <div id="admin-header">
                         <h1>Welcome Admin</h1>
-                        <Link to={"/"}> 
+                        <Link to={"/Timeline"}>
                             <button className={"account-info-nav-buttons"}>Home</button>
                         </Link>
-                        <Link to={"/Timeline"}>
-                            <button className={"account-info-nav-buttons"}>Timeline</button>
+                        <Link className={"account-info-nav-buttons"} to={"AccountInfo"}>
+                        <button>Account</button>
                         </Link>
+                        <Link to={""}>
+                        <button className={"account-info-nav-buttons"}>Sign Out</button>
+                    </Link>
                 </div>
 
                 <div id={"admin-main"}>
