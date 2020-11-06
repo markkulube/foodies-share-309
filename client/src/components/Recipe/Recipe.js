@@ -27,7 +27,8 @@ export default class Recipe extends React.Component {
             editing: false,
             editButton: "Edit",
 
-            desc: this.props.desc  // this description of this recipe.
+            desc: this.props.desc,  // the description of this recipe.
+            title: this.props.title  // the title of this recipe.
         }
     }
 
@@ -45,19 +46,23 @@ export default class Recipe extends React.Component {
     render() {
         // obtain the recipe title, description, and list of ingredients and steps to display
         // also obtain whether or not this recipe should be editable (correct account logged in)
-        const { title, ingredients, steps, canEdit } = this.props;
+        const { ingredients, steps, canEdit } = this.props;
 
         // depending on whether or not we are in "editing" state, show text or input fields.
-        let descElement;
+        let descElement, titleElement;
         if (this.state.editing) {
-            descElement = <input onChange={(event) => this.handleChange(event, "desc")} value={this.state.desc}/>
+            descElement = <input onChange={(event) => this.handleChange(event, "desc")}
+                                 value={this.state.desc}/>
+            titleElement = <input onChange={(event) => this.handleChange(event, "title")}
+                                  value={this.state.title}/>
         } else {
             descElement = <p>{this.state.desc}</p>
+            titleElement = <h1>{this.state.title}</h1>
         }
 
         return (
             <div className={"recipe-container"}>
-                <h1>{title}</h1>
+                {titleElement}
                 {descElement}
                 <UnmountClosed isOpened={this.state.isOpened}>
                     <ul>
