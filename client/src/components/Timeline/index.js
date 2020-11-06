@@ -52,6 +52,10 @@ export default class Timeline extends React.Component {
     componentDidMount() {
         // begin by showing all posts
         this.setState({ posts: this.getAllPosts() })
+        
+        if (this.props.appState.currentUser.isAdmin) {
+            document.getElementById('admin-button').style.display = 'inline-block'
+        } 
     }
 
     render() {
@@ -63,10 +67,15 @@ export default class Timeline extends React.Component {
             <div id={"timeline"}>
                 <div className={"side-container"}>
                     <img id={"logo"} src={logo} alt={logo}/>
+                    <Link id={"profile-link"} to={"Admin"}>
+                     <button id={"admin-button"}> 
+                         <img id={"symbol"} src={profilePic} alt={profilePic}/>
+                     Admin</button>
+                    </Link>
                     <Link id={"profile-link"} to={"AccountInfo"}>
                      <button> 
                          <img id={"symbol"} src={profilePic} alt={profilePic}/>
-                     Profile</button>
+                     Account</button>
                     </Link>
                     <button onClick={() => handleFilter(this, "home")}>
                     <img id={"symbol"} src={homePic} alt={homePic}/>
