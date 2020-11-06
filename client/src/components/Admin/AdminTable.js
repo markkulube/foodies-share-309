@@ -8,7 +8,7 @@ class AdminTable extends Component {
         super(props)
     
         this.state = {
-             table_len: 4
+             table_len: props.appState.accounts.length + 2
         }
 
         this.addRow = this.addRow.bind(this)
@@ -24,30 +24,45 @@ class AdminTable extends Component {
         document.getElementById("save_button"+no).style.display="block";
             
         let username=document.getElementById("username"+no);
-        let email=document.getElementById("email"+no);
+        let age=document.getElementById("age"+no);
         let password=document.getElementById("password"+no);
         let favmeal=document.getElementById("favmeal"+no);
             
         let username_data=username.innerHTML;
-        let email_data=email.innerHTML;
+        let age_data=age.innerHTML;
         let password_data=password.innerHTML;
         let favmeal_data=favmeal.innerHTML;
             
-        username.innerHTML="<input type='text' id='username_text"+no+"' value='"+username_data+"'>";
-        email.innerHTML="<input type='text' id='email_text"+no+"' value='"+email_data+"'>";
-        password.innerHTML="<input type='text' id='password_text"+no+"' value='"+password_data+"'>";
-        favmeal.innerHTML="<input type='text' id='favmeal_text"+no+"' value='"+favmeal_data+"'>";
+        username.innerHTML="<input type='text' name='"+username_data +"' id='username_text"+no+"' value='"+username_data+"'>";
+        age.innerHTML="<input type='text' name='"+age_data +"' id='age_text"+no+"' value='"+age_data+"'>";
+        password.innerHTML="<input type='text' name='"+password_data +"' id='password_text"+no+"' value='"+password_data+"'>";
+        favmeal.innerHTML="<input type='text' name='"+favmeal_data +"' id='favmeal_text"+no+"' value='"+favmeal_data+"'>";
     }
 
     saveRow(e) {
         let no = e.target.name
+
+        let oldUserName = document.getElementById("username_text"+no).name
+
         let username_val=document.getElementById("username_text"+no).value;
-        let email_val=document.getElementById("email_text"+no).value;
+        let age_val=document.getElementById("age_text"+no).value;
         let password_val=document.getElementById("password_text"+no).value;
         let favmeal_val=document.getElementById("favmeal_text"+no).value;
 
+        
+        let accounts = this.props.appState.accounts
+        accounts.forEach(account => {
+            if (account.userName===oldUserName) {
+                account.userName=username_val
+                account.age=age_val
+                account.password=password_val
+                account.favMeal=favmeal_val
+            }
+        });
+
+
         document.getElementById("username"+no).innerHTML=username_val;
-        document.getElementById("email"+no).innerHTML=email_val;
+        document.getElementById("age"+no).innerHTML=age_val;
         document.getElementById("password"+no).innerHTML=password_val;
         document.getElementById("favmeal"+no).innerHTML=favmeal_val;
 
@@ -57,12 +72,26 @@ class AdminTable extends Component {
 
     deleteRow(e) {
         let no = e.target.name
+
+        let username = document.getElementById("username"+no+"").innerHTML
+        
+        let accounts = this.props.appState.accounts
+        
+        for (let index = 0; index < accounts.length; index++) {
+            const account = accounts[index];
+    
+            if (account.userName===username) {
+                accounts.splice(index, 1)
+            }
+        }
+
+        
         document.getElementById("row"+no+"").outerHTML="";
     }
 
     addRow() {
         let new_username=document.getElementById("new_username").value;
-        let new_email=document.getElementById("new_email").value;
+        let new_age=document.getElementById("new_age").value;
         let new_password=document.getElementById("new_password").value;
         let new_favmeal=document.getElementById("new_favmeal").value;
             
@@ -70,36 +99,67 @@ class AdminTable extends Component {
         let table_rows=(table.rows.length);
         let table_len=(this.state.table_len)-1
         
-        table.insertRow(table_rows).outerHTML="<tr id='row"+table_len+
-                        "'><td id='username"+table_len+"'>"+new_username+"</td><td id='email"+
-                        table_len+"'>"+new_email+"</td><td id='password"+table_len+"'>"+new_password
-                        +"</td>"+"<td id='favmeal"+table_len+"'>"+new_favmeal
-                        +"</td><td><button name='"+table_len+ "' id='edit_button"+table_len+
-                        "' value='Edit' className='edit' onClick='{this.editRow}'>Edit</button>"+
-                        " <button name='"+table_len+ "' id='save_button"+table_len+
-                        "' value='Save' className='save' onClick={this.saveRow}>Save</button>"+
-                        " <button name='"+table_len+ "' id='delete_button"+table_len+ 
-                        "' value='Delete' className='delete' onClick={this.deleteRow}>Delete</button></td></tr>";
+   
+
+        let newUser = {
+                userName: new_username,
+                age: new_age,
+                password: new_password,
+                favMeal: new_favmeal,
+                profilePic: "",
+                isAdmin: false,
+                isLoggedIn: false,
+                posts:[]
+            }
+        
+        this.props.appState.accounts.push(newUser)
 
         document.getElementById("new_username").value="";
-        document.getElementById("new_email").value="";
+        document.getElementById("new_age").value="";
         document.getElementById("new_password").value="";
         document.getElementById("new_favmeal").value="";
 
-        document.getElementById("edit_button"+table_len).onclick=this.editRow
-        document.getElementById("save_button"+table_len).onclick=this.saveRow
-        document.getElementById("delete_button"+table_len).onclick=this.deleteRow
 
-        document.getElementById("save_button"+table_len).style.display="none"
+
+   
         this.setState({
             table_len: table_len +2
           });
     }
 
-    render() {
+    generateTableRows() {
         const saveStyle = {
             display: 'none'
         }
+
+        let accounts = this.props.appState.accounts
+
+        let row = 1
+
+        let tableRows = []
+        let tableRow
+        accounts.forEach(account => {
+            tableRow = <tr id={"row"+row}>
+                            <td id={"username"+row} value={account.userName}>{account.userName}</td>
+                            <td id={"age"+row} value={account.age}>{account.age}</td>
+                            <td id={"password"+row} value={account.password}>{account.password}</td>
+                            <td id={"favmeal"+row} value={account.favMeal}>{account.favMeal}</td>
+                            <td>
+                                <button id={"edit_button"+row} value="Edit" className="edit" name={row} onClick={this.editRow}>Edit</button>
+                                <button id={"save_button"+row}  value="Save" style={saveStyle} className="save" name={row} onClick={this.saveRow}>Save</button>
+                                <button id={"delete_button"+row} value="Delete" className="delete" name={row} onClick={this.deleteRow}>Delete</button>
+                            </td>
+                        </tr>
+
+            tableRows.push(tableRow)
+            row++
+        });
+
+        return tableRows
+
+    }
+    render() {
+        let tableRows = this.generateTableRows()
 
         return (
 
@@ -108,14 +168,14 @@ class AdminTable extends Component {
                     <thead>
                         <tr>
                             <th>User Name</th>
-                            <th>Email</th>
+                            <th>age</th>
                             <th>Password</th>
                             <th>Favorite Meal</th>
                             <th></th>
                         </tr>
                         <tr>
                             <td><input type="text" id="new_username"></input></td>
-                            <td><input type="text" id="new_email"></input></td>
+                            <td><input type="text" id="new_age"></input></td>
                             <td><input type="text" id="new_password"></input></td>
                             <td><input type="text" id="new_favmeal"></input></td>
                             <td><input type="button" className="add" onClick={this.addRow} value="Add Row"></input></td>
@@ -125,29 +185,7 @@ class AdminTable extends Component {
 
                     <tbody>
 
-                        <tr id="row1">
-                            <td id="username1">user</td>
-                            <td id="email1">user@user.com</td>
-                            <td id="password1">user</td>
-                            <td id="favmeal1">pasta</td>
-                            <td>
-                                <button id="edit_button1" value="Edit" className="edit" name="1" onClick={this.editRow}>Edit</button>
-                                <button id="save_button1" value="Save" style={saveStyle} className="save" name="1" onClick={this.saveRow}>Save</button>
-                                <button id="delete_button1" value="Delete" className="delete" name="1" onClick={this.deleteRow}>Delete</button>
-                            </td>
-                        </tr>
-
-                        <tr id="row2">
-                            <td id="username2">admin</td>
-                            <td id="email2">admin@admin.com</td>
-                            <td id="password2">admin</td>
-                            <td id="favmeal2">beef</td>
-                            <td>
-                                <button id="edit_button2" value="Edit" className="edit" name="2" onClick={this.editRow}>Edit</button>
-                                <button id="save_button2" value="Save" style={saveStyle} className="save" name="2" onClick={this.saveRow}>Save</button>
-                                <button id="delete_button2" value="Delete" className="delete" name="2" onClick={this.deleteRow}>Delete</button>
-                            </td>
-                        </tr>
+                        {tableRows}
 
                     </tbody>
                 </table>

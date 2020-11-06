@@ -56,6 +56,11 @@
     text-decoration: none;
 }
 
+#admin-button {
+    display: none
+  }
+  
+
 #signout-link {
     width: 0;
     display: block;
