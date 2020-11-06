@@ -20,6 +20,7 @@ import mark from "./images/mark.png";
 import keren from "./images/keren.png";
 import brandon from "./images/brandon.png";
 import profilePic from "./images/profile.png";
+import adminPic from "./images/admin.png";
 
 class App extends React.Component {
 
@@ -318,7 +319,7 @@ const userPosts = [{
 
 const adminPosts = [{
   userName: "admin",
-  profilePic: profilePic,
+  profilePic: adminPic,
   title: "My Recipe",
   category: "lunch",
   desc: "This is the description of my recipe.",

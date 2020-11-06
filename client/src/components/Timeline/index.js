@@ -11,7 +11,9 @@ import breakfastPic from "../../images/breakfast.png";
 import lunchPic from "../../images/lunch.png";
 import dinnerPic from "../../images/dinner.png";
 import dessertPic from "../../images/dessert.png";
+import otherPic from "../../images/other.png";
 import signOutPic from "../../images/signout.png";
+import adminPic from "../../images/admin.png"
 
 // import logic from logic file
 import { handleFilter, handleSearchFilter } from "./TimelineLogic";
@@ -69,7 +71,7 @@ export default class Timeline extends React.Component {
                     <img id={"logo"} src={logo} alt={logo}/>
                     <Link id={"profile-link"} to={"Admin"}>
                      <button id={"admin-button"}> 
-                         <img id={"symbol"} src={profilePic} alt={profilePic}/>
+                         <img id={"symbol"} src={adminPic} alt={adminPic}/>
                      Admin</button>
                     </Link>
                     <Link id={"profile-link"} to={"AccountInfo"}>
@@ -92,6 +94,9 @@ export default class Timeline extends React.Component {
                     <button onClick={() => handleFilter(this, "dessert")}>
                     <img id={"symbol"} src={dessertPic} alt={dessertPic}/>
                     Dessert</button>
+                    <button onClick={() => handleFilter(this, "other")}>
+                    <img id={"symbol"} src={otherPic} alt={otherPic}/>
+                    Other</button>
                     <Link id={"signout-link"} to={""}>
                         <button onClick={() => signOut(this)}>
                         <img id={"symbol"} src={signOutPic} alt={signOutPic}/>

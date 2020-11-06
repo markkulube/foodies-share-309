@@ -29,6 +29,9 @@ export const handleFilter = (timeline, option) => {
         case "dessert":  // filter dessert recipes and update state
             timeline.setState({ posts: posts.filter((post) => post.category === "dessert") });
             break;
+        case "other":  // filter dessert recipes and update state
+            timeline.setState({ posts: posts.filter((post) => post.category === "other") });
+            break;
         default:
             // should never reach this
             throw new Error("invalid filter option for timeline feed");
