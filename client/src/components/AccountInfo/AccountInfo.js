@@ -31,6 +31,12 @@ class AccountInfo extends Component {
         this.handleTyping = this.handleTyping.bind(this)
     }
 
+    componentDidMount () {
+        if (this.props.appState.currentUser.isAdmin) {
+            document.getElementById('admin-button').style.display = 'inline-block'
+        } 
+    }
+
     handleEditClick = (e) => {
 
         document.querySelector("#psw-default").style.display="none"
@@ -160,11 +166,14 @@ class AccountInfo extends Component {
 
                     <div id="account-info-header">
                         <h2>My Account</h2>
-                        <Link to={"/"}>  {/* TODO: replace with link to home page */}
+                        <Link to={"/Timeline"}>  
                             <button className={"account-info-nav-buttons"}>Home</button>
                         </Link>
-                        <Link to={"/Timeline"}>  {/* TODO: replace with link to time line */}
-                            <button className={"account-info-nav-buttons"}>Timeline</button>
+                        <Link to={"/Admin"}>  
+                            <button className={"account-info-nav-buttons"} id={"admin-button"} style={{display: "none"}}>Admin</button>
+                        </Link>
+                        <Link to={""}>
+                            <button className={"account-info-nav-buttons"}>Sign Out</button>
                         </Link>
                     </div>
                     <div className="imgcontainer">
