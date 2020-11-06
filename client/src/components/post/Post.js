@@ -58,12 +58,12 @@ class Post extends React.Component{
             <div className = "App">
                 <div className ="block">
                     <img src={post.profilePic} className="profilePic"/>
-                    <h3 className="username">{post.username}</h3>
+                    <h3 className="username">{post.userName}</h3>
                 </div>
                 <div className="block">
 
                     <Recipe
-                        canEdit={username === post.username}
+                        canEdit={username === post.userName}
                         title={post.title}
                         desc={post.desc}
                         ingredients={post.ingredients}
