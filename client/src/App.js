@@ -292,7 +292,7 @@ const brandonPosts = [{
 }]
 
 const userPosts = [{
-  username: "user",
+  userName: "user",
   profilePic: profilePic,
   title: "My Recipe",
   category: "lunch",
