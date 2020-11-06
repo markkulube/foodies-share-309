@@ -88,7 +88,16 @@ class App extends React.Component {
       }
     ],
     posts: [],
-    currentUser: null
+    currentUser: {
+      userName: "user",
+      profilePic: profilePic,
+      password: "user",
+      age: "404",
+      favMeal: "Filet Mignon",
+      posts: userPosts,
+      isLoggedIn: false,
+      isAdmin: false
+    }
   }
 
   render() {
@@ -283,7 +292,7 @@ const brandonPosts = [{
 }]
 
 const userPosts = [{
-  userName: "user",
+  username: "user",
   profilePic: profilePic,
   title: "My Recipe",
   category: "lunch",

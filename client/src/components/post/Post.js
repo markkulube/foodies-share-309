@@ -26,11 +26,12 @@ import ReviewList from "../ReviewList/ReviewList";
  *      }
  */
 class Post extends React.Component{
+
     constructor(props) {
         super(props);
         this.state = {
             isOpened: false,
-            reviewsButton: "Reviews"
+            reviewsButton: "Reviews",  // state of the reviews button
         }
     }
 
@@ -51,7 +52,7 @@ class Post extends React.Component{
 
     render() {
         // obtain the username and profile picture of the viewer and data of the post.
-        const { username, profilePic, post } = this.props;
+        const { username, profilePic, post, appState } = this.props;
 
         return(
             <div className = "App">
@@ -62,15 +63,17 @@ class Post extends React.Component{
                 <div className="block">
 
                     <Recipe
+                        canEdit={username === post.username}
                         title={post.title}
                         desc={post.desc}
                         ingredients={post.ingredients}
                         steps={post.steps}
+                        appState={appState}
+                        username={username}
+                        datePosted={post.datePosted}
                     />
-                    {/* buttons component, implementing next
-                     <LikeButton />
-                     <DislikeButton />
-                     */}
+                    <button>Like</button>
+                    <button>Dislike</button>
                     <button onClick={this.toggleShowHide}>{this.state.reviewsButton}</button>
                     <UnmountClosed isOpened={this.state.isOpened}>
                         <ReviewList username={username} profilePic={profilePic} reviews={post.reviews}/>

@@ -4,6 +4,7 @@
     background-color: #568c4a;  /* TODO: allows header to be solid, will probably replace later */
     display: flex;
     position: sticky;
+    top: 0;
     border: 4px #33522c solid;
 }
 
