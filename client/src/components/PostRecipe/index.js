@@ -32,7 +32,6 @@ class PostRecipe extends React.Component {
                     
                 />
                 <br/>
-                <br/>
                  <textarea
                     name="description"
                     value={description}
@@ -78,6 +77,15 @@ class PostRecipe extends React.Component {
                         onClick={addRecipeFunc}
                     >
                         Post it on Foodies
+                    </Button>
+                </Link>
+                <br/>
+                <br/>
+                <Link id={"timeline-link"} to={"Timeline"}>
+                    <Button 
+                        className="post-button"
+                    >
+                        Back to Timeline
                     </Button>
                 </Link>
             </div>

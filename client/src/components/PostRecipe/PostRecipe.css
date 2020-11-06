@@ -16,8 +16,8 @@ textarea {
 select {
   height: 50px;
   width:200px;
-  margin-top:20px;
-  margin-bottom:20px;
+  margin-top:10px;
+  margin-bottom:10px;
   background: #568c4a87;
   color:#fff;
   text-shadow:0 1px 0 rgba(0,0,0,0.4);
