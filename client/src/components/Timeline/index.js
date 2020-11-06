@@ -77,6 +77,11 @@ export default class Timeline extends React.Component {
                          <img id={"symbol"} src={profilePic} alt={profilePic}/>
                      Account</button>
                     </Link>
+
+                    <Link id={"userTimeline"} to={"userTimeline"}>
+                     <button>My Post</button>
+                    </Link>
+                    
                     <button onClick={() => handleFilter(this, "home")}>
                     <img id={"symbol"} src={homePic} alt={homePic}/>
                     Home</button>
