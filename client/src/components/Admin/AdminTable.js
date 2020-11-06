@@ -57,6 +57,10 @@ class AdminTable extends Component {
                 account.age=age_val
                 account.password=password_val
                 account.favMeal=favmeal_val
+
+                account.posts.forEach(post => {
+                    post.userName=username_val
+                });
             }
         });
 
