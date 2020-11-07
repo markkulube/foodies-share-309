@@ -62,8 +62,6 @@ export default class Timeline extends React.Component {
 
     render() {
         const username = this.props.appState.currentUser.userName;
-        // TODO: create a profilePic field in accounts global data and ask Brandon to add it when assigning currentUser.
-        // const profilePic = this.props.appState.currentUser.profilePic;
 
         return(
             <div id={"timeline"}>
