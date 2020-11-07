@@ -23,7 +23,10 @@ class AccountInfo extends Component {
                     age: this.props.appState.currentUser.age,
                     favmeal: this.props.appState.currentUser.favMeal
             }
+            
         }
+
+        this.avatar = this.props.appState.currentUser.profilePic
 
         this.handleEditClick = this.handleEditClick.bind(this)
         this.handleCancelClick = this.handleCancelClick.bind(this)
@@ -177,7 +180,7 @@ class AccountInfo extends Component {
                         </Link>
                     </div>
                     <div className="imgcontainer">
-                        <img src={avatar} alt={avatar} className="avatar">
+                        <img src={this.avatar} alt={this.avatar} className="avatar">
                             </img>
                     </div>
 
