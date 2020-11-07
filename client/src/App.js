@@ -210,7 +210,7 @@ const kerenPosts = [{
   category: "dinner",
   desc: "My version of chicken parmesan is a little different than what they do in the restaurants, with less " +
       "sauce and a crispier crust.",
-  datePosted: new Date(2020, 10, 25, 8, 55, 23, 411),
+  datePosted: new Date(2020, 8, 25, 8, 55, 23, 411),
   ingredients: [
     "4 skinless, boneless chicken breast halves",
     "salt and freshly ground black pepper to taste",
@@ -259,7 +259,7 @@ const brandonPosts = [{
   title: "Starfruit Pie",
   category: "dessert",
   desc: "",
-  datePosted: new Date(2020, 10, 8, 8, 55, 23, 0),
+  datePosted: new Date(2020, 8, 8, 8, 55, 23, 0),
   ingredients: [
     "1/2 cup sugar",
     "1/2 cup packed brown sugar",
@@ -298,7 +298,7 @@ const userPosts = [{
   title: "My Recipe",
   category: "lunch",
   desc: "This is the description of my recipe.",
-  datePosted: new Date(2020, 11, 1, 12, 1, 45, 991),
+  datePosted: new Date(2020, 5, 1, 12, 1, 45, 991),
   ingredients: [
       "These are the",
       "ingredients required to",
@@ -323,7 +323,7 @@ const adminPosts = [{
   title: "My Recipe",
   category: "lunch",
   desc: "This is the description of my recipe.",
-  datePosted: new Date(2020, 11, 1, 12, 1, 45, 991),
+  datePosted: new Date(2020, 6, 1, 12, 1, 45, 991),
   ingredients: [
       "These are the",
       "ingredients required to",
