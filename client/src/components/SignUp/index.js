@@ -10,14 +10,18 @@ import { addAccount } from "../../actions/signup";
 /* Component for the SignUp page */
 class SignUp extends React.Component {
 
-  state = {
-    username: "",
-    password: "",
-    age: "",
-    typeMeal: "",
-    accounts:[{ username: "user", password: "user", age: "404", typeMeal: "Filet Mignon"},
-      { username: "admin", password: "admin", age: "30", typeMeal: "Sliced Oranges" }]
-  };
+constructor(props) {
+    super(props);
+    this.state = {
+      username: "",
+      password: "",
+      age: "",
+      typeMeal: "",
+      accounts:[{ username: "user", password: "user", age: "404", typeMeal: "Filet Mignon"},
+        { username: "admin", password: "admin", age: "30", typeMeal: "Sliced Oranges"}],
+      posts: []
+    };
+}
 
   // Generic handler for whenever we type in an input box.
   handleInputChange = event => {
@@ -28,6 +32,8 @@ class SignUp extends React.Component {
     this.setState({
       [name]: value // [name] sets the object property name to the value of the `name` variable.
     });
+
+    console.log(this.state)
   };
 
   render() {

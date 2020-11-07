@@ -1,17 +1,28 @@
+export const addRecipeFunc = addRecipe => {
+    const currentUser = addRecipe.props.appState.currentUser;
 
+    // Note: this follows the structure of posts defined in the global state.
+    const post = {
+        userName: currentUser.userName,
+        profilePic: currentUser.profilePic,
+        title: addRecipe.state.recipeName,
+        category: addRecipe.state.category.toLowerCase(),
+        desc: addRecipe.state.description,
+        datePosted: new Date(),
+        ingredients: addRecipe.state.ingredients.split(", "),
+        steps: addRecipe.state.instruction.split(", "),
+        reviews: []
+   };
 
-
-
-export const addRecipe = post => {
-    
-    const postList = post.state.postList;
+   const app_accountList = addRecipe.props.appState.accounts;
   
-    const posting = {
-      username: post.state.studentName,
-      post: post.state.studentCourse,
-      recipeTitle: post.state.recipeTitle
-    };
-
-    postList.push(post);
+   for(let i=0; i<app_accountList.length; i++)
+   {
+        if (app_accountList[i].isLoggedIn.valueOf())
+        {
+          app_accountList[i].posts.push(post);
+          break;
+        }
+   }
 
 }

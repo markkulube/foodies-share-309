@@ -6,12 +6,22 @@
 
 #logo {
     width: 100px;
-    margin: 10px;
+    margin-left: 105px;
+}
+
+#symbol {
+    width: 50px;
+    border-radius: 50%;
+    margin-left: 150px;
+    margin-right: 50px;
+    margin-top: 0px;
+    display:inline-block;
+
 }
 
 .side-container {
     display: block;
-    background-color: lightblue;
+    background-color: #568c4a;
     width: 27%;
     position: sticky;
     top: 0;
@@ -19,13 +29,40 @@
 }
 
 .side-container button {
-    width: 100px;
+    position:relative;
+    width: 200px;
+    height:50px;
     display: block;
-    margin: 10px;
+    margin-left: 200px;
+    margin-right: 50px;
+    margin-top: 20px;
+    background-color:#8cc63f;
+    border: 4px #33522c solid;
+    border-radius: 0;
+    font-family: "American Typewriter", serif;
+    font-size: 1.5em;
+    color: #282c34;
+}
+
+.side-container button img {
+    position: absolute;
+    top: 0px;
+    left: -225px;
 }
 
 #profile-link {
     width: 0;
     display: block;
-    margin: 10px;
+    text-decoration: none;
+}
+
+#admin-button {
+    display: none
+  }
+  
+
+#signout-link {
+    width: 0;
+    display: block;
+    text-decoration: none;
 }

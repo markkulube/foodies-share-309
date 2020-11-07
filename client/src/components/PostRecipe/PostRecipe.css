@@ -1,3 +1,50 @@
 .left-col{
     float:left;
 }
+
+textarea {
+  width: 400px;
+  height: 150px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #568c4a;
+  border-radius: 4px;
+  background-color: #d6f9a9;
+  resize: none;
+}
+
+select {
+  height: 50px;
+  width:200px;
+  margin-top:10px;
+  margin-bottom:10px;
+  background: #568c4a87;
+  color:#fff;
+  text-shadow:0 1px 0 rgba(0,0,0,0.4);
+}
+
+.post-button {
+    width: 300px;
+    height:75px;
+    margin-top: 20px;
+    
+}
+
+.MuiButton-root.post-button {
+   background-color:#8cc63f;
+    border: 4px #33522c solid;
+    border-radius: 0;
+    font-family: "American Typewriter", serif;
+    font-size: 1.5em;
+    color: #282c34;
+}
+
+.MuiButton-root.post-button:hover {
+  background-color:#8cc63f9e;
+  border: 5px #33522c solid;
+  border-radius: 0;
+}
+
+#timeline-link {
+    text-decoration: none;
+}

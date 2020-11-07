@@ -17,17 +17,21 @@ import ReviewList from "../ReviewList/ReviewList";
  *          username    {string}    Username of this recipe's writer.
  *          profilePic  {string}    Path to the profile picture of this recipe's writer.
  *          title       {string}    Title of this recipe.
+ *          category    {string}    The category this recipe belongs to.
  *          desc        {string}    Description of this recipe.
+ *          datePosted  {Date}      The date and time this recipe was posted to Foodies.
  *          ingredients {string[]}  List of ingredients needed to follow this recipe.
  *          steps       {string[]}  List of steps the recipe tells you to follow.
+ *          reviews     {Object[]}  list of reviews on this recipe.
  *      }
  */
 class Post extends React.Component{
+
     constructor(props) {
         super(props);
         this.state = {
             isOpened: false,
-            reviewsButton: "Reviews"
+            reviewsButton: "Reviews",  // state of the reviews button
         }
     }
 
@@ -48,30 +52,31 @@ class Post extends React.Component{
 
     render() {
         // obtain the username and profile picture of the viewer and data of the post.
-        const { username, profilePic, post } = this.props;
+        const { username, profilePic, post, appState } = this.props;
 
         return(
             <div className = "App">
                 <div className ="block">
                     <img src={post.profilePic} className="profilePic"/>
-                    <h3 className="username">{post.username}</h3>
+                    <h3 className="username">{post.userName}</h3>
                 </div>
                 <div className="block">
 
                     <Recipe
+                        canEdit={username === post.userName}
                         title={post.title}
                         desc={post.desc}
                         ingredients={post.ingredients}
                         steps={post.steps}
+                        appState={appState}
+                        username={username}
+                        datePosted={post.datePosted}
                     />
-                    {/* buttons component, implementing next
-                     <LikeButton />
-                     <DislikeButton />
-                     */}
+                    <button>Like</button>
+                    <button>Dislike</button>
                     <button onClick={this.toggleShowHide}>{this.state.reviewsButton}</button>
                     <UnmountClosed isOpened={this.state.isOpened}>
-                        {/* TODO: rename post to postTitle (cascade) */}
-                        <ReviewList username={username} profilePic={profilePic} post={post.title}/>
+                        <ReviewList username={username} profilePic={profilePic} reviews={post.reviews}/>
                     </UnmountClosed>
                 </div>
             </div>

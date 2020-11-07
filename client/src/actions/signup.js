@@ -1,29 +1,35 @@
+import profilePic from "../images/profile.png";
+
 // Methods in this file modifies the SignUp component state
 const log = console.log;
 
 // Function to add an account
 export const addAccount = signup => {
-  const accountList = signup.state.accounts;
+  const accountList = signup.props.appState.accounts;
 
   const account = {
     userName: signup.state.userName,
+    profilePic: profilePic,
     password: signup.state.password,
     age: signup.state.age,
-    favMeal: signup.state.favMeal
+    favMeal: signup.state.favMeal,
+    posts: [],
+    isLoggedIn: true,
+    isAdmin:false
   };
   
   accountList.push(account);
+  signup.props.appState.currentUser = account;
 
   signup.setState({
     accounts: accountList
   });
-
-  log(signup.state.accounts);
 };
 
 // Function to verify an account
 export const checkAccount = signup => {
   const accountList = signup.state.accounts;
+  const app_accountList = signup.props.appState.accounts;
 
   const account = {
     userName: signup.state.userName,
@@ -35,7 +41,24 @@ export const checkAccount = signup => {
 
   if (temp.valueOf()==="user"||temp.valueOf()==="admin"){
     if (temp2.valueOf()===("user")||temp.valueOf()==="admin"){
-      log("true");
+      let temp3='';
+      if (temp.valueOf()==="user"){
+          temp3 = "user";
+          signup.props.appState.currentUser=app_accountList[0];
+      }  
+      if (temp.valueOf()==="admin"){
+          temp3 = "admin"
+          signup.props.appState.currentUser=app_accountList[1];
+      }  
+
+      for(let i=0; i<app_accountList.length; i++)
+      {
+        if(app_accountList[i].userName.valueOf()===(temp3))
+        {
+          app_accountList[i].isLoggedIn=true;
+          break;
+        }
+      }
       signup.setState({
         flag:true
       });
@@ -48,6 +71,22 @@ export const checkAccount = signup => {
       });
   }
   
+};
+
+export const signOut = signup => {
+  const app_accountList = signup.props.appState.accounts;
+  
+   for(let i=0; i<app_accountList.length; i++)
+   {
+        if(app_accountList[i].isLoggedIn.valueOf()===(true))
+        {
+          app_accountList[i].isLoggedIn=false;
+          signup.props.appState.currentUser=null;
+          break;
+        }
+   }
+ 
+
 };
 
   

@@ -1,10 +1,11 @@
 /* Stylesheet for the Feed component. */
 
-#feed-header {
-    background-color: white;  /* TODO: allows header to be solid, will probably replace later */
+.feed-header {
+    background-color: #568c4a;  /* TODO: allows header to be solid, will probably replace later */
     display: flex;
     position: sticky;
     top: 0;
+    border: 4px #33522c solid;
 }
 
 #profile-container {
@@ -17,11 +18,32 @@
 }
 
 #post-button {
-    height: 20px;
-    margin: auto 0;  /* vertical align center */
+    display: block;
+    text-decoration: none;
+}
+
+.feed-header button {
+    margin-top: 20px;  /* vertical align center */
+    background-color:#dfb74f;
+    border: 2px #33522c solid;
+    border-radius: 0;
+    font-family: "American Typewriter", serif;
+    font-size: 1.5em;
+    color: #282c34;
+    border-radius: 25px;
+    padding-right: 40px;
+    padding-left: 40px;
 }
 
 #feed-container {
     width: 46%;
     min-width: 600px;
+}
+
+input
+{
+    width: 100%;
+    height: 30px;
+    background-color:#8cc63f;
+    border: 2px #33522c solid;
 }

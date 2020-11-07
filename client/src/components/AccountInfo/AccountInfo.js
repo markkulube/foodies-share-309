@@ -12,23 +12,32 @@ class AccountInfo extends Component {
         super(props)
     
         this.state = {
-            username: "user",
-            password: "user",
-            email: "user@user.com",
-            favmeal: "pasta",
+            username: this.props.appState.currentUser.userName,
+            password: this.props.appState.currentUser.password,
+            age: this.props.appState.currentUser.age,
+            favmeal: this.props.appState.currentUser.favMeal,
 
             user: {
-                    username: "user",
-                    password: "user",
-                    email: "user@user.com",
-                    favmeal: "pasta"
+                    username: this.props.appState.currentUser.userName,
+                    password: this.props.appState.currentUser.password,
+                    age: this.props.appState.currentUser.age,
+                    favmeal: this.props.appState.currentUser.favMeal
             }
+            
         }
+
+        this.avatar = this.props.appState.currentUser.profilePic
 
         this.handleEditClick = this.handleEditClick.bind(this)
         this.handleCancelClick = this.handleCancelClick.bind(this)
         this.handleUpdateClick = this.handleUpdateClick.bind(this)
         this.handleTyping = this.handleTyping.bind(this)
+    }
+
+    componentDidMount () {
+        if (this.props.appState.currentUser.isAdmin) {
+            document.getElementById('admin-button').style.display = 'inline-block'
+        } 
     }
 
     handleEditClick = (e) => {
@@ -59,23 +68,42 @@ class AccountInfo extends Component {
 
         let username = this.state.user.username
         let password = this.state.user.password
-        let email = this.state.user.email
+        let age = this.state.user.age
         let favmeal = this.state.user.favmeal
 
         this.setState({
             username: username,
             password: password,
-            email: email,
+            age: age,
             favmeal: favmeal
           });
     }
 
     handleUpdateClick = (e) => {
 
-      let newuser = {
+    this.props.appState.currentUser.userName = this.state.username;
+    this.props.appState.currentUser.password = this.state.password;
+    this.props.appState.currentUser.age= this.state.age;
+    this.props.appState.currentUser.favMeal= this.state.favmeal;
+    
+    let app_accountList = this.props.appState.accounts;
+    
+    for(let i=0; i<app_accountList.length; i++)
+    {
+        if(app_accountList[i].isLoggedIn.valueOf()===(true))
+        {
+            app_accountList[i].userName = this.state.username;
+            app_accountList[i].password = this.state.password;
+            app_accountList[i].age= this.state.age;
+            app_accountList[i].favMeal= this.state.favmeal;
+            break;
+        }
+    }
+
+    let newuser = {
             username: this.state.username,
             password: this.state.password,
-            email: this.state.email,
+            age: this.state.age,
             favmeal: this.state.favmeal
         }
 
@@ -115,9 +143,9 @@ class AccountInfo extends Component {
                     favmeal: value
                   });
                 break;
-            case "email":
+            case "age":
                 this.setState({
-                    email: value
+                    age: value
                   });
                 break;
             case "psw":
@@ -141,15 +169,18 @@ class AccountInfo extends Component {
 
                     <div id="account-info-header">
                         <h2>My Account</h2>
-                        <Link to={"/"}>  {/* TODO: replace with link to home page */}
+                        <Link to={"/Timeline"}>  
                             <button className={"account-info-nav-buttons"}>Home</button>
                         </Link>
-                        <Link to={"/Timeline"}>  {/* TODO: replace with link to time line */}
-                            <button className={"account-info-nav-buttons"}>Timeline</button>
+                        <Link to={"/Admin"}>  
+                            <button className={"account-info-nav-buttons"} id={"admin-button"} style={{display: "none"}}>Admin</button>
+                        </Link>
+                        <Link to={""}>
+                            <button className={"account-info-nav-buttons"}>Sign Out</button>
                         </Link>
                     </div>
                     <div className="imgcontainer">
-                        <img src={avatar} alt={avatar} className="avatar">
+                        <img src={this.avatar} alt={this.avatar} className="avatar">
                             </img>
                     </div>
 
@@ -160,8 +191,8 @@ class AccountInfo extends Component {
                         <label className={"label-default"} for="uname"><br></br><b> Favorite Meal: {this.state.favmeal} </b><br></br></label>
                         <input maxLength={10} className={"edit-input text"} onChange={this.handleTyping} type="text" placeholder="Enter Favorite Meal" value={this.state.favmeal} name="favmeal" required></input>
                         
-                        <label className={"label-default"} for="uname"><br></br><b>Email: {this.state.email}</b><br></br></label>
-                        <input maxLength={15} className={"edit-input text"} onChange={this.handleTyping} type="text" placeholder="Enter Email" value={this.state.email} name="email" required></input>
+                        <label className={"label-default"} for="uname"><br></br><b>Age: {this.state.age}</b><br></br></label>
+                        <input maxLength={15} className={"edit-input text"} onChange={this.handleTyping} type="text" placeholder="Enter Age" value={this.state.age} name="age" required></input>
                         
                         <label id={"psw-default"} className={"label-default"} for="psw"><br></br><b>Password: ******* </b><br></br></label>
                         <label id={"psw-edit"} className={"edit-input"} for="psw"><br></br><b>Password: {this.state.password} </b><br></br></label>

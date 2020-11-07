@@ -5,15 +5,19 @@ import Input from "./../Input";
 import "./PostRecipe.css"
 import { TextField } from "@material-ui/core";
 
+import {addRecipeFunc} from "../../actions/addRecipe";
+
 class PostRecipe extends React.Component {
     
     render(){
         const{
             recipeName,
+            description,
             category,
+            ingredients,
             instruction,
             handleChange,
-            addRecipe,
+            addRecipeFunc,
           } = this.props;
     
         return(
@@ -27,28 +31,61 @@ class PostRecipe extends React.Component {
                     label="Recipe Name"
                     
                 />
-                <textarea></textarea>
-                <Input
-                    name="category"
-                    value={category}
+                <br/>
+                 <textarea
+                    name="description"
+                    value={description}
                     onChange={handleChange}
-                    label="Category"
+                    label="Description"
+                    placeholder="Description..."
                 />
 
-                <TextField
+                <br/>
+                <br/>
+                <select name="category" label="category" value={category} onChange={handleChange}>
+                    <option value="category">Please Choose a Category</option>
+                    <option value="Breakfast">Breakfast</option>
+                    <option value="Lunch">Lunch</option>
+                    <option value="Dinner">Dinner</option>
+                    <option value="Dessert">Dessert</option>
+                    <option value="Other">Other</option>
+                                         
+                </select>
+                <br/>
+                <br/>
+                 <textarea
+                    name="ingredients"
+                    value={ingredients}
+                    onChange={handleChange}
+                    label="Ingredients"
+                    placeholder="Ingredients..."
+                />
+                <br/>
+                <br/>
+                <textarea
                     name="instruction"
                     value={instruction}
                     onChange={handleChange}
-                    label="instruction"
+                    label="Instruction"
+                    placeholder="Instructions..."
                 />
-
-                <Link to={"Timeline"}>
-                    <Button
-                        variant="contained"
-                        color="secondary"
-                        onClick={addRecipe}
+                <br/>
+                <br/>
+                <Link id={"timeline-link"} to={"Timeline"}>
+                    <Button 
+                        className="post-button"
+                        onClick={addRecipeFunc}
                     >
                         Post it on Foodies
+                    </Button>
+                </Link>
+                <br/>
+                <br/>
+                <Link id={"timeline-link"} to={"Timeline"}>
+                    <Button 
+                        className="post-button"
+                    >
+                        Back to Timeline
                     </Button>
                 </Link>
             </div>
