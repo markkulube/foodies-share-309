@@ -76,6 +76,7 @@ body {
 img.avatar {
   width: 25%;
   border-radius: 50%;
+  border: 3px solid  #33522c;
 }
 
 .container {
