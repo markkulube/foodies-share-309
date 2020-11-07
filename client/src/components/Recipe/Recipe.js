@@ -32,6 +32,8 @@ export default class Recipe extends React.Component {
             ingredients: this.props.ingredients,
             steps: this.props.steps
 
+
+
         }
 
 
@@ -67,7 +69,7 @@ export default class Recipe extends React.Component {
         } else {
             descElement = <p>{this.state.desc}</p>
             titleElement = <h1>{this.state.title}</h1>
-            ingredientElement = <UnmountClosed isOpened={this.state.isOpened}>
+            ingredientElement = <UnmountClosed isOpened={this.state.isOpened}>      
                     <ul>
                         {ingredients.map(ingredient => (
                             <li key={uid(ingredient)}>{ingredient}</li>
