@@ -96,7 +96,7 @@ class App extends React.Component {
       age: "404",
       favMeal: "Filet Mignon",
       posts: userPosts,
-      isLoggedIn: false,
+      isLoggedIn: true,
       isAdmin: false
     }
   }
