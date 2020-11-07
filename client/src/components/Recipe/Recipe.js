@@ -28,8 +28,15 @@ export default class Recipe extends React.Component {
             editButton: "Edit",
 
             desc: this.props.desc,  // the description of this recipe.
-            title: this.props.title  // the title of this recipe.
+            title: this.props.title,  // the title of this recipe.
+            ingredients: this.props.ingredients,
+            steps: this.props.steps
+
+
+
         }
+
+
     }
 
     /**
@@ -49,33 +56,41 @@ export default class Recipe extends React.Component {
         const { ingredients, steps, canEdit } = this.props;
 
         // depending on whether or not we are in "editing" state, show text or input fields.
-        let descElement, titleElement;
+        let descElement, titleElement, ingredientElement, stepElement;
         if (this.state.editing) {
             descElement = <input onChange={(event) => this.handleChange(event, "desc")}
                                  value={this.state.desc}/>
             titleElement = <input onChange={(event) => this.handleChange(event, "title")}
                                   value={this.state.title}/>
+            ingredientElement = <input onChange={(event) => this.handleChange(event, "ingredients")}
+                                  value={this.state.ingredients}/>
+            stepElement = <input onChange={(event) => this.handleChange(event, "steps")}
+                                  value={this.state.steps}/>
         } else {
             descElement = <p>{this.state.desc}</p>
             titleElement = <h1>{this.state.title}</h1>
+            ingredientElement = <UnmountClosed isOpened={this.state.isOpened}>      
+                    <ul>
+                        {ingredients.map(ingredient => (
+                            <li key={uid(ingredient)}>{ingredient}</li>
+                        ))}
+                    </ul>
+                    </UnmountClosed>
+            stepElement =  <UnmountClosed isOpened={this.state.isOpened}>
+                <ol>
+                        {steps.map(step => (
+                            <li key={uid(step)}>{step}</li>
+                        ))}
+                    </ol>
+                    </UnmountClosed>              
         }
 
         return (
             <div className={"recipe-container"}>
                 {titleElement}
                 {descElement}
-                <UnmountClosed isOpened={this.state.isOpened}>
-                    <ul>
-                        {ingredients.map(ingredient => (
-                            <li key={uid(ingredient)}>{ingredient}</li>
-                        ))}
-                    </ul>
-                    <ol>
-                        {steps.map(step => (
-                            <li key={uid(step)}>{step}</li>
-                        ))}
-                    </ol>
-                </UnmountClosed>
+                {ingredientElement}
+                {stepElement}
                 <button onClick={() => toggleShowHide(this)}>{this.state.button}</button>
                 { canEdit &&
                     <button onClick={() => toggleEdit(this)}>{this.state.editButton}</button>
