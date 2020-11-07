@@ -10,7 +10,7 @@ import SignUp from './components/SignUp';
 import LogIn from './components/LogIn';
 import Home from './components/Home';
 import Timeline from './components/Timeline';
-import userTimeline from './components/userTimeline';
+import UserTimeline from './components/UserTimeline';
 import AccountInfo from './components/AccountInfo/AccountInfo';
 import Admin from './components/Admin/Admin';
 import PostRecipePage from "./components/PostRecipePage";
@@ -34,6 +34,7 @@ class App extends React.Component {
         age: "404",
         favMeal: "Filet Mignon",
         posts: userPosts,
+        favPost: markPosts,
         isLoggedIn: false,
         isAdmin: false
       },
@@ -96,6 +97,7 @@ class App extends React.Component {
       age: "404",
       favMeal: "Filet Mignon",
       posts: userPosts,
+      favPosts: null,
       isLoggedIn: false,
       isAdmin: false
     }
@@ -115,8 +117,8 @@ class App extends React.Component {
                             (<LogIn appState={this.state}/>)}/>
             <Route exact path='/Timeline' render={() => 
                             (<Timeline appState={this.state}/>)}/>
-            <Route exact path='/userTimeline' render={() => 
-                            (<userTimeline appState={this.state}/>)}/>
+            <Route exact path='/UserTimeline' render={() => 
+                            (<UserTimeline appState={this.state}/>)}/>
             <Route exact path='/AccountInfo' render={() => 
                             (<AccountInfo appState={this.state}/>)}/>
             <Route exact path='/Admin' render={() => 
@@ -318,6 +320,8 @@ const userPosts = [{
     {userName: "Brandon", profilePic: brandon, content: "Wow, this dish is amazing. Please lend me the recipe!", rating: 5}
   ]
 }]
+
+const userFavPost = markPosts;
 
 const adminPosts = [{
   userName: "admin",
