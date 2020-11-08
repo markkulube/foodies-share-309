@@ -1,6 +1,7 @@
 import React from "react";
 import { uid } from "react-uid";
 import { UnmountClosed } from "react-collapse";
+import { TextField } from "@material-ui/core";
 
 // stylesheet
 import "./Recipe.css";
@@ -30,12 +31,9 @@ export default class Recipe extends React.Component {
             desc: this.props.desc,  // the description of this recipe.
             title: this.props.title,  // the title of this recipe.
             ingredients: this.props.ingredients,
-            steps: this.props.steps
-
-
-
+            steps: this.props.steps,
+            category: this.props.category
         }
-
 
     }
 
@@ -50,35 +48,87 @@ export default class Recipe extends React.Component {
         this.setState({ [field]: value });  // update the current description to the new one.
     }
 
+    handleChangeSpecial = (event, field) => {
+        
+        const value = event.target.value;  // obtain new description from input
+        for(let i=0; i< this.props.appState.currentUser.posts.length;i++)
+        {
+            if(this.props.appState.currentUser.posts[i].title === this.state.title)
+            {
+                this.props.appState.currentUser.posts[i].category = value;
+            }
+        }
+        this.setState({ [field]: value });  // update the current description to the new one.
+    }
+
+    handleChangeArrayIngredients = (event, field) => {
+        
+        const value = event.target.value;  // obtain new description from input
+        let newValue = value.split(",");
+        for(let i=0; i< this.props.appState.currentUser.posts.length;i++)
+        {
+            if(this.props.appState.currentUser.posts[i].title === this.state.title)
+            {
+                this.props.appState.currentUser.posts[i].ingredients = newValue;
+            }
+        }
+        this.setState({ [field]: newValue });  // update the current description to the new one.
+    }
+
+    handleChangeArraySteps = (event, field) => {
+        
+        const value = event.target.value;  // obtain new description from input
+        let newValue = value.split(",");
+        for(let i=0; i< this.props.appState.currentUser.posts.length;i++)
+        {
+            if(this.props.appState.currentUser.posts[i].title === this.state.title)
+            {
+                this.props.appState.currentUser.posts[i].steps = newValue;
+            }
+        }
+       
+        this.setState({ [field]: newValue });
+    }
+
     render() {
         // obtain the recipe title, description, and list of ingredients and steps to display
         // also obtain whether or not this recipe should be editable (correct account logged in)
-        const { ingredients, steps, canEdit } = this.props;
-
+        const { ingredients, steps, desc, title, category, canEdit } = this.props;
+        
         // depending on whether or not we are in "editing" state, show text or input fields.
-        let descElement, titleElement, ingredientElement, stepElement;
+        let descElement, titleElement, ingredientElement, stepElement, categoryElement;
         if (this.state.editing) {
             descElement = <input onChange={(event) => this.handleChange(event, "desc")}
                                  value={this.state.desc}/>
             titleElement = <input onChange={(event) => this.handleChange(event, "title")}
                                   value={this.state.title}/>
-            ingredientElement = <input onChange={(event) => this.handleChange(event, "ingredients")}
+            ingredientElement = <textarea onChange={(event) => this.handleChangeArrayIngredients(event, "ingredients")}
                                   value={this.state.ingredients}/>
-            stepElement = <input onChange={(event) => this.handleChange(event, "steps")}
+            stepElement = <textarea onChange={(event) => this.handleChangeArraySteps(event, "steps")}
                                   value={this.state.steps}/>
+            categoryElement =  <select value={this.state.category} onChange={(event) => this.handleChangeSpecial(event, "category")}>
+                    <option value="category">Please Choose a Category</option>
+                    <option value="Breakfast">Breakfast</option>
+                    <option value="Lunch">Lunch</option>
+                    <option value="Dinner">Dinner</option>
+                    <option value="Dessert">Dessert</option>
+                    <option value="Other">Other</option>
+                                         
+                </select>
         } else {
             descElement = <p>{this.state.desc}</p>
             titleElement = <h1>{this.state.title}</h1>
+            categoryElement = <h1>{this.state.category}</h1>
             ingredientElement = <UnmountClosed isOpened={this.state.isOpened}>      
                     <ul>
-                        {ingredients.map(ingredient => (
+                        {this.state.ingredients.map(ingredient => (
                             <li key={uid(ingredient)}>{ingredient}</li>
                         ))}
                     </ul>
                     </UnmountClosed>
             stepElement =  <UnmountClosed isOpened={this.state.isOpened}>
                 <ol>
-                        {steps.map(step => (
+                        {this.state.steps.map(step => (
                             <li key={uid(step)}>{step}</li>
                         ))}
                     </ol>
@@ -88,9 +138,11 @@ export default class Recipe extends React.Component {
         return (
             <div className={"recipe-container"}>
                 {titleElement}
+                {categoryElement}
                 {descElement}
                 {ingredientElement}
                 {stepElement}
+                <br/>
                 <button onClick={() => toggleShowHide(this)}>{this.state.button}</button>
                 { canEdit &&
                     <button onClick={() => toggleEdit(this)}>{this.state.editButton}</button>

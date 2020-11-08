@@ -58,7 +58,7 @@ class PostRecipe extends React.Component {
                     value={ingredients}
                     onChange={handleChange}
                     label="Ingredients"
-                    placeholder="Ingredients..."
+                    placeholder="Ingredients (please separate ingredients by commas)"
                 />
                 <br/>
                 <br/>
@@ -67,7 +67,7 @@ class PostRecipe extends React.Component {
                     value={instruction}
                     onChange={handleChange}
                     label="Instruction"
-                    placeholder="Instructions..."
+                    placeholder="Instructions (please separate instructions by commas)"
                 />
                 <br/>
                 <br/>
