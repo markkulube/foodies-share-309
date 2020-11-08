@@ -18,7 +18,12 @@ class UserTimeline extends React.Component{
     constructor(props) {
         super(props);
     }
-
+    componentDidMount() {
+        
+        if (this.props.appState.currentUser.isAdmin) {
+            document.getElementById('admin-button').style.display = 'inline-block'
+        } 
+    }
 
     getAllPosts = () => {
         
