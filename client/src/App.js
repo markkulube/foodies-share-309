@@ -35,7 +35,12 @@ class App extends React.Component {
         favMeal: "Filet Mignon",
         posts: userPosts,
         isLoggedIn: false,
-        isAdmin: false
+        isAdmin: false,
+        likes: [
+            [eddiePosts[0].userName, eddiePosts[0].datePosted, 1],  // 1 = like, 0 = dislike
+            [markPosts[0].userName, markPosts[0].datePosted, 1],
+            [adminPosts[0].userName, adminPosts[0].datePosted, 0]
+        ]
       },
       {
         userName: "admin",
@@ -45,7 +50,11 @@ class App extends React.Component {
         favMeal: "Sliced Oranges",
         posts: adminPosts,
         isLoggedIn: false,
-        isAdmin: true
+        isAdmin: true,
+        likes: [  // 1 == like, 0 == dislike
+          [eddiePosts[0].userName, eddiePosts[0].datePosted, 1],
+          [markPosts[0].userName, markPosts[0].datePosted, 0]
+        ]
       },
       {
         userName: "Eddie",
@@ -55,7 +64,14 @@ class App extends React.Component {
         favMeal: "Pho",
         posts: eddiePosts,
         isLoggedIn: false,
-        isAdmin: false
+        isAdmin: false,
+        likes: [  // 1 == like, 0 == dislike
+          [userPosts[0].userName, userPosts[0].datePosted, 1],
+          [markPosts[0].userName, markPosts[0].datePosted, 1],
+          [adminPosts[0].userName, adminPosts[0].datePosted, 0],
+          [brandonPosts[0].userName, brandonPosts[0].datePosted, 1],
+          [kerenPosts[0].userName, kerenPosts[0].datePosted, 1]
+        ]
       },
       {
         userName: "Mark",
@@ -65,7 +81,12 @@ class App extends React.Component {
         favMeal: "Apple Pie",
         posts: markPosts,
         isLoggedIn: false,
-        isAdmin: false
+        isAdmin: false,
+        likes: [  // 1 == like, 0 == dislike
+          [userPosts[0].userName, userPosts[0].datePosted, 1],
+          [brandonPosts[0].userName, brandonPosts[0].datePosted, 1],
+          [kerenPosts[0].userName, kerenPosts[0].datePosted, 1]
+        ]
       },
       {
         userName: "Keren",
@@ -75,7 +96,12 @@ class App extends React.Component {
         favMeal: "Japanese Curry",
         posts: kerenPosts,
         isLoggedIn: false,
-        isAdmin: false
+        isAdmin: false,
+        likes: [  // 1 == like, 0 == dislike
+          [userPosts[0].userName, userPosts[0].datePosted, 0],
+          [markPosts[0].userName, markPosts[0].datePosted, 1],
+          [adminPosts[0].userName, adminPosts[0].datePosted, 0],
+        ]
       },
       {
         userName: "Brandon",
@@ -85,7 +111,13 @@ class App extends React.Component {
         favMeal: "Cheeseburger",
         posts: brandonPosts,
         isLoggedIn: false,
-        isAdmin: false
+        isAdmin: false,
+        likes: [  // 1 == like, 0 == dislike
+          [eddiePosts[0].userName, eddiePosts[0].datePosted, 1],
+          [adminPosts[0].userName, adminPosts[0].datePosted, 0],
+          [brandonPosts[0].userName, brandonPosts[0].datePosted, 1],
+          [kerenPosts[0].userName, kerenPosts[0].datePosted, 1]
+        ]
       }
     ],
     posts: [],
@@ -159,7 +191,9 @@ const eddiePosts = [{
     {userName: "Keren", profilePic: keren, content: "Very tasty and light, I didn't feel groggy after eating.", rating: 4},
     {userName: "Mark", profilePic: mark, content: "This dish is seriously lacking some taste...", rating: 2},
     {userName: "Brandon", profilePic: brandon, content: "Wow, this dish is amazing. Please lend me the recipe!", rating: 5}
-  ]
+  ],
+  likes: 5,
+  dislikes: 417
 }]
 
 const markPosts = [{
@@ -200,7 +234,9 @@ const markPosts = [{
     {userName: "Keren", profilePic: keren, content: "Very tasty and light, I didn't feel groggy after eating.", rating: 4},
     {userName: "Eddie", profilePic: eddie, content: "This dish is seriously lacking some taste...", rating: 2},
     {userName: "Brandon", profilePic: brandon, content: "Wow, this dish is amazing. Please lend me the recipe!", rating: 5}
-  ]
+  ],
+  likes: 4,
+  dislikes: 2
 }]
 
 const kerenPosts = [{
@@ -250,7 +286,9 @@ const kerenPosts = [{
     {userName: "Eddie", profilePic: eddie, content: "Very tasty and light, I didn't feel groggy after eating.", rating: 4},
     {userName: "Mark", profilePic: mark, content: "This dish is seriously lacking some taste...", rating: 2},
     {userName: "Brandon", profilePic: brandon, content: "Wow, this dish is amazing. Please lend me the recipe!", rating: 5}
-  ]
+  ],
+  likes: 41,
+  dislikes: 4
 }]
 
 const brandonPosts = [{
@@ -289,7 +327,9 @@ const brandonPosts = [{
     {userName: "Keren", profilePic: keren, content: "Very tasty and light, I didn't feel groggy after eating.", rating: 4},
     {userName: "Mark", profilePic: mark, content: "This dish is seriously lacking some taste...", rating: 2},
     {userName: "Eddie", profilePic: eddie, content: "Wow, this dish is amazing. Please lend me the recipe!", rating: 5}
-  ]
+  ],
+  likes: 4112,
+  dislikes: 33
 }]
 
 const userPosts = [{
@@ -314,7 +354,9 @@ const userPosts = [{
     {userName: "Keren", profilePic: keren, content: "Very tasty and light, I didn't feel groggy after eating.", rating: 4},
     {userName: "Mark", profilePic: mark, content: "This dish is seriously lacking some taste...", rating: 2},
     {userName: "Brandon", profilePic: brandon, content: "Wow, this dish is amazing. Please lend me the recipe!", rating: 5}
-  ]
+  ],
+  likes: 0,
+  dislikes: 0
 }]
 
 const adminPosts = [{
@@ -339,5 +381,7 @@ const adminPosts = [{
     {userName: "Keren", profilePic: keren, content: "Very tasty and light, I didn't feel groggy after eating.", rating: 4},
     {userName: "Mark", profilePic: mark, content: "This dish is seriously lacking some taste...", rating: 2},
     {userName: "Brandon", profilePic: brandon, content: "Wow, this dish is amazing. Please lend me the recipe!", rating: 5}
-  ]
+  ],
+  likes: 3,
+  dislikes: 4
 }]
