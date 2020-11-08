@@ -1,32 +1,25 @@
 /* Logic files for the Recipe component. */
 
 /**
- * Save changes to the current state to the global state.
+ * Save changes from the current recipe state to the server.
  *
  * @param recipe {Recipe} The Recipe component to save changes to.
  */
 const saveChanges = (recipe) => {
+    // TODO: edits to appState will be replaced with POST requests to server API.
+
     // obtain the information needed to find and edit this recipe in the global state.
     const { username, datePosted, appState } = recipe.props;
 
-    // find the account with the given username
-    // Note: This algorithm is linear time! The inner loop never runs more than once.
-    for (let account of appState.accounts) {
-        if (account.userName === username) {
-            // find the post with the given date posted
-            for (let post of account.posts) {
-                // console.log(post.datePosted.getTime(), datePosted.getTime())
-                if (post.datePosted.getTime() === datePosted.getTime()) {
-                    console.log("saving changes to recipe");
-                    // this is the correct post to modify
-                    post.desc = recipe.state.desc;
-                    post.title = recipe.state.title;
-                    // TODO: modify other fields here
-                    return;
-                }
-            }
-        }
-    }
+    // get index of account and post of such account to save changes for.
+    const accountIndex = appState.accounts.findIndex(acc => acc.userName === username);
+    const postIndex = appState.accounts[accountIndex].posts.findIndex(post =>
+        post.datePosted.getTime() === datePosted.getTime()
+    );
+
+    // save changes by updating appState
+    appState.accounts[accountIndex].posts[postIndex].desc = recipe.state.desc;
+    appState.accounts[accountIndex].posts[postIndex].title = recipe.state.title;
 }
 
 /**
@@ -51,7 +44,7 @@ export const toggleEdit = (recipe) => {
  *
  * @param recipe {Recipe} The Recipe component to toggle.
  */
-export const toggleShowHide = (recipe) => {
+export const toggleRecipe = (recipe) => {
     recipe.setState({isOpened: !recipe.state.isOpened});
 
     if (recipe.state.isOpened) {

@@ -1,6 +1,21 @@
 /* Logic files for the Timeline component. */
 
 /**
+ * Return a list of all existing posts sorted by date posted (earliest first).
+ */
+export const getAllPosts = (timeline) => {
+    // TODO: Replace use of appState with GET request for posts from server API.
+
+    // get a list of all existing posts from appState
+    const posts = timeline.props.appState.accounts.map(acc => acc.posts).flat();
+
+    // sort the posts by (descending) date posted
+    posts.sort((a, b) => b.datePosted - a.datePosted);
+
+    return posts;
+}
+
+/**
  * Update the timeline's state with the posts specified by the option.
  *
  * @param {Timeline}    timeline    The timeline component to update state.
@@ -10,9 +25,8 @@ export const handleFilter = (timeline, option) => {
     console.log("filtering posts with option:", option);
 
     // get list of all posts (sorted)
-    const posts = timeline.getAllPosts();
+    const posts = getAllPosts(timeline);
 
-    // TODO: All cases in switch will contain API calls to receive posts from backend
     switch (option) {
         case "home":  // obtain all posts
             timeline.setState({ posts: posts });
@@ -51,7 +65,7 @@ export const handleSearchFilter = (event, timeline) => {
     console.log("filtering post with parameter:", value);
 
     // filter posts that match the user input, ignoring case
-    const target = timeline.getAllPosts().filter((post) => post.title.toLowerCase().includes(value))
+    const target = getAllPosts(timeline).filter((post) => post.title.toLowerCase().includes(value))
 
     timeline.setState({ posts: target })
 }
@@ -63,6 +77,8 @@ export const handleSearchFilter = (event, timeline) => {
  * @param post {Object} The post to remove.
  */
 export const deletePost = (timeline, post) => {
+    // TODO: Replace updates to appState with POST request to API.
+
     const appState = timeline.props.appState
 
     // remove it from the state

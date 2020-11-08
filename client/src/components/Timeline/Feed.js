@@ -8,22 +8,12 @@ import "./Feed.css";
  * The main section of the Timeline page containing a collection of posts.
  *
  * Required props:
- *  - posts {Object[]} An list of objects with data about a single post.
- *      posts[Object]: {
- *          username    {string}    Username of this recipe's writer.
- *          profilePic  {string}    Path to the profile picture of this recipe's writer.
- *          title       {string}    Title of this recipe.
- *          category    {string}    The category this recipe belongs to.
- *          desc        {string}    Description of this recipe.
- *          datePosted  {Date}      The date and time this recipe was posted to Foodies.
- *          ingredients {string[]}  List of ingredients needed to follow this recipe.
- *          steps       {string[]}  List of steps the recipe tells you to follow.
- *          reviews     {Object[]}  list of reviews on this recipe.
- *      }
+ *  - posts                 {Object[]}          A list of post objects.
  *  - profilePic            {string}            Path to the profile picture of the given user.
  *  - username              {string}            Name of the user viewing this Feed.
  *  - handleSearchFilter    {function}          The callback to invoke when search bar input is changed (onChange)
  *  - parent                {React.Component}   The parent component to call handleSearchFilter for.
+ *  - deletePost            {function}          The function to delete a certain post from the timeline.
  */
 export default class Feed extends React.Component {
 
