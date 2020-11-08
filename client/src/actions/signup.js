@@ -15,7 +15,8 @@ export const addAccount = signup => {
     favMeal: signup.state.favMeal,
     posts: [],
     isLoggedIn: true,
-    isAdmin:false
+    isAdmin:false,
+    likes: []  // 1 = like, 0 = dislike
   };
   
   accountList.push(account);

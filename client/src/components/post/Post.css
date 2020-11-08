@@ -3,15 +3,27 @@
     float:left;
     margin-left:10px;
     border-radius: 50%;
-    
 }
 
 .username{
     float: left;
     margin-left: 20px;
-    
 }
 
 .block{
     display: block;
+}
+
+.link {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.liked {
+    color: #568c4a;
+}
+
+.disliked {
+    color: red;
 }
