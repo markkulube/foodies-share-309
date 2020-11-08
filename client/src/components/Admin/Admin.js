@@ -39,7 +39,7 @@ class Admin extends Component {
                     <AdminTable appState={this.props.appState}></AdminTable>
 
                     <div className={"admin-nav"}>
-                    <h2>Foodie Users</h2>
+                    <h2>Foodie Posts</h2>
                     </div>
                     <AdminPostTable appState={this.props.appState}></AdminPostTable>
                     
