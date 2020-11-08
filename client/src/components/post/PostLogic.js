@@ -12,7 +12,7 @@
 export const handleLikeDislike = (component, appState, username, post, liking) => {
     console.log("clicked like button");
 
-    // TODO: Note that most of this will probably be replaced with some (hopefully simpler) API calls in next phase.
+    // TODO: most logic below will be implemented by API in a POST request to like a post.
 
     // find index of the user's account
     const userIndex = appState.accounts.findIndex((account) => account.userName === username);
@@ -85,6 +85,8 @@ export const handleLikeDislike = (component, appState, username, post, liking) =
  * @returns {int} Status code describing what state like/dislike should be in.
  */
 export const getLikeStatus = (component, accounts, username, post) => {
+    // TODO: accounts will be replaced with an API call to GET like/dislike status of the post.
+
     // according to the likes of the user, decide whether or not to toggle like/dislike buttons on/off
     const account = accounts.find((account) => account.userName === username);
     const liked = account.likes.filter((curr) => (  // this should only ever return 0 or 1 post

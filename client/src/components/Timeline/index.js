@@ -17,8 +17,8 @@ import adminPic from "../../images/admin.png";
 import postsPic from "../../images/posts.png";
 
 // import logic from logic file
-import { handleFilter, handleSearchFilter, deletePost } from "./TimelineLogic";
-import {signOut} from "../../actions/signup";
+import { handleFilter, handleSearchFilter, deletePost, getAllPosts } from "./TimelineLogic";
+import { signOut } from "../../actions/signup";
 
 /**
  * The main page after the login procedure. Display timeline of posts, option to create a post, and other navigation
@@ -36,28 +36,12 @@ export default class Timeline extends React.Component {
         }
     }
 
-    /**
-     * Return a list of all existing posts sorted by date posted (earliest first).
-     */
-    getAllPosts = () => {
-        // get a list of all existing posts from appState
-        let posts = []  // this will contain all posts
-        for (let account of this.props.appState.accounts) {
-            posts = posts.concat(account.posts);
-        }
-
-        // sort the posts by descending date posted
-        posts.sort((a, b) => b.datePosted - a.datePosted);
-
-        return posts;
-    }
-
     componentDidMount() {
         // begin by showing all posts
-        this.setState({ posts: this.getAllPosts() })
+        this.setState({ posts: getAllPosts(this) })
         
         if (this.props.appState.currentUser.isAdmin) {
-            document.getElementById('admin-button').style.display = 'inline-block'
+            document.getElementById('admin-button').style.display = 'inline-block';
         } 
     }
 

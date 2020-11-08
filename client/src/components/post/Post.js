@@ -8,26 +8,15 @@ import ReviewList from "../ReviewList/ReviewList";
 
 // logic imports
 import { handleLikeDislike, getLikeStatus } from "./PostLogic";
-import {addtoFavourites} from "../../actions/addRecipe";
+import { addtoFavourites } from "../../actions/addRecipe";
 
 /**
  * A post of a recipe.
  *
  * Required props:
- *  - username {string} Name of the user viewing this post.
- *  - profilePic {string} Path to the profile picture of the user viewing this post.
- *  - post {Object} An Object containing data about this post.
- *      post: {
- *          username    {string}    Username of this recipe's writer.
- *          profilePic  {string}    Path to the profile picture of this recipe's writer.
- *          title       {string}    Title of this recipe.
- *          category    {string}    The category this recipe belongs to.
- *          desc        {string}    Description of this recipe.
- *          datePosted  {Date}      The date and time this recipe was posted to Foodies.
- *          ingredients {string[]}  List of ingredients needed to follow this recipe.
- *          steps       {string[]}  List of steps the recipe tells you to follow.
- *          reviews     {Object[]}  list of reviews on this recipe.
- *      }
+ *  - username      {string} Name of the user viewing this post.
+ *  - profilePic    {string} Path to the profile picture of the user viewing this post.
+ *  - post          {Object} A object containing data on this post.
  */
 class Post extends React.Component{
 
@@ -35,15 +24,12 @@ class Post extends React.Component{
         super(props);
         this.state = {
             isOpened: false,
-            reviewsButton: "Reviews",  // state of the reviews button
+            reviewsButton: "Reviews",  // text displayed on the show/hide reviews button
             liked: false,
             disliked: false
         }
     }
 
-    /**
-     * Determine whether or not each of the like and dislike buttons are already clicked.
-     */
     componentDidMount() {
         const { appState, username, post } = this.props;
         // determine status for like/dislike of this post
@@ -115,25 +101,24 @@ class Post extends React.Component{
     }
 
     render() {
-        // obtain the username and profile picture of the viewer and data of the post.
         const { username, profilePic, post, canSave, appState, deletePost, timeline } = this.props;
 
-        // decide to render active or inactive like button
+        // decide whether to render active or inactive like button
         const likeButton = this.renderLike(this.state.liked);
 
-        // decide to render active or inactive dislike button
+        // decide whether to render active or inactive dislike button
         const dislikeButton = this.renderDislike(this.state.disliked)
         
         return(
             <div className="App reviews-container">
             <br/>
                 <div className ="block">
-                    <img src={post.profilePic} className="profilePic"/>
+                    <img src={post.profilePic} className="profilePic" alt="profile picture"/>
                     <h3 className="username">{post.userName}</h3>
                     {canSave &&
-                    <button className="save" onClick={() => addtoFavourites(this, appState, post)}>
-                        Save to Favourites
-                    </button>
+                        <button className="save" onClick={() => addtoFavourites(this, appState, post)}>
+                            Save to Favourites
+                        </button>
                     }
                 </div>
                 <div className="block">

@@ -3,8 +3,8 @@ import { uid } from "react-uid";
 
 /* styles and images */
 import "./Stars.css";
-import emptyStar from "../../../images/star-empty.png";
-import filledStar from "../../../images/star-filled.png";
+import emptyStar from "./static/star-empty.png";
+import filledStar from "./static/star-filled.png";
 
 export default class Stars extends React.Component {
 
@@ -19,6 +19,8 @@ export default class Stars extends React.Component {
 
         let stars = [];  // list of stars to render
 
+        // Add filled-in stars up until the rating the parent review is given.
+        //  For example: a 4 star review will have stars 1, 2, 3, and 4 filled.
         for (let i = 0; i < 5; i++) {
             if (i < rating) {
                 stars.push(<img key={uid(i)} onClick={() => updateStar(parent, i + 1)}
@@ -33,11 +35,9 @@ export default class Stars extends React.Component {
     }
 
     render() {
-        const { rating } = this.props;
-
         return (
             <div>
-                {this.drawStars(rating)}
+                {this.drawStars(this.props.rating)}
             </div>
         );
     }

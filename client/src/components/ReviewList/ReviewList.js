@@ -22,10 +22,14 @@ export default class ReviewList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentRating: 0,  // rating of the current in-progress review
-            content: "",  // content of the current in-progress review
-            reviews: this.props.reviews  // list of existing reviews
+            currentRating: 0,
+            content: "",
+            reviews: []
         }
+    }
+
+    componentDidMount() {
+        this.setState({ reviews: this.props.reviews });
     }
 
     /**
