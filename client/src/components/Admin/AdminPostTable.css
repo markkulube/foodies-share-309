@@ -20,3 +20,12 @@
   border-radius: 5%;
   cursor: pointer;
 }
+
+#admin-post-table #post-table-search {
+  background-color: #dddddd;
+  font-size: 2pc;
+}
+
+#adminPostTable {
+  width: 100%;
+}

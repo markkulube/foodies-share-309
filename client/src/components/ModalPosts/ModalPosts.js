@@ -32,17 +32,19 @@ class ModalPosts extends Component {
         let accounts = this.props.appState.accounts
         // get a list of all existing posts from appState
         let posts = []
+        let profilePic
         accounts.forEach(account => {
             if (account.userName==this.props.currentUser) {
                 console.log(account.posts)
                 posts=account.posts;
                 // sort the posts by descending date posted
                 posts.sort((a, b) => b.datePosted - a.datePosted);
+                profilePic = account.profilePic
                 
             }
         });
 
-        return posts
+        return [posts, profilePic]
     }
 
     onClose = e => {
@@ -53,7 +55,7 @@ class ModalPosts extends Component {
 
         const username = this.props.currentUser;
         const accounts = this.props.appState.accounts
-        const posts = this.getAllPosts()
+        const [posts, profilePic] = this.getAllPosts()
 
         if(!this.props.show){
             return null;

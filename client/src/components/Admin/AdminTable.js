@@ -176,6 +176,21 @@ class AdminTable extends Component {
         return tableRows
 
     }
+
+    myFunction() {
+        let input = document.getElementById("admin-search");
+        let filter = input.value.toUpperCase();
+        let table = document.getElementById("adminTable");
+        let tr = table.getElementsByTagName("tr");
+        for (let i = 1; i < tr.length; i++) {
+            if (tr[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }      
+        }
+    }
+
     render() {
         let tableRows = this.generateTableRows()
 
@@ -183,7 +198,8 @@ class AdminTable extends Component {
 
             <div>
                 <div id={"admin-table"}>
-                    <table  cellSpacing={2} cellPadding={5} id={"data_table"} border={1}>
+                        <input type="text" id="admin-search" onKeyUp={this.myFunction} placeholder="Search for users.." title="Type in a name"></input>
+                    <table  cellSpacing={2} cellPadding={5} id={"adminTable"} border={1}>
                         <thead>
                             <tr>
                                 <th>User Name</th>

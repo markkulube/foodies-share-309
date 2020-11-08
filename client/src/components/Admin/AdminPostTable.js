@@ -80,6 +80,20 @@ class AdminPostTable extends Component {
 
     }
 
+    myFunction() {
+        let input = document.getElementById("post-table-search");
+        let filter = input.value.toUpperCase();
+        let table = document.getElementById("adminPostTable");
+        let tr = table.getElementsByTagName("tr");
+        for (let i = 1; i < tr.length; i++) {
+            if (tr[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }      
+        }
+    }
+
     render() {
         let allPosts = this.getAllPosts()
 
@@ -91,8 +105,13 @@ class AdminPostTable extends Component {
         return (
             
             <div id={"admin-post-table"}>
-                <table  cellSpacing={2} cellPadding={2} id={"data_table"} border={1}>
+              
+                    <input type="text" id="post-table-search" onKeyUp={this.myFunction} placeholder="Search for posts.." title="Type in a name"></input>
+                
+                <table  cellSpacing={2} cellPadding={2} id={"adminPostTable"} border={1}>
+                    
                     <thead>
+                       
                         <tr>
                             <th>Post Date</th>
                             <th>User Name</th>

@@ -37,3 +37,12 @@
 #admin-table .add {
   height: 5%;
 }
+
+#admin-table #admin-search {
+  background-color: #dddddd;
+  font-size: 2pc;
+}
+
+#adminTable {
+  width: 100%;
+}
