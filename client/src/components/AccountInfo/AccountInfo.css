@@ -23,7 +23,7 @@ body {
 #account-info-header {
     border: 3px solid  #33522c;
     border-radius: 5%;
-    width: 45%;
+    width: 85%;
     display: inline-block;
     margin-top: 2.5%;
     background-color: #d6f9a9;
@@ -45,7 +45,7 @@ body {
 .container button, #account-info-header button {
   background-color:  #33522c;
   color: white;
-  padding: 5%;
+  padding: 10px;
   margin: 10px;
   border: none;
   border-radius: 5%;
@@ -55,7 +55,7 @@ body {
 }
 
 #account-info-header button {
-  width: 25%;
+  width: 15%;
 }
 
 .container button:hover {
