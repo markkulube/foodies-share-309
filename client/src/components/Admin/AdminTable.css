@@ -19,7 +19,6 @@
   
 }
 
-
 #admin-table button, .add{
   background-color:  #33522c;
   color: white;
@@ -31,7 +30,7 @@
   display: inline-block;
 }
 
-#admin-table .save, .edit, .delete {
+#admin-table .save, .edit, .delete_admin {
   margin-bottom: 0.5pc
 }
 

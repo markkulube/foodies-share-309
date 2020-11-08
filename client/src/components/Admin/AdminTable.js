@@ -164,7 +164,7 @@ class AdminTable extends Component {
                             <td>
                                 <button id={"edit_button"+row} value="Edit" className="edit" name={row} onClick={this.editRow}>Edit</button>
                                 <button id={"save_button"+row}  value="Save" style={saveStyle} className="save" name={row} onClick={this.saveRow}>Save</button>
-                                <button id={"delete_button"+row} value="Delete" className="delete" name={row} onClick={this.deleteRow}>Delete</button>
+                                <button id={"delete_button"+row} value="Delete" className="delete_admin" name={row} onClick={this.deleteRow}>Delete</button>
                                 <button id={"modal_button"+row} value="Modal" className="modal_but" name={row} onClick={this.showModalPosts}>Timeline</button>
                             </td>
                         </tr>
