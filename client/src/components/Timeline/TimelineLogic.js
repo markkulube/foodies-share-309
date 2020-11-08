@@ -55,3 +55,28 @@ export const handleSearchFilter = (event, timeline) => {
 
     timeline.setState({ posts: target })
 }
+
+/**
+ * Delete the given post from the timeline.
+ *
+ * @param timeline {Timeline} The Timeline component to update.
+ * @param post {Object} The post to remove.
+ */
+export const deletePost = (timeline, post) => {
+    const appState = timeline.props.appState
+
+    // remove it from the state
+    const stateIndex = timeline.state.posts.findIndex(curr => (
+        curr.userName === post.userName && curr.datePosted.getTime() === post.datePosted.getTime()
+    ));
+    const updated = timeline.state.posts;
+    updated.splice(stateIndex, 1);
+    timeline.setState({ posts: updated });
+
+    // remove it from the app state
+    const accountIndex = appState.accounts.findIndex(account => post.userName === account.userName);
+    const postIndex = appState.accounts[accountIndex].posts.findIndex(curr => (
+        curr.datePosted.getTime() === post.datePosted.getTime()
+    ));
+    appState.accounts[accountIndex].posts.splice(postIndex, 1);
+}

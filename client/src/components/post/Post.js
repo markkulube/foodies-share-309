@@ -80,7 +80,7 @@ class Post extends React.Component{
      *
      * @param liked {boolean} Whether or not this post is liked or not.
      */
-    renderLike(liked) {
+    renderLike = (liked) => {
         const { appState, username, post } = this.props;
 
         if (liked) {
@@ -99,7 +99,7 @@ class Post extends React.Component{
      *
      * @param disliked {boolean} Whether or not this post is disliked or not.
      */
-    renderDislike(disliked) {
+    renderDislike = (disliked) => {
         const { appState, username, post } = this.props;
 
         if (disliked) {
@@ -115,7 +115,7 @@ class Post extends React.Component{
 
     render() {
         // obtain the username and profile picture of the viewer and data of the post.
-        const { username, profilePic, post, appState } = this.props;
+        const { username, profilePic, post, appState, deletePost, timeline } = this.props;
 
         // decide to render active or inactive like button
         const likeButton = this.renderLike(this.state.liked);
@@ -144,6 +144,9 @@ class Post extends React.Component{
                     {likeButton}
                     {dislikeButton}
                     <button onClick={this.toggleShowHide}>{this.state.reviewsButton}</button>
+                    { username === post.userName &&
+                        <button onClick={() => deletePost(timeline, post)}>Delete</button>
+                    }
                     <UnmountClosed isOpened={this.state.isOpened}>
                         <ReviewList username={username} profilePic={profilePic} reviews={post.reviews}/>
                     </UnmountClosed>
