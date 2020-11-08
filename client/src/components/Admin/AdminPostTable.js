@@ -85,7 +85,7 @@ class AdminPostTable extends Component {
         let filter = input.value.toUpperCase();
         let table = document.getElementById("adminPostTable");
         let tr = table.getElementsByTagName("tr");
-        for (var i = 0; i < tr.length; i++) {
+        for (let i = 1; i < tr.length; i++) {
             if (tr[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
                 tr[i].style.display = "";
             } else {
@@ -105,9 +105,9 @@ class AdminPostTable extends Component {
         return (
             
             <div id={"admin-post-table"}>
-                <tr>
+              
                     <input type="text" id="post-table-search" onKeyUp={this.myFunction} placeholder="Search for posts.." title="Type in a name"></input>
-                </tr>
+                
                 <table  cellSpacing={2} cellPadding={2} id={"adminPostTable"} border={1}>
                     
                     <thead>
