@@ -48,7 +48,7 @@ class AdminPostTable extends Component {
     }
 
     generateTableRows() {
-        // TODO: Dynamically populate Table from building JSX on appState
+
         let allPosts = this.getAllPosts()
 
         let post_row = 1

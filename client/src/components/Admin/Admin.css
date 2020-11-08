@@ -3,22 +3,35 @@
 }
 
 #admin #admin-main {
-  border: 0.1pc solid  black;
+  border: 0.1pc solid  #33522c;
   text-align: center;
-  background-color:#4dffdb;
+  background-color:#8cc63f;
 }
 
+.admin-nav {
+  border: 3px solid  #33522c;
+  width: 85%;
+  display: inline-block;
+  margin: 2.5%;
+  background-color: #d6f9a9;
+}
+
+#admin-main .admin-nav {
+  width: 53.5%;
+  margin-bottom: 0;
+}
+
+
 #admin #admin-header {
-  border: 3px solid  #f44336;
+  border: 0.1pc solid  #33522c;
   width: 100%;
   display: inline-block;
-  background-color:#4dffdb;
+  background-color:#8cc63f;
   text-align: center;
-  margin-bottom: 5%;
 }
 
 #admin #admin-header button {
-  background-color:  #f44336;
+  background-color:  #33522c;
   color: white;
   padding: 0.5%;
   margin: 4.5pt;

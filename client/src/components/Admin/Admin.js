@@ -12,23 +12,37 @@ class Admin extends Component {
             <div id={"admin"}>
 
                 <div id="admin-header">
+
+                    <div className={"admin-nav"}>
                         <h1>Welcome Admin</h1>
-                        <Link to={"/Timeline"}>
-                            <button className={"account-info-nav-buttons"}>Home</button>
-                        </Link>
-                        <Link className={"account-info-nav-buttons"} to={"AccountInfo"}>
-                        <button>Account</button>
-                        </Link>
-                        <Link to={""}>
-                        <button className={"account-info-nav-buttons"}>Sign Out</button>
-                    </Link>
+                            <Link to={"/Timeline"}>
+                                <button className={"account-info-nav-buttons"}>Home</button>
+                            </Link>
+                            <Link to={"/userTimeline"}>
+                            <button className={"account-info-nav-buttons"}>My Timeline</button>
+                            </Link>
+                            <Link className={"account-info-nav-buttons"} to={"AccountInfo"}>
+                            <button>Account</button>
+                            </Link>
+                            <Link to={""}>
+                            <button className={"account-info-nav-buttons"}>Sign Out</button>
+                            </Link>
+                    </div>
+                        
                 </div>
 
                 <div id={"admin-main"}>
-                <h3>Foodie Users</h3>
+
+                    <div className={"admin-nav"}>
+                    <h2>Foodie Users</h2>
+                    </div>
                     <AdminTable appState={this.props.appState}></AdminTable>
-                    <h3>Foodie Posts</h3>
+
+                    <div className={"admin-nav"}>
+                    <h2>Foodie Users</h2>
+                    </div>
                     <AdminPostTable appState={this.props.appState}></AdminPostTable>
+                    
                 </div>
 
             </div>

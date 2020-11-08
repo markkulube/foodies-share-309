@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ModalPosts from '../ModalPosts/ModalPosts'
 
 import "./AdminTable.css"
 
@@ -8,13 +9,16 @@ class AdminTable extends Component {
         super(props)
     
         this.state = {
-             table_len: props.appState.accounts.length + 2
+             table_len: props.appState.accounts.length + 2,
+             modalDisplay: false,
+             currentUser: ""
         }
 
         this.addRow = this.addRow.bind(this)
         this.editRow = this.editRow.bind(this)
         this.saveRow = this.saveRow.bind(this)
         this.deleteRow = this.deleteRow.bind(this)
+        this.showModalPosts = this.showModalPosts.bind(this)  
     }
     
 
@@ -48,8 +52,7 @@ class AdminTable extends Component {
         let age_val=document.getElementById("age_text"+no).value;
         let password_val=document.getElementById("password_text"+no).value;
         let favmeal_val=document.getElementById("favmeal_text"+no).value;
-
-        
+ 
         let accounts = this.props.appState.accounts
         accounts.forEach(account => {
             if (account.userName===oldUserName) {
@@ -63,7 +66,6 @@ class AdminTable extends Component {
                 });
             }
         });
-
 
         document.getElementById("username"+no).innerHTML=username_val;
         document.getElementById("age"+no).innerHTML=age_val;
@@ -89,11 +91,10 @@ class AdminTable extends Component {
             }
         }
 
-        
         document.getElementById("row"+no+"").outerHTML="";
     }
 
-    addRow() {
+    addRow(e) {
         let new_username=document.getElementById("new_username").value;
         let new_age=document.getElementById("new_age").value;
         let new_password=document.getElementById("new_password").value;
@@ -103,8 +104,6 @@ class AdminTable extends Component {
         let table_rows=(table.rows.length);
         let table_len=(this.state.table_len)-1
         
-   
-
         let newUser = {
                 userName: new_username,
                 age: new_age,
@@ -123,12 +122,26 @@ class AdminTable extends Component {
         document.getElementById("new_password").value="";
         document.getElementById("new_favmeal").value="";
 
-
-
-   
         this.setState({
             table_len: table_len +2
           });
+    }
+
+    showModalPosts(e) {
+
+        let row = e.target.name
+
+        if (!this.state.modalDisplay) {
+            let userName = document.getElementById("username"+row).innerHTML
+            this.setState({
+                currentUser: userName
+            }
+            )
+        }
+
+        this.setState({
+            modalDisplay: !this.state.modalDisplay
+          });     
     }
 
     generateTableRows() {
@@ -152,6 +165,7 @@ class AdminTable extends Component {
                                 <button id={"edit_button"+row} value="Edit" className="edit" name={row} onClick={this.editRow}>Edit</button>
                                 <button id={"save_button"+row}  value="Save" style={saveStyle} className="save" name={row} onClick={this.saveRow}>Save</button>
                                 <button id={"delete_button"+row} value="Delete" className="delete" name={row} onClick={this.deleteRow}>Delete</button>
+                                <button id={"modal_button"+row} value="Modal" className="modal_but" name={row} onClick={this.showModalPosts}>Timeline</button>
                             </td>
                         </tr>
 
@@ -167,34 +181,37 @@ class AdminTable extends Component {
 
         return (
 
-            <div id={"admin-table"}>
-                <table  cellSpacing={2} cellPadding={5} id={"data_table"} border={1}>
-                    <thead>
-                        <tr>
-                            <th>User Name</th>
-                            <th>age</th>
-                            <th>Password</th>
-                            <th>Favorite Meal</th>
-                            <th></th>
-                        </tr>
-                        <tr>
-                            <td><input type="text" id="new_username"></input></td>
-                            <td><input type="text" id="new_age"></input></td>
-                            <td><input type="text" id="new_password"></input></td>
-                            <td><input type="text" id="new_favmeal"></input></td>
-                            <td><input type="button" className="add" onClick={this.addRow} value="Add Row"></input></td>
-                        </tr>
- 
-                    </thead>
+            <div>
+                <div id={"admin-table"}>
+                    <table  cellSpacing={2} cellPadding={5} id={"data_table"} border={1}>
+                        <thead>
+                            <tr>
+                                <th>User Name</th>
+                                <th>age</th>
+                                <th>Password</th>
+                                <th>Favorite Meal</th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <td><input type="text" id="new_username"></input></td>
+                                <td><input type="text" id="new_age"></input></td>
+                                <td><input type="text" id="new_password"></input></td>
+                                <td><input type="text" id="new_favmeal"></input></td>
+                                <td><input type="button" className="add" onClick={this.addRow} value="Add Row"></input></td>
+                            </tr>
+    
+                        </thead>
 
-                    <tbody>
+                        <tbody>
 
-                        {tableRows}
+                            {tableRows}
 
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
+
+                <ModalPosts currentUser={this.state.currentUser} appState={this.props.appState} onClose={this.showModalPosts} show={this.state.modalDisplay}>Message in Modal</ModalPosts>
             </div>
-
             
         )
     }

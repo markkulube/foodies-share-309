@@ -1,40 +1,22 @@
-#admin-post-table table, th, td {
+#admin-post-table table, #admin-post-table table th, #admin-post-table table td {
     border: 1px solid black;
     border-collapse: collapse;
     background: white;
 }
 
-th, td {
-  padding: 15px;
+#admin-post-table th, #admin-post-table td {
+  padding: 10px;
 }
 
 #admin tr:nth-child(even) {
   background-color: #dddddd;
 }
 
-#admin-post-table {
-  display: inline-block;
-  margin: 0 auto;
-
-  
-}
-
-
-#admin-post-table button, .add {
-  background-color:  #f44336;
+#admin-post-table button {
+  background-color:  #33522c;
   color: white;
-  padding: 4%;
+  padding: 10%;
   border: none;
   border-radius: 5%;
   cursor: pointer;
-  width: 100%;
-  display: inline-block;
-}
-
-#admin-post-table .save, .edit {
-  margin-bottom: 0.5pc
-}
-
-#admin-post-table .add {
-  height: 5%;
 }

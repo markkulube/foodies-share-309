@@ -22,7 +22,12 @@ class UserTimeline extends React.Component{
             posts: []
         }
     }
-
+    componentDidMount() {
+        
+        if (this.props.appState.currentUser.isAdmin) {
+            document.getElementById('admin-button').style.display = 'inline-block'
+        } 
+    }
 
      getAllPosts = () => {
         // get a list of all existing posts from appState
