@@ -11,7 +11,9 @@ export const addRecipeFunc = addRecipe => {
         datePosted: new Date(),
         ingredients: addRecipe.state.ingredients.split(", "),
         steps: addRecipe.state.instruction.split(", "),
-        reviews: []
+        reviews: [],
+        likes: 0,
+        dislikes: 0
    };
 
    const app_accountList = addRecipe.props.appState.accounts;

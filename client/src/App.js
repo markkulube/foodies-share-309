@@ -44,7 +44,7 @@ class App extends React.Component {
       },
       {
         userName: "admin",
-        profilePic: profilePic,
+        profilePic: adminPic,
         password: "admin",
         age: "30",
         favMeal: "Sliced Oranges",
