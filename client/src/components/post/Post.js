@@ -75,31 +75,53 @@ class Post extends React.Component{
         }
     }
 
+    /**
+     * Render an activated or deactivated dislike button depending on the state.
+     *
+     * @param disliked {boolean} Whether or not this post is disliked or not.
+     */
+    renderDislike(disliked) {
+        const { appState, username, post } = this.props;
+
+        if (disliked) {
+            return <button className={"link disliked"}
+                                    onClick={() => handleLikeDislike(this, appState, username, post, false)}>
+                Dislike {post.dislikes}</button>;
+        } else {
+            return <button className={"link"}
+                                    onClick={() => handleLikeDislike(this, appState, username, post, false)}>
+                Dislike {post.dislikes}</button>;
+        }
+    }
+
+    /**
+     * Render an activated or deactivated like button depending on the state.
+     *
+     * @param liked {boolean} Whether or not this post is liked or not.
+     */
+    renderLike(liked) {
+        const { appState, username, post } = this.props;
+
+        if (liked) {
+            return <button className={"link liked"}
+                                 onClick={() => handleLikeDislike(this, appState, username, post, true)}>
+                Like {post.likes}</button>;
+        } else {
+            return <button className={"link"}
+                                 onClick={() => handleLikeDislike(this, appState, username, post, true)}>
+                Like {post.likes}</button>;
+        }
+    }
+
     render() {
         // obtain the username and profile picture of the viewer and data of the post.
         const { username, profilePic, post, appState } = this.props;
 
-        let likeButton, dislikeButton;
         // decide to render active or inactive like button
-        if (this.state.liked) {
-            likeButton = <button className={"link liked"}
-                                 onClick={() => handleLikeDislike(this, appState, username, post, true)}>
-                Like {post.likes}</button>;
-        } else {
-            likeButton = <button className={"link"}
-                                 onClick={() => handleLikeDislike(this, appState, username, post, true)}>
-                Like {post.likes}</button>;
-        }
+        const likeButton = this.renderLike(this.state.liked);
+
         // decide to render active or inactive dislike button
-        if (this.state.disliked) {
-            dislikeButton = <button className={"link disliked"}
-                                    onClick={() => handleLikeDislike(this, appState, username, post, false)}>
-                Dislike {post.dislikes}</button>;
-        } else {
-            dislikeButton = <button className={"link"}
-                                    onClick={() => handleLikeDislike(this, appState, username, post, false)}>
-                Dislike {post.dislikes}</button>;
-        }
+        const dislikeButton = this.renderDislike(this.state.disliked)
 
         return(
             <div className = "App">
