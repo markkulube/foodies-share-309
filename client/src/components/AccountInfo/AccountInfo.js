@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 
 // styles and images
 import "./AccountInfo.css"
-import avatar from "./static/img_avatar3.png"
-
 
 class AccountInfo extends Component {
 
@@ -88,10 +86,8 @@ class AccountInfo extends Component {
     
     let app_accountList = this.props.appState.accounts;
     
-    for(let i=0; i<app_accountList.length; i++)
-    {
-        if(app_accountList[i].isLoggedIn.valueOf()===(true))
-        {
+    for(let i=0; i<app_accountList.length; i++) {
+        if(app_accountList[i].isLoggedIn.valueOf()===(true)) {
             app_accountList[i].userName = this.state.username;
             app_accountList[i].password = this.state.password;
             app_accountList[i].age= this.state.age;
@@ -158,10 +154,8 @@ class AccountInfo extends Component {
                 break;
         }
 
-
     }
     
-
     render() {
         return (
             <div id="account-info">
@@ -171,6 +165,9 @@ class AccountInfo extends Component {
                         <h2>My Account</h2>
                         <Link to={"/Timeline"}>  
                             <button className={"account-info-nav-buttons"}>Home</button>
+                        </Link>
+                        <Link to={"/userTimeline"}>
+                        <button className={"account-info-nav-buttons"}>My Timeline</button>
                         </Link>
                         <Link to={"/Admin"}>  
                             <button className={"account-info-nav-buttons"} id={"admin-button"} style={{display: "none"}}>Admin</button>
