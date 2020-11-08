@@ -11,7 +11,7 @@ export default class UserFeed extends React.Component{
     
     render(){
         
-        const { posts,favPosts, profilePic, username, handleSearchFilter, parent } = this.props;
+        const { posts,favPosts, profilePic, username, handleSearchFilter, handleSavedFilter, flag, parent } = this.props;
         return(         
             
             <div id={"feed-container"}>
@@ -19,9 +19,11 @@ export default class UserFeed extends React.Component{
                     <Link id={"profile-container"} to={"AccountInfo"}>
                         <img id={"profile"} src={profilePic} alt={"profile picture"}/>
                     </Link>
+                    {flag &&
                     <Link id={"post-button"} to={"./PostRecipePage"}>  {/* TODO: replace with link to "create post" page */}
                         <button>Post A Recipe</button>
                     </Link>
+                    }
                 </div>
                 <input onChange={(event) => handleSearchFilter(event, parent)} placeholder={"Search for a recipe"}/>
                 <h2>My Recipe</h2>
@@ -39,7 +41,7 @@ export default class UserFeed extends React.Component{
                 )
                 }
 
-
+                <input onChange={(event) => handleSavedFilter(event, parent)} placeholder={"Search for a recipe"}/>
                 <h2>Saved Recipe</h2>
                 { favPosts ?(
                 favPosts.map(post => {

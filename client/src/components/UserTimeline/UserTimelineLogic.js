@@ -46,7 +46,19 @@ export const handleSearchFilter = (event, usertimeline) => {
     console.log("filtering post with parameter:", value);
 
     // filter posts that match the user input, ignoring case
-    const target = usertimeline.getAllPosts().filter((post) => post.title.toLowerCase().includes(value))
+    const target = usertimeline.getAllPosts().filter((post) => post.title.toLowerCase().includes(value)) 
 
     usertimeline.setState({ posts: target })
+}
+
+export const handleSavedFilter = (event, usertimeline) => {
+    event.preventDefault();
+    // obtain the user input, ignoring case
+    const value = event.target.value.toLowerCase();
+    console.log("filtering post with parameter:", value);
+
+    // filter posts that match the user input, ignoring case
+    const target = usertimeline.getAllSavedPosts().filter((post) => post.title.toLowerCase().includes(value)) 
+    console.log(target)
+    usertimeline.setState({ savedPosts: target })
 }

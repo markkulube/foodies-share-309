@@ -183,7 +183,7 @@ class AdminTable extends Component {
         let table = document.getElementById("adminTable");
         let tr = table.getElementsByTagName("tr");
         for (let i = 1; i < tr.length; i++) {
-            if (tr[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
+            if (tr[i].firstElementChild.innerHTML.toUpperCase().indexOf(filter) > -1) {
                 tr[i].style.display = "";
             } else {
                 tr[i].style.display = "none";

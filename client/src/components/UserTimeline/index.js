@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import UserFeed from "./UserFeed";
-import { handleFilter, handleSearchFilter } from "./UserTimelineLogic";
+import { handleFilter, handleSearchFilter, handleSavedFilter } from "./UserTimelineLogic";
 import "../Timeline/Timeline.css";
 import logo from "../../images/foodies.png";
 import profilePic from "../../images/profile.png";  // TODO: remove once account data contains profilePic
@@ -19,7 +19,8 @@ class UserTimeline extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            posts: []
+            posts: [],
+            savedPosts:[]
         }
     }
     componentDidMount() {
@@ -41,9 +42,22 @@ class UserTimeline extends React.Component{
         return posts;
     }
 
+     getAllSavedPosts = () => {
+        // get a list of all existing posts from appState
+        let savedPosts = []  // this will contain all posts
+        savedPosts = savedPosts.concat(this.props.appState.currentUser.savedPosts);
+
+
+        // sort the posts by descending date posted
+        savedPosts.sort((a, b) => b.datePosted - a.datePosted);
+
+        return savedPosts;
+    }
+
     componentDidMount() {
         // begin by showing all posts
         this.setState({ posts: this.getAllPosts() })
+        this.setState({ savedPosts: this.getAllSavedPosts() })
         
         if (this.props.appState.currentUser.isAdmin) {
             document.getElementById('admin-button').style.display = 'inline-block'
@@ -54,7 +68,6 @@ class UserTimeline extends React.Component{
     render(){
         const username = this.props.appState.currentUser.userName;
         const profilePic = this.props.appState.currentUser.profilePic;
-        const favPosts = this.props.appState.currentUser.savedPosts;
         return(
             <div id={"timeline"}>
                 <div className={"side-container"}>
@@ -97,10 +110,11 @@ class UserTimeline extends React.Component{
                 </div>
                <UserFeed
                    posts={this.state.posts}
-                   favPosts={favPosts}
+                   favPosts={this.state.savedPosts}
                    profilePic={profilePic}
                    username={username}
                    handleSearchFilter={handleSearchFilter}
+                   handleSavedFilter={handleSavedFilter}
                    parent={this}
             
                />    
