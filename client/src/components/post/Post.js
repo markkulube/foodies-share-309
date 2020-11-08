@@ -125,7 +125,7 @@ class Post extends React.Component{
         const dislikeButton = this.renderDislike(this.state.disliked)
         
         return(
-            <div className = "App">
+            <div className="App reviews-container">
             <br/>
                 <div className ="block">
                     <img src={post.profilePic} className="profilePic"/>

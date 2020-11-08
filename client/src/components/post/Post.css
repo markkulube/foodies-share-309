@@ -75,3 +75,11 @@
     font-family: "Lucida Console";
     font-size: 0.9em;
 }
+
+.reviews-container .ReactCollapse--collapse {
+    transition: height 500ms;  /* hide/show animation */
+}
+
+.reviews-container .ReactCollapse--content {
+    overflow: hidden;  /* this somehow stops the weird height click after transitions */
+}
