@@ -56,6 +56,7 @@ class ModalPosts extends Component {
         const username = this.props.currentUser;
         const accounts = this.props.appState.accounts
         const [posts, profilePic] = this.getAllPosts()
+        const flag = false;
 
         if(!this.props.show){
             return null;
@@ -75,6 +76,7 @@ class ModalPosts extends Component {
                         profilePic={profilePic}
                         username={username}
                         handleSearchFilter={handleSearchFilter}
+                        flag={flag}
                         parent={this}
                         />
                       
