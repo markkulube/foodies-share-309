@@ -71,7 +71,7 @@ class UserTimeline extends React.Component{
                     </Link>
                     
                     <button onClick={() => handleFilter(this, "home")}>
-                    Reset</button>
+                    All Recipes</button>
                     <button onClick={() => handleFilter(this, "breakfast")}>
                     <img id={"symbol"} src={breakfastPic} alt={breakfastPic}/>
                     Breakfast</button>

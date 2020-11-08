@@ -17,7 +17,7 @@ import adminPic from "../../images/admin.png";
 import postsPic from "../../images/posts.png";
 
 // import logic from logic file
-import { handleFilter, handleSearchFilter } from "./TimelineLogic";
+import { handleFilter, handleSearchFilter, deletePost } from "./TimelineLogic";
 import {signOut} from "../../actions/signup";
 
 /**
@@ -115,6 +115,7 @@ export default class Timeline extends React.Component {
                     username={username}
                     handleSearchFilter={handleSearchFilter}
                     parent={this}
+                    deletePost={deletePost}
                 />
                 <div className={"side-container"}>
                 </div>

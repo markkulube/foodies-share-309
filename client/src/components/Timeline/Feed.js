@@ -29,7 +29,7 @@ export default class Feed extends React.Component {
 
     render() {
         // obtain the list of post objects, profile picture, and current user from props
-        const { posts, profilePic, username, handleSearchFilter, parent } = this.props;
+        const { posts, profilePic, username, handleSearchFilter, parent, deletePost } = this.props;
 
         return (
             <div id={"feed-container"}>
@@ -49,7 +49,7 @@ export default class Feed extends React.Component {
                         return (
                             <div key={uid(post)}>
                                 <Post username={username} profilePic={profilePic} post={post} canSave={true}
-                                      appState={parent.props.appState}/>
+                                      appState={parent.props.appState} deletePost={deletePost} timeline={parent}/>
                                 <hr />
                             </div>
                         );

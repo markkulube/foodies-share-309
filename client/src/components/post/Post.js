@@ -81,11 +81,11 @@ class Post extends React.Component{
      *
      * @param liked {boolean} Whether or not this post is liked or not.
      */
-    renderLike(liked) {
+    renderLike = (liked) => {
         const { appState, username, post } = this.props;
 
         if (liked) {
-            return <button className={"link liked"}
+            return <button className={"link green"}
                            onClick={() => handleLikeDislike(this, appState, username, post, true)}>
                 Like {post.likes}</button>;
         } else {
@@ -100,11 +100,11 @@ class Post extends React.Component{
      *
      * @param disliked {boolean} Whether or not this post is disliked or not.
      */
-    renderDislike(disliked) {
+    renderDislike = (disliked) => {
         const { appState, username, post } = this.props;
 
         if (disliked) {
-            return <button className={"link disliked"}
+            return <button className={"link red"}
                                     onClick={() => handleLikeDislike(this, appState, username, post, false)}>
                 Dislike {post.dislikes}</button>;
         } else {
@@ -116,7 +116,7 @@ class Post extends React.Component{
 
     render() {
         // obtain the username and profile picture of the viewer and data of the post.
-        const { username, profilePic, post, canSave, appState } = this.props;
+        const { username, profilePic, post, canSave, appState, deletePost, timeline } = this.props;
 
         // decide to render active or inactive like button
         const likeButton = this.renderLike(this.state.liked);
@@ -125,7 +125,7 @@ class Post extends React.Component{
         const dislikeButton = this.renderDislike(this.state.disliked)
         
         return(
-            <div className = "App">
+            <div className="App reviews-container">
             <br/>
                 <div className ="block">
                     <img src={post.profilePic} className="profilePic"/>
@@ -137,7 +137,6 @@ class Post extends React.Component{
                     }
                 </div>
                 <div className="block">
-
                     <Recipe
                         canEdit={username === post.userName}
                         title={post.title}
@@ -149,14 +148,16 @@ class Post extends React.Component{
                         username={username}
                         datePosted={post.datePosted}
                     />
-                     </div>
-                    {likeButton}
-                    {dislikeButton}
-               
+                </div>
+                {likeButton}
+                {dislikeButton}
                 <button className="nonLike" onClick={this.toggleShowHide}>{this.state.reviewsButton}</button>
-                    <UnmountClosed isOpened={this.state.isOpened}>
-                        <ReviewList username={username} profilePic={profilePic} reviews={post.reviews}/>
-                    </UnmountClosed>
+                { username === post.userName &&
+                    <button className="delete red" onClick={() => deletePost(timeline, post)}>Delete</button>
+                }
+                <UnmountClosed isOpened={this.state.isOpened}>
+                    <ReviewList username={username} profilePic={profilePic} reviews={post.reviews}/>
+                </UnmountClosed>
             </div>
         );
     }
