@@ -13,7 +13,8 @@ import dinnerPic from "../../images/dinner.png";
 import dessertPic from "../../images/dessert.png";
 import otherPic from "../../images/other.png";
 import signOutPic from "../../images/signout.png";
-import adminPic from "../../images/admin.png"
+import adminPic from "../../images/admin.png";
+import postsPic from "../../images/posts.png";
 
 // import logic from logic file
 import { handleFilter, handleSearchFilter } from "./TimelineLogic";
@@ -78,8 +79,10 @@ export default class Timeline extends React.Component {
                      Account</button>
                     </Link>
 
-                    <Link id={"userTimeline"} to={"userTimeline"}>
-                     <button>My Post</button>
+                    <Link id={"userTimeline-link"} to={"UserTimeline"}>
+                     <button>
+                     <img id={"symbol"} src={postsPic} alt={postsPic}/>
+                     My Posts</button>
                     </Link>
                     
                     <button onClick={() => handleFilter(this, "home")}>

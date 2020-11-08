@@ -11,31 +11,44 @@ import lunchPic from "../../images/lunch.png";
 import dinnerPic from "../../images/dinner.png";
 import dessertPic from "../../images/dessert.png";
 import signOutPic from "../../images/signout.png";
+import adminPic from "../../images/admin.png";
 
 import {signOut} from "../../actions/signup";
 
 class UserTimeline extends React.Component{
     constructor(props) {
         super(props);
+        this.state = {
+            posts: []
+        }
     }
 
 
-    getAllPosts = () => {
-        
-        let posts =  this.props.appState.currentUser.posts // this will contain all posts
-        console.log(posts)
-        
+     getAllPosts = () => {
+        // get a list of all existing posts from appState
+        let posts = []  // this will contain all posts
+        posts = posts.concat(this.props.appState.currentUser.posts);
+
+
         // sort the posts by descending date posted
         posts.sort((a, b) => b.datePosted - a.datePosted);
 
         return posts;
     }
 
+    componentDidMount() {
+        // begin by showing all posts
+        this.setState({ posts: this.getAllPosts() })
+        
+        if (this.props.appState.currentUser.isAdmin) {
+            document.getElementById('admin-button').style.display = 'inline-block'
+        } 
+    }
+
 
     render(){
         const username = this.props.appState.currentUser.userName;
         const profilePic = this.props.appState.currentUser.profilePic;
-        const posts = this.props.appState.currentUser.posts;
         const favPosts = this.props.appState.currentUser.favPosts;
         return(
             <div id={"timeline"}>
@@ -43,7 +56,7 @@ class UserTimeline extends React.Component{
                     <img id={"logo"} src={logo} alt={logo}/>
                     <Link id={"profile-link"} to={"Admin"}>
                      <button id={"admin-button"}> 
-                         <img id={"symbol"} src={profilePic} alt={profilePic}/>
+                         <img id={"symbol"} src={adminPic} alt={adminPic}/>
                      Admin</button>
                     </Link>
                     <Link id={"profile-link"} to={"AccountInfo"}>
@@ -52,13 +65,13 @@ class UserTimeline extends React.Component{
                      Account</button>
                     </Link>
 
-                    <Link id={"timeLine"} to={"Timeline"}>
-                     <button>Timeline</button>
+                    <Link id={"timeLine-link"} to={"Timeline"}>
+                     <button><img id={"symbol"} src={homePic} alt={homePic}/>
+                     Timeline</button>
                     </Link>
                     
                     <button onClick={() => handleFilter(this, "home")}>
-                    <img id={"symbol"} src={homePic} alt={homePic}/>
-                    Home</button>
+                    Reset</button>
                     <button onClick={() => handleFilter(this, "breakfast")}>
                     <img id={"symbol"} src={breakfastPic} alt={breakfastPic}/>
                     Breakfast</button>
@@ -78,12 +91,12 @@ class UserTimeline extends React.Component{
                     </Link>
                 </div>
                <UserFeed
-               posts={posts}
-               favPosts={favPosts}
-               profilePic={profilePic}
-               username={username}
-               handleSearchFilter={handleSearchFilter}
-               parent={this}
+                   posts={this.state.posts}
+                   favPosts={favPosts}
+                   profilePic={profilePic}
+                   username={username}
+                   handleSearchFilter={handleSearchFilter}
+                   parent={this}
             
                />    
             <div className={"side-container"}>
