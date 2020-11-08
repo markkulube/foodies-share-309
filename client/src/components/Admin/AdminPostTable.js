@@ -43,6 +43,9 @@ class AdminPostTable extends Component {
             const account = accounts[index];
             allPosts.push(...account.posts)
         }
+
+        // sort the posts by descending date posted
+        allPosts.sort((a, b) => b.datePosted - a.datePosted);
         
         return allPosts
     }
