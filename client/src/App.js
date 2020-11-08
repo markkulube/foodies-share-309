@@ -129,7 +129,12 @@ class App extends React.Component {
       favMeal: "Filet Mignon",
       posts: userPosts,
       isLoggedIn: true,
-      isAdmin: false
+      isAdmin: false,
+      likes: [
+        [eddiePosts[0].userName, eddiePosts[0].datePosted, 1],  // 1 = like, 0 = dislike
+        [markPosts[0].userName, markPosts[0].datePosted, 1],
+        [adminPosts[0].userName, adminPosts[0].datePosted, 0]
+      ]
     }
   }
 

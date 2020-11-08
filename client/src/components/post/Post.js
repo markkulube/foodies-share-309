@@ -76,6 +76,25 @@ class Post extends React.Component{
     }
 
     /**
+     * Render an activated or deactivated like button depending on the state.
+     *
+     * @param liked {boolean} Whether or not this post is liked or not.
+     */
+    renderLike(liked) {
+        const { appState, username, post } = this.props;
+
+        if (liked) {
+            return <button className={"link liked"}
+                           onClick={() => handleLikeDislike(this, appState, username, post, true)}>
+                Like {post.likes}</button>;
+        } else {
+            return <button className={"link"}
+                           onClick={() => handleLikeDislike(this, appState, username, post, true)}>
+                Like {post.likes}</button>;
+        }
+    }
+
+    /**
      * Render an activated or deactivated dislike button depending on the state.
      *
      * @param disliked {boolean} Whether or not this post is disliked or not.
@@ -91,25 +110,6 @@ class Post extends React.Component{
             return <button className={"link"}
                                     onClick={() => handleLikeDislike(this, appState, username, post, false)}>
                 Dislike {post.dislikes}</button>;
-        }
-    }
-
-    /**
-     * Render an activated or deactivated like button depending on the state.
-     *
-     * @param liked {boolean} Whether or not this post is liked or not.
-     */
-    renderLike(liked) {
-        const { appState, username, post } = this.props;
-
-        if (liked) {
-            return <button className={"link liked"}
-                                 onClick={() => handleLikeDislike(this, appState, username, post, true)}>
-                Like {post.likes}</button>;
-        } else {
-            return <button className={"link"}
-                                 onClick={() => handleLikeDislike(this, appState, username, post, true)}>
-                Like {post.likes}</button>;
         }
     }
 

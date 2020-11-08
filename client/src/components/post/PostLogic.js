@@ -31,33 +31,40 @@ export const handleLikeDislike = (component, appState, username, post, liking) =
     // update like/dislike instance and count
 
     if (liking) {  // like the post
-        if (likeIndex === -1) {  // the user has not liked the post, add new instance
+        if (likeIndex === -1) {
+            // the user has not liked the post, add new instance
             appState.accounts[userIndex].likes.push([post.userName, post.datePosted, 1])
             appState.accounts[posterIndex].posts[postIndex].likes++;
+            console.log("TESTING", appState.accounts[posterIndex].posts[postIndex].likes);
             component.setState({ liked: true })
-        } else if (appState.accounts[userIndex].likes[likeIndex][2] === 0) {  // user originally disliked the post
+        } else if (appState.accounts[userIndex].likes[likeIndex][2] === 0) {
+            // user originally disliked the post
             appState.accounts[userIndex].likes[likeIndex][2] = 1;
             appState.accounts[posterIndex].posts[postIndex].likes++;
             appState.accounts[posterIndex].posts[postIndex].dislikes--;
             component.setState({ liked: true })
             component.setState({ disliked: false });
-        } else {  // otherwise, user already likes the post, we should undo the like
+        } else {
+            // user already likes the post, we should undo the like
             appState.accounts[userIndex].likes.splice(likeIndex, 1);
             appState.accounts[posterIndex].posts[postIndex].likes--;
             component.setState({ liked: false })
         }
     } else {  // dislike the post
-        if (likeIndex === -1) {  // the user has not disliked the post, add new instance
+        if (likeIndex === -1) {
+            // the user has not disliked the post, add new instance
             appState.accounts[userIndex].likes.push([post.userName, post.datePosted, 0])
             appState.accounts[posterIndex].posts[postIndex].dislikes++;
             component.setState({ disliked: true })
-        } else if (appState.accounts[userIndex].likes[likeIndex][2] === 1) {  // user originally liked the post
+        } else if (appState.accounts[userIndex].likes[likeIndex][2] === 1) {
+            // user originally liked the post
             appState.accounts[userIndex].likes[likeIndex][2] = 0;
             appState.accounts[posterIndex].posts[postIndex].dislikes++;
             appState.accounts[posterIndex].posts[postIndex].likes--;
             component.setState({ disliked: true });
             component.setState({ liked: false });
-        } else {  // otherwise, user already disliked the post, we should undo the dislike
+        } else {
+            // user already disliked the post, we should undo the dislike
             appState.accounts[userIndex].likes.splice(likeIndex, 1);
             appState.accounts[posterIndex].posts[postIndex].dislikes--;
             component.setState({ disliked: false })

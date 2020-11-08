@@ -6,7 +6,7 @@ export const addRecipeFunc = addRecipe => {
         userName: currentUser.userName,
         profilePic: currentUser.profilePic,
         title: addRecipe.state.recipeName,
-        category: addRecipe.state.category.toLowerCase(),
+        category: addRecipe.state.category.toLowerCase(),  // casts string to correct check format
         desc: addRecipe.state.description,
         datePosted: new Date(),
         ingredients: addRecipe.state.ingredients.split(", "),
@@ -14,17 +14,14 @@ export const addRecipeFunc = addRecipe => {
         reviews: [],
         likes: 0,
         dislikes: 0
-   };
+    };
 
-   const app_accountList = addRecipe.props.appState.accounts;
-  
-   for(let i=0; i<app_accountList.length; i++)
-   {
-        if (app_accountList[i].isLoggedIn.valueOf())
-        {
-          app_accountList[i].posts.push(post);
-          break;
-        }
-   }
+    // find index of the account of the recipe poster
+    const accIndex = addRecipe.props.appState.accounts.findIndex((account) => account.isLoggedIn);
+
+    // add the new post to their list of posts
+    if (accIndex !== -1) {
+        addRecipe.props.appState.accounts[accIndex].posts.push(post);
+    }
 
 }
