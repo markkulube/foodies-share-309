@@ -8,6 +8,7 @@ import ReviewList from "../ReviewList/ReviewList";
 
 // logic imports
 import { handleLikeDislike, getLikeStatus } from "./PostLogic";
+import {addtoFavourites} from "../../actions/addRecipe";
 
 /**
  * A post of a recipe.
@@ -115,19 +116,25 @@ class Post extends React.Component{
 
     render() {
         // obtain the username and profile picture of the viewer and data of the post.
-        const { username, profilePic, post, appState } = this.props;
+        const { username, profilePic, post, canSave, appState } = this.props;
 
         // decide to render active or inactive like button
         const likeButton = this.renderLike(this.state.liked);
 
         // decide to render active or inactive dislike button
         const dislikeButton = this.renderDislike(this.state.disliked)
-
+        
         return(
             <div className = "App">
+            <br/>
                 <div className ="block">
                     <img src={post.profilePic} className="profilePic"/>
                     <h3 className="username">{post.userName}</h3>
+                    {canSave &&
+                    <button className="save" onClick={() => addtoFavourites(this, appState, post)}>
+                        Save to Favourites
+                    </button>
+                    }
                 </div>
                 <div className="block">
 
@@ -135,19 +142,21 @@ class Post extends React.Component{
                         canEdit={username === post.userName}
                         title={post.title}
                         desc={post.desc}
+                        category={post.category}
                         ingredients={post.ingredients}
                         steps={post.steps}
                         appState={appState}
                         username={username}
                         datePosted={post.datePosted}
                     />
+                     </div>
                     {likeButton}
                     {dislikeButton}
-                    <button onClick={this.toggleShowHide}>{this.state.reviewsButton}</button>
+               
+                <button className="nonLike" onClick={this.toggleShowHide}>{this.state.reviewsButton}</button>
                     <UnmountClosed isOpened={this.state.isOpened}>
                         <ReviewList username={username} profilePic={profilePic} reviews={post.reviews}/>
                     </UnmountClosed>
-                </div>
             </div>
         );
     }

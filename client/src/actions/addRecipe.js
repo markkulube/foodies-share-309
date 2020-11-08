@@ -25,3 +25,21 @@ export const addRecipeFunc = addRecipe => {
     }
 
 }
+
+export const addtoFavourites = addRecipe => {
+
+    let flag=true;
+
+    for(let i=0;i<addRecipe.props.appState.currentUser.savedPosts.length;i++)
+    {
+        if(addRecipe.props.appState.currentUser.savedPosts[i]===addRecipe.props.post)
+        {
+            flag=false;
+        }
+    }
+    
+    if(flag)
+    {
+        addRecipe.props.appState.currentUser.savedPosts.push(addRecipe.props.post)
+    }
+}

@@ -16,7 +16,8 @@ export const addAccount = signup => {
     posts: [],
     isLoggedIn: true,
     isAdmin:false,
-    likes: []  // 1 = like, 0 = dislike
+    likes: [],  // 1 = like, 0 = dislike
+    savedPosts: []
   };
   
   accountList.push(account);

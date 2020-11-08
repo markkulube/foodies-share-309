@@ -42,6 +42,7 @@ export default class ReviewList extends React.Component {
         return(
             <div id={"review-list-container"}>
                 <div>
+                    <br/>
                     <img id={"profile"} src={profilePic} alt={"profile"}/>
                     <div>
                         <textarea onChange={this.handleContentUpdate} rows={4} cols={30}
