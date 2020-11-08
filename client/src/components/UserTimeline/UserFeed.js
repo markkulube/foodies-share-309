@@ -3,6 +3,7 @@ import { uid } from "react-uid";
 import { Link } from "react-router-dom";
 import Post from "../post/Post.js"
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
+import "./UserFeed.css";
 export default class UserFeed extends React.Component{
     
     
@@ -28,7 +29,7 @@ export default class UserFeed extends React.Component{
                 posts.map(post => {
                 return (
                     <div key={uid(post)}>
-                        <Post username={username} profilePic={profilePic} post={post}/>
+                        <Post username={username} profilePic={profilePic} post={post} canSave={false} appState={parent.props.appState}/>
                         <hr />
                     </div>
                     );
@@ -44,7 +45,7 @@ export default class UserFeed extends React.Component{
                 favPosts.map(post => {
                 return (
                     <div key={uid(post)}>
-                        <Post username={username} profilePic={profilePic} post={post}/>
+                        <Post username={username} profilePic={profilePic} post={post} canSave={false} appState={parent.props.appState}/>
                         <hr />
                     </div>
                     );

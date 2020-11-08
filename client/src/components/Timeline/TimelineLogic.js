@@ -18,19 +18,19 @@ export const handleFilter = (timeline, option) => {
             timeline.setState({ posts: posts });
             break;
         case "breakfast":  // filter breakfast recipes and update state
-            timeline.setState({ posts: posts.filter((post) => post.category === "breakfast") });
+            timeline.setState({ posts: posts.filter((post) => post.category.toLowerCase()==="breakfast") });
             break;
         case "lunch":  // filter lunch recipes and update state
-            timeline.setState({ posts: posts.filter((post) => post.category === "lunch") });
+            timeline.setState({ posts: posts.filter((post) => post.category.toLowerCase() === "lunch") });
             break;
         case "dinner":  // filter dinner recipes and update state
-            timeline.setState({ posts: posts.filter((post) => post.category === "dinner") });
+            timeline.setState({ posts: posts.filter((post) => post.category.toLowerCase() === "dinner") });
             break;
         case "dessert":  // filter dessert recipes and update state
-            timeline.setState({ posts: posts.filter((post) => post.category === "dessert") });
+            timeline.setState({ posts: posts.filter((post) => post.category.toLowerCase() === "dessert") });
             break;
         case "other":  // filter dessert recipes and update state
-            timeline.setState({ posts: posts.filter((post) => post.category === "other") });
+            timeline.setState({ posts: posts.filter((post) => post.category.toLowerCase() === "other") });
             break;
         default:
             // should never reach this

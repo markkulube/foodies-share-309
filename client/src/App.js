@@ -42,7 +42,8 @@ class App extends React.Component {
             [eddiePosts[0].userName, eddiePosts[0].datePosted, 1],  // 1 = like, 0 = dislike
             [markPosts[0].userName, markPosts[0].datePosted, 1],
             [adminPosts[0].userName, adminPosts[0].datePosted, 0]
-        ]
+        ],
+        savedPosts: []
       },
       {
         userName: "admin",
@@ -56,7 +57,8 @@ class App extends React.Component {
         likes: [  // 1 == like, 0 == dislike
           [eddiePosts[0].userName, eddiePosts[0].datePosted, 1],
           [markPosts[0].userName, markPosts[0].datePosted, 0]
-        ]
+        ],
+        savedPosts: []
       },
       {
         userName: "Eddie",
@@ -73,7 +75,8 @@ class App extends React.Component {
           [adminPosts[0].userName, adminPosts[0].datePosted, 0],
           [brandonPosts[0].userName, brandonPosts[0].datePosted, 1],
           [kerenPosts[0].userName, kerenPosts[0].datePosted, 1]
-        ]
+        ],
+        savedPosts: []
       },
       {
         userName: "Mark",
@@ -88,7 +91,8 @@ class App extends React.Component {
           [userPosts[0].userName, userPosts[0].datePosted, 1],
           [brandonPosts[0].userName, brandonPosts[0].datePosted, 1],
           [kerenPosts[0].userName, kerenPosts[0].datePosted, 1]
-        ]
+        ],
+        savedPosts: []
       },
       {
         userName: "Keren",
@@ -103,7 +107,8 @@ class App extends React.Component {
           [userPosts[0].userName, userPosts[0].datePosted, 0],
           [markPosts[0].userName, markPosts[0].datePosted, 1],
           [adminPosts[0].userName, adminPosts[0].datePosted, 0],
-        ]
+        ],
+        savedPosts: []
       },
       {
         userName: "Brandon",
@@ -119,7 +124,8 @@ class App extends React.Component {
           [adminPosts[0].userName, adminPosts[0].datePosted, 0],
           [brandonPosts[0].userName, brandonPosts[0].datePosted, 1],
           [kerenPosts[0].userName, kerenPosts[0].datePosted, 1]
-        ]
+        ],
+        savedPosts: []
       }
     ],
     posts: [],
@@ -137,7 +143,8 @@ class App extends React.Component {
         [eddiePosts[0].userName, eddiePosts[0].datePosted, 1],  // 1 = like, 0 = dislike
         [markPosts[0].userName, markPosts[0].datePosted, 1],
         [adminPosts[0].userName, adminPosts[0].datePosted, 0]
-      ]
+      ],
+      savedPosts: []
     }
   }
 

@@ -41,12 +41,14 @@ export default class Feed extends React.Component {
                         <button>Post A Recipe</button>
                     </Link>
                 </div>
+
                 <input onChange={(event) => handleSearchFilter(event, parent)} placeholder={"Search for a recipe"}/>
                 {
+
                     posts.map(post => {
                         return (
                             <div key={uid(post)}>
-                                <Post username={username} profilePic={profilePic} post={post}
+                                <Post username={username} profilePic={profilePic} post={post} canSave={true}
                                       appState={parent.props.appState} deletePost={deletePost} timeline={parent}/>
                                 <hr />
                             </div>

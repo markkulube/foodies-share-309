@@ -60,6 +60,13 @@
     display: none
   }
   
+#userTimeline-link {
+    text-decoration: none;
+  }
+
+#timeLine-link {
+    text-decoration: none;
+  }
 
 #signout-link {
     width: 0;

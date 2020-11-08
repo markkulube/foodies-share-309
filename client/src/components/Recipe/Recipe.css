@@ -1,6 +1,7 @@
 /* Styles for the Recipe component. */
 
 .recipe-container p {
+    padding:10px;
     margin-bottom: 0;
 }
 
@@ -8,10 +9,47 @@
     margin: auto;
 }
 
+.recipe-container ul {
+    list-style-type: none;
+    list-style-type: square;
+    list-style: circle outside;
+    text-align:left;
+
+}
+
+.recipe-container .ingredients li {
+    list-style-type: none;
+    list-style-type: square;
+    padding-left: 10px;
+    list-style: circle outside;
+    text-align:left;
+}
+
+.recipe-container li {
+    padding-left: 10px;
+    padding-right: 30px;
+    text-align:left;
+}
+
+.recipe-container button{
+    width: 75px;
+    height:30px;
+    margin-bottom:20px;
+    background-color:#8cc63f;
+    border: 4px #33522c solid;
+    border-radius: 0;
+    font-family: "American Typewriter", serif;
+    font-size: 1em;
+    color: #282c34;
+}
 .recipe-container .ReactCollapse--collapse {
     transition: height 500ms;  /* hide/show animation */
 }
 
 .recipe-container .ReactCollapse--content {
     overflow: hidden;  /* this somehow stops the weird height click after transitions */
+}
+
+.visible{
+    display:none;
 }

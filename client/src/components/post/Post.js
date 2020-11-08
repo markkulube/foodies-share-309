@@ -8,6 +8,7 @@ import ReviewList from "../ReviewList/ReviewList";
 
 // logic imports
 import { handleLikeDislike, getLikeStatus } from "./PostLogic";
+import {addtoFavourites} from "../../actions/addRecipe";
 
 /**
  * A post of a recipe.
@@ -84,7 +85,7 @@ class Post extends React.Component{
         const { appState, username, post } = this.props;
 
         if (liked) {
-            return <button className={"link liked"}
+            return <button className={"link green"}
                            onClick={() => handleLikeDislike(this, appState, username, post, true)}>
                 Like {post.likes}</button>;
         } else {
@@ -103,7 +104,7 @@ class Post extends React.Component{
         const { appState, username, post } = this.props;
 
         if (disliked) {
-            return <button className={"link disliked"}
+            return <button className={"link red"}
                                     onClick={() => handleLikeDislike(this, appState, username, post, false)}>
                 Dislike {post.dislikes}</button>;
         } else {
@@ -115,42 +116,48 @@ class Post extends React.Component{
 
     render() {
         // obtain the username and profile picture of the viewer and data of the post.
-        const { username, profilePic, post, appState, deletePost, timeline } = this.props;
+        const { username, profilePic, post, canSave, appState, deletePost, timeline } = this.props;
 
         // decide to render active or inactive like button
         const likeButton = this.renderLike(this.state.liked);
 
         // decide to render active or inactive dislike button
         const dislikeButton = this.renderDislike(this.state.disliked)
-
+        
         return(
             <div className = "App">
+            <br/>
                 <div className ="block">
                     <img src={post.profilePic} className="profilePic"/>
                     <h3 className="username">{post.userName}</h3>
+                    {canSave &&
+                    <button className="save" onClick={() => addtoFavourites(this, appState, post)}>
+                        Save to Favourites
+                    </button>
+                    }
                 </div>
                 <div className="block">
-
                     <Recipe
                         canEdit={username === post.userName}
                         title={post.title}
                         desc={post.desc}
+                        category={post.category}
                         ingredients={post.ingredients}
                         steps={post.steps}
                         appState={appState}
                         username={username}
                         datePosted={post.datePosted}
                     />
-                    {likeButton}
-                    {dislikeButton}
-                    <button onClick={this.toggleShowHide}>{this.state.reviewsButton}</button>
-                    { username === post.userName &&
-                        <button onClick={() => deletePost(timeline, post)}>Delete</button>
-                    }
-                    <UnmountClosed isOpened={this.state.isOpened}>
-                        <ReviewList username={username} profilePic={profilePic} reviews={post.reviews}/>
-                    </UnmountClosed>
                 </div>
+                {likeButton}
+                {dislikeButton}
+                <button className="nonLike" onClick={this.toggleShowHide}>{this.state.reviewsButton}</button>
+                { username === post.userName &&
+                    <button className="delete red" onClick={() => deletePost(timeline, post)}>Delete</button>
+                }
+                <UnmountClosed isOpened={this.state.isOpened}>
+                    <ReviewList username={username} profilePic={profilePic} reviews={post.reviews}/>
+                </UnmountClosed>
             </div>
         );
     }
