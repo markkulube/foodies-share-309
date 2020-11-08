@@ -49,7 +49,7 @@ class UserTimeline extends React.Component{
     render(){
         const username = this.props.appState.currentUser.userName;
         const profilePic = this.props.appState.currentUser.profilePic;
-        const favPosts = this.props.appState.currentUser.favPosts;
+        const favPosts = this.props.appState.currentUser.savedPosts;
         return(
             <div id={"timeline"}>
                 <div className={"side-container"}>

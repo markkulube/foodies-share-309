@@ -5,6 +5,21 @@
     border-radius: 50%;
 }
 
+.save{
+    float:right;
+    margin-right:10px;
+    margin-top:5px;
+    height:30px;
+    margin-bottom:20px;
+    background-color:#8cc63f;
+    border: 4px #33522c solid;
+    border-radius: 0;
+    font-family: "American Typewriter", serif;
+    font-size: 1em;
+    color: #282c34;
+
+}
+
 .username{
     float: left;
     margin-left: 20px;
@@ -15,6 +30,15 @@
 }
 
 .link {
+    margin-left:120px;
+    height:30px;
+    margin-bottom:20px;
+    background-color:#dfb74f;
+    border: 4px #33522c solid;
+    border-radius: 0;
+    font-family: "Lucida Console";
+    font-size: 0.9em;
+    color: #282c34;
     background: none;
     border: none;
     cursor: pointer;
@@ -26,4 +50,18 @@
 
 .disliked {
     color: red;
+}
+
+.nonLike{
+    float:right;
+    margin-right:20px;
+    width: 80px;
+    height:30px;
+    margin-bottom:20px;
+    background-color:#dfb74f;
+    border: 4px #33522c solid;
+    border-radius: 0;
+    font-family: "Lucida Console";
+    font-size: 0.9em;
+    color: #282c34;
 }

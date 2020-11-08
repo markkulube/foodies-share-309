@@ -29,7 +29,7 @@ export default class UserFeed extends React.Component{
                 posts.map(post => {
                 return (
                     <div key={uid(post)}>
-                        <Post username={username} profilePic={profilePic} post={post} appState={parent.props.appState}/>
+                        <Post username={username} profilePic={profilePic} post={post} canSave={false} appState={parent.props.appState}/>
                         <hr />
                     </div>
                     );
@@ -45,7 +45,7 @@ export default class UserFeed extends React.Component{
                 favPosts.map(post => {
                 return (
                     <div key={uid(post)}>
-                        <Post username={username} profilePic={profilePic} post={post}/>
+                        <Post username={username} profilePic={profilePic} post={post} canSave={false} appState={parent.props.appState}/>
                         <hr />
                     </div>
                     );

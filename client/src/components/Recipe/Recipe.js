@@ -106,27 +106,25 @@ export default class Recipe extends React.Component {
                                   value={this.state.ingredients}/>
             stepElement = <textarea onChange={(event) => this.handleChangeArraySteps(event, "steps")}
                                   value={this.state.steps}/>
-            categoryElement =  <select value={this.state.category} onChange={(event) => this.handleChangeSpecial(event, "category")}>
-                    <option value="category">Please Choose a Category</option>
-                    <option value="Breakfast">Breakfast</option>
-                    <option value="Lunch">Lunch</option>
-                    <option value="Dinner">Dinner</option>
-                    <option value="Dessert">Dessert</option>
-                    <option value="Other">Other</option>
-                                         
-                </select>
+            categoryElement =  <input  onChange={(event) => this.handleChangeSpecial(event, "category")}
+                                   value={this.state.category}/>
+                 
         } else {
             descElement = <p>{this.state.desc}</p>
             titleElement = <h1>{this.state.title}</h1>
-            categoryElement = <h1>{this.state.category}</h1>
+            categoryElement = <h1 className="visible">{this.state.category}</h1>
             ingredientElement = <UnmountClosed isOpened={this.state.isOpened}>      
+            <br/>
+            <h1>Ingredients</h1>
                     <ul>
                         {this.state.ingredients.map(ingredient => (
-                            <li key={uid(ingredient)}>{ingredient}</li>
+                            <li className="ingredients" key={uid(ingredient)}>{ingredient}</li>
                         ))}
                     </ul>
                     </UnmountClosed>
             stepElement =  <UnmountClosed isOpened={this.state.isOpened}>
+            <br/>
+            <h1>Instructions</h1>
                 <ol>
                         {this.state.steps.map(step => (
                             <li key={uid(step)}>{step}</li>
@@ -139,6 +137,7 @@ export default class Recipe extends React.Component {
             <div className={"recipe-container"}>
                 {titleElement}
                 {categoryElement}
+                <br/>
                 {descElement}
                 {ingredientElement}
                 {stepElement}
