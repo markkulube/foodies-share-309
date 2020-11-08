@@ -1,10 +1,10 @@
-#admin-table table, th, td {
+#admin-table table, #admin-table  th, #admin-table  td {
     border: 1px solid black;
     border-collapse: collapse;
     background: white;
 }
 
-th, td {
+#admin-table th, #admin-table td {
   padding: 15px;
 }
 
@@ -20,8 +20,8 @@ th, td {
 }
 
 
-#admin-table button, .add {
-  background-color:  #f44336;
+#admin-table button, .add{
+  background-color:  #33522c;
   color: white;
   padding: 4%;
   border: none;
@@ -31,7 +31,7 @@ th, td {
   display: inline-block;
 }
 
-#admin-table .save, .edit {
+#admin-table .save, .edit, .delete {
   margin-bottom: 0.5pc
 }
 
