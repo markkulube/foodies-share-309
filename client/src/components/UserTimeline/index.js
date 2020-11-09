@@ -73,6 +73,7 @@ class UserTimeline extends React.Component{
         //retrieve the current user's username and profile pictures from appState 
         const username = this.props.appState.currentUser.userName;
         const profilePic = this.props.appState.currentUser.profilePic;
+        const flag=true;
         return(
             <div id={"timeline"}>
                 <div className={"side-container"}>
@@ -120,6 +121,7 @@ class UserTimeline extends React.Component{
                    username={username}
                    handleSearchFilter={handleSearchFilter}
                    handleSavedFilter={handleSavedFilter}
+                   flag={flag}
                    parent={this}
             
                />    
