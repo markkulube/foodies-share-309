@@ -109,7 +109,7 @@ class AdminTable extends Component {
         let new_password=document.getElementById("new_password").value;
         let new_favmeal=document.getElementById("new_favmeal").value;
             
-        let table=document.getElementById("data_table");
+        let table=document.getElementById("adminTable");
         let table_rows=(table.rows.length);
         let table_len=(this.state.table_len)-1
         
