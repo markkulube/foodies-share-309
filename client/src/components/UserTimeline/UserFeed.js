@@ -29,7 +29,9 @@ export default class UserFeed extends React.Component{
                     </Link>
                     }
                 </div>
+                {flag &&
                 <input onChange={(event) => handleSearchFilter(event, parent)} placeholder={"Search for a recipe"}/>
+                }
                 <h2>My Recipe</h2>
                 { posts ? (
                 posts.map(post => {
@@ -44,8 +46,9 @@ export default class UserFeed extends React.Component{
                     <p>No Post Yet</p>
                 )
                 }
-
+                {flag &&
                 <input onChange={(event) => handleSavedFilter(event, parent)} placeholder={"Search for a recipe"}/>
+                }
                 <h2>Saved Recipe</h2>
                 { favPosts ?(
                 favPosts.map(post => {
