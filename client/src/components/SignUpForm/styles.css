@@ -1,0 +1,43 @@
+/* Styles for the SignUpForm React component */
+
+.parent {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.logo_image {
+  background-size: cover;
+  position:relative;
+  top:20px;
+  width: 800px;
+  height: 500px;
+  border: solid 4px #8cc63f;
+  background-image: url("../../images/foodies.png");
+  outline:none;
+}
+
+.signUp-form {
+  position:absolute;
+  top: 535px;
+  left: 30px;
+  justify-content: right;
+  direction:"column";
+  alignItems:"right";
+}
+
+.MuiButton-root.signUp-form__submit-button {
+  background-color: #33522c;
+}
+
+.signUp-form__button-grid {
+  line-height: 5;
+  justify-content: right;
+  direction:"column";
+  alignItems:"right";
+}
+
+.signUp_button-link {
+  text-decoration: none;
+}
+

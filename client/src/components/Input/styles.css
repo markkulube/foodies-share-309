@@ -1,0 +1,27 @@
+/* Styles for the Input React component */
+
+.input-form {
+  outline:none;
+  justify-content: right;
+  direction:"column";
+  alignItems:"right";
+}
+
+.input {
+  width: 280px;
+}
+
+.input .MuiInput-input[type=password] {
+    width: 600px;
+    display: inline-block;
+    border: 1px solid #ccc0; 
+}
+.input .MuiInput-underline:after {
+  border-color: darkslategray;
+}
+
+.input .MuiFormLabel-root,
+.input .MuiFormLabel-root.Mui-focused {
+  color: darkslategray;
+
+}

@@ -1,0 +1,79 @@
+/* Styles for the Home React component */
+body
+{
+  background-color:#ffd394;
+}
+
+.center {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.center2 {
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.center3 {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.home_image {
+  background-size: cover;
+  border: solid 4px #8cc63f;
+  width: 800px;
+  height: 500px;
+  background-image: url("./static/foodies.png");
+}
+
+.signup_button {
+  width: 300px;
+  height: 80px;
+}
+
+.signup_button-link {
+  background-color: #8cc63f9e;
+  border: 2px #33522c solid;
+  text-decoration: none;
+}
+
+ .MuiButton-root.signup_button:hover {
+  background-color: #8cc63f;
+  border: 5px #33522c solid;
+  border-radius: 0;
+}
+
+.signup_button .MuiButton-label {
+  color:white;
+  font-family: "American Typewriter", serif;
+  font-size: 3.5em;
+}  
+
+.login_button {
+  width: 300px;
+  height: 80px;
+}
+
+.login_button-link {
+  border: 2px #33522c solid;
+  text-decoration: none;
+}
+
+ .MuiButton-root.login_button:hover {
+  background-color:#8cc63f9e;
+  border: 5px #33522c solid;
+  border-radius: 0;
+}
+
+.login_button .MuiButton-label {
+  font-family: "American Typewriter", serif;
+  font-size: 3.5em;
+  color: rgba(0, 0, 0, 0.87);
+}  
