@@ -1,7 +1,7 @@
 /**
  * Update the User timeline's state with the posts specified by the option.
  *
- * @param {UserTimeline}    usertimeline    The timeline component to update state.
+ * @param {UserTimeline}    usertimeline    The User timeline component to update state.
  * @param {string}      option      The option to filter posts by.
  */
 export const handleFilter = (usertimeline, option) => {

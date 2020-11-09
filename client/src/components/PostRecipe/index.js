@@ -2,11 +2,17 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import Input from "./../Input";
-import "./PostRecipe.css"
 import { TextField } from "@material-ui/core";
-
 import {addRecipeFunc} from "../../actions/addRecipe";
 
+//stylesheet
+import "./PostRecipe.css"
+
+/*
+    component for post recipe, used in the PostRecipePage.
+    will take input and assigned to the following variables, and stores it in
+    appState via addRecipeFunc
+*/
 class PostRecipe extends React.Component {
     
     render(){
@@ -19,7 +25,7 @@ class PostRecipe extends React.Component {
             handleChange,
             addRecipeFunc,
           } = this.props;
-    
+        
         return(
             <div className="App">
                 <h1>Post a Recipe!</h1>
@@ -71,6 +77,7 @@ class PostRecipe extends React.Component {
                 />
                 <br/>
                 <br/>
+                {/* save all the input as an object to appState and return to timeline page*/}
                 <Link id={"timeline-link"} to={"Timeline"}>
                     <Button 
                         className="post-button"
@@ -81,6 +88,7 @@ class PostRecipe extends React.Component {
                 </Link>
                 <br/>
                 <br/>
+                {/*return to timeline page without saving*/}
                 <Link id={"timeline-link"} to={"Timeline"}>
                     <Button 
                         className="post-button"

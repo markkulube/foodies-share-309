@@ -2,7 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import UserFeed from "./UserFeed";
 import { handleFilter, handleSearchFilter, handleSavedFilter } from "./UserTimelineLogic";
+import {signOut} from "../../actions/signup";
+//stylesheet
 import "../Timeline/Timeline.css";
+//images for sidebar
 import logo from "../../images/foodies.png";
 import profilePic from "../../images/profile.png";  // TODO: remove once account data contains profilePic
 import homePic from "../../images/home.png";
@@ -13,7 +16,10 @@ import dessertPic from "../../images/dessert.png";
 import signOutPic from "../../images/signout.png";
 import adminPic from "../../images/admin.png";
 
-import {signOut} from "../../actions/signup";
+/*
+    similar to Timeline, but consist only user's posts and user's favorited posts.
+    accessed via the My Post button in Timeline. uses child component UserFeed.
+*/
 
 class UserTimeline extends React.Component{
     constructor(props) {
@@ -31,10 +37,9 @@ class UserTimeline extends React.Component{
     }
 
      getAllPosts = () => {
-        // get a list of all existing posts from appState
-        let posts = []  // this will contain all posts
+        // get a list of all user posts from appState
+        let posts = []  
         posts = posts.concat(this.props.appState.currentUser.posts);
-
 
         // sort the posts by descending date posted
         posts.sort((a, b) => b.datePosted - a.datePosted);
@@ -43,10 +48,9 @@ class UserTimeline extends React.Component{
     }
 
      getAllSavedPosts = () => {
-        // get a list of all existing posts from appState
-        let savedPosts = []  // this will contain all posts
+        // get a list of all favorite posts from appState
+        let savedPosts = []  // this will contain all favorite posts
         savedPosts = savedPosts.concat(this.props.appState.currentUser.savedPosts);
-
 
         // sort the posts by descending date posted
         savedPosts.sort((a, b) => b.datePosted - a.datePosted);
@@ -66,6 +70,7 @@ class UserTimeline extends React.Component{
 
 
     render(){
+        //retrieve the current user's username and profile pictures from appState 
         const username = this.props.appState.currentUser.userName;
         const profilePic = this.props.appState.currentUser.profilePic;
         return(

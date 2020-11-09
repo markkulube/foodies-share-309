@@ -3,14 +3,18 @@ import { uid } from "react-uid";
 import { Link } from "react-router-dom";
 import Post from "../post/Post.js"
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
+//stylesheet
 import "./UserFeed.css";
+
+/*
+    User feed consisting user's posts and user's favorited posts. if no posts are present,
+    a tag will shown on the page indicating there is no post yet. 
+*/
+
 export default class UserFeed extends React.Component{
-    
-    
-    
-    
+      
     render(){
-        
+        //getting neccessary objects from post
         const { posts,favPosts, profilePic, username, handleSearchFilter, handleSavedFilter, flag, parent } = this.props;
         return(         
             
@@ -20,7 +24,7 @@ export default class UserFeed extends React.Component{
                         <img id={"profile"} src={profilePic} alt={"profile picture"}/>
                     </Link>
                     {flag &&
-                    <Link id={"post-button"} to={"./PostRecipePage"}>  {/* TODO: replace with link to "create post" page */}
+                    <Link id={"post-button"} to={"./PostRecipePage"}>  
                         <button>Post A Recipe</button>
                     </Link>
                     }
