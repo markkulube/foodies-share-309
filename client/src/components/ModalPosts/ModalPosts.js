@@ -2,13 +2,11 @@ import React, { Component } from 'react'
 import UserFeed from "../UserTimeline/UserFeed";
 
 import "./ModalPosts.css"
+import { handleSearchFilter } from "../UserTimeline/UserTimelineLogic";
 
-// styles and images
-import profilePic from "../../images/profile.png";  // TODO: remove once account data contains profilePic
-
-// import logic from logic file
-import { handleFilter, handleSearchFilter } from "../UserTimeline/UserTimelineLogic";
-
+/**
+ * Render user timeline in a modal box.
+ */
 class ModalPosts extends Component {
 
     constructor(props) {
@@ -27,9 +25,12 @@ class ModalPosts extends Component {
         }
     }
 
+    // Fetch the user's posts
     getAllPosts = () => {
-        
+
+        // API Call: GET the user's posts from the server/MongoDB
         let accounts = this.props.appState.accounts
+
         // get a list of all existing posts from appState
         let posts = []
         let profilePic
@@ -54,7 +55,6 @@ class ModalPosts extends Component {
     render() {
 
         const username = this.props.currentUser;
-        const accounts = this.props.appState.accounts
         const [posts, profilePic] = this.getAllPosts()
         const flag = false;
 

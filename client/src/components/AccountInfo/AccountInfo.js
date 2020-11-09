@@ -1,14 +1,17 @@
 import React, { Component } from 'react'
 import { Link } from "react-router-dom";
 
-// styles and images
 import "./AccountInfo.css"
 
+/**
+ * A component that renders user account info. The use is allowed
+ * edit, update, and save operations.
+ */
 class AccountInfo extends Component {
 
     constructor(props) {
         super(props)
-    
+        // API call: GET use info from MongoDB
         this.state = {
             username: this.props.appState.currentUser.userName,
             password: this.props.appState.currentUser.password,
@@ -38,6 +41,7 @@ class AccountInfo extends Component {
         } 
     }
 
+    // Handle click event that enables editing of account info values.
     handleEditClick = (e) => {
 
         document.querySelector("#psw-default").style.display="none"
@@ -53,11 +57,13 @@ class AccountInfo extends Component {
 
     }
 
+    // Handle click event that cancels editing of account info values.
     handleCancelClick = (e) => {
 
         document.querySelector("#psw-default").style.display="block"
         document.querySelector("#edit").style.display="inline-block"
 
+        // Select and hide editing of input fields
         let elems = document.querySelectorAll(".edit-input")
         let length = elems.length;
         for (let index = 0; index < length; index++) {
@@ -77,8 +83,10 @@ class AccountInfo extends Component {
           });
     }
 
+    // Handle click event that saves updated account info.
     handleUpdateClick = (e) => {
 
+    // API call: POST request to server updating user account info in MongoDB
     this.props.appState.currentUser.userName = this.state.username;
     this.props.appState.currentUser.password = this.state.password;
     this.props.appState.currentUser.age= this.state.age;
@@ -86,8 +94,9 @@ class AccountInfo extends Component {
     
     let app_accountList = this.props.appState.accounts;
     
+    // Update user account values.
     for(let i=0; i<app_accountList.length; i++) {
-        if(app_accountList[i].isLoggedIn.valueOf()===(true)) {
+        if(app_accountList[i].isLoggedIn.valueOf()) {
             app_accountList[i].userName = this.state.username;
             app_accountList[i].password = this.state.password;
             app_accountList[i].age= this.state.age;
@@ -110,6 +119,7 @@ class AccountInfo extends Component {
         document.querySelector("#psw-default").style.display="block"
         document.querySelector("#edit").style.display="inline-block"
 
+        // Select and hide editing of input fields
         let elems = document.querySelectorAll(".edit-input")
         let length = elems.length;
         for (let index = 0; index < length; index++) {
@@ -123,6 +133,7 @@ class AccountInfo extends Component {
         }
     }
 
+    // update state of input values as user types
     handleTyping(e) {
         const target = e.target;
         const value = target.value;

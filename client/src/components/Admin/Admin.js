@@ -5,6 +5,10 @@ import { Link } from "react-router-dom";
 
 import "./Admin.css"
 
+/**
+ * Parent component of admin page. Children include
+ * user and posts table.
+ */
 class Admin extends Component {
     render() {
         return (

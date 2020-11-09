@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 
 import "./AdminPostTable.css"
 
+/**
+ * Table with all user posts ordered by date in descending order.
+ */
 class AdminPostTable extends Component {
 
     constructor(props) {
@@ -9,12 +12,13 @@ class AdminPostTable extends Component {
         this.deleteRow = this.deleteRow.bind(this)
     }
     
-    // TODO: Remove post from corresponding users posts:[]
+    // Handle click event that deletes a post from the table
     deleteRow(e) {
         let no = e.target.name
         let username = document.getElementById("post_username"+no+"").innerHTML
         let datePosted = document.getElementById("post_date"+no+"").innerHTML
         
+
         let accounts = this.props.appState.accounts
      
         let posts
@@ -25,6 +29,7 @@ class AdminPostTable extends Component {
             }
         });
 
+        // API Call: POST request to delete post from users post collection in MongoDB
         for (let index = 0; index < posts.length; index++) {
             const post = posts[index];
 
@@ -36,6 +41,8 @@ class AdminPostTable extends Component {
     }
 
     getAllPosts() {
+
+        // API Call: GET all user posts from server/MongoDB
         let allPosts = []
         let accounts = this.props.appState.accounts
 
