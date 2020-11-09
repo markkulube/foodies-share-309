@@ -194,17 +194,17 @@ class AccountInfo extends Component {
 
                     <div className="container">
                         <label className={"label-default"} for="uname"><b>User Name: {this.state.username}</b><br></br></label>
-                        <input maxLength={10} className={"edit-input text"} onChange={this.handleTyping} type="text" placeholder="Enter Username" value={this.state.username} name="username" required></input>
+                        <input className={"edit-input text"} onChange={this.handleTyping} type="text" placeholder="Enter Username" value={this.state.username} name="username" required></input>
                         
                         <label className={"label-default"} for="uname"><br></br><b> Favorite Meal: {this.state.favmeal} </b><br></br></label>
-                        <input maxLength={10} className={"edit-input text"} onChange={this.handleTyping} type="text" placeholder="Enter Favorite Meal" value={this.state.favmeal} name="favmeal" required></input>
+                        <input className={"edit-input text"} onChange={this.handleTyping} type="text" placeholder="Enter Favorite Meal" value={this.state.favmeal} name="favmeal" required></input>
                         
                         <label className={"label-default"} for="uname"><br></br><b>Age: {this.state.age}</b><br></br></label>
-                        <input maxLength={15} className={"edit-input text"} onChange={this.handleTyping} type="text" placeholder="Enter Age" value={this.state.age} name="age" required></input>
+                        <input className={"edit-input text"} onChange={this.handleTyping} type="text" placeholder="Enter Age" value={this.state.age} name="age" required></input>
                         
                         <label id={"psw-default"} className={"label-default"} for="psw"><br></br><b>Password: ******* </b><br></br></label>
                         <label id={"psw-edit"} className={"edit-input"} for="psw"><br></br><b>Password: {this.state.password} </b><br></br></label>
-                        <input maxLength={10} id={"psw-edit"} className={"edit-input"} onChange={this.handleTyping} type="password" placeholder="Enter Password" value={this.state.password} name="psw" required></input>
+                        <input id={"psw-edit"} className={"edit-input"} onChange={this.handleTyping} type="password" placeholder="Enter Password" value={this.state.password} name="psw" required></input>
                     
                         <button id={"edit"} className={"label-default"} onClick={this.handleEditClick} >Edit<br></br></button>
                         <button id={"cancel"} className="edit-input" onClick={this.handleCancelClick} >Cancel<br></br></button><br></br>
