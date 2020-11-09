@@ -54,6 +54,9 @@ Admins can add users by typing in account info on the user table and pressing "A
 ### View a user's timeline
 Admins can view a specific user's timeline, including their posts and saved posts by clicking the "Timeline" button next to the user. 
 
+### Review posts on a user's timeline
+Admins can review posts on a specific user's timeline, including their posts and saved posts. However, they will review posts as if they are the user, not the admin. This means the review will be from the user they are viewing.
+
 ### Search/Delete Posts
 Admins can add search for posts in the Post table and delete posts by clicking the "Delete" button next to a post.
 
