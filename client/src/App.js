@@ -24,7 +24,8 @@ import profilePic from "./images/profile.png";
 import adminPic from "./images/admin.png";
 
 class App extends React.Component {
-
+  // Get accounts from server
+  // code below requires server call
   // a 'global' state that you can pass through to any child componenets of App.
   state = {
     accounts: [
@@ -179,7 +180,9 @@ class App extends React.Component {
 
 export default App;
 
-// TODO: below statements contain mock data - remove once API is implemented
+// Get posts from server (server will have objects that contain accounts and posts together)
+// code below requires server call
+// below statements contain mock data
 const eddiePosts = [{
   userName: "Eddie",
   profilePic: eddie,

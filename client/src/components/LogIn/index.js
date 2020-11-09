@@ -26,13 +26,15 @@ class LogIn extends React.Component {
     const name = target.name;
 
     this.setState({
-      [name]: value // [name] sets the object property name to the value of the `name` variable.
+      [name]: value 
     });
   };
 
+  
   render() {
     return (
       <div className="App">
+      {/* Log In Form component with text and function props*/}
         <LogInForm
           userName={this.state.userName}
           password={this.state.password}

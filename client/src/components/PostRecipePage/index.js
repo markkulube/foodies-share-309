@@ -7,7 +7,7 @@ import Timeline from "./../Timeline";
 // Importing actions/required methods
 import { addRecipeFunc } from "../../actions/addRecipe";
 
-/* Component for the SignUp page */
+/* Component for the PostRecipePage page */
 class PostRecipePage extends React.Component {
 
 constructor(props) {
@@ -20,7 +20,6 @@ constructor(props) {
          instruction:""
     };
 
-    this.handleInputChange = this.handleInputChange.bind(this);
 }
 
   // Generic handler for whenever we type in an input box.
@@ -30,13 +29,14 @@ constructor(props) {
     const name = target.name;
 
     this.setState({
-      [name]: value // [name] sets the object property name to the value of the `name` variable.
+      [name]: value 
     });
   };
 
   render() {
     return (
       <div className="App">
+      {/* Post Recipe component with text and function props*/}
         <PostRecipe
            recipeName={this.state.recipeName}
            description={this.state.description}

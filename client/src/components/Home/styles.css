@@ -43,7 +43,7 @@ body
   border: 2px #33522c solid;
   text-decoration: none;
 }
-/* Increase specificity to override component styles */
+
  .MuiButton-root.signup_button:hover {
   background-color: #8cc63f;
   border: 5px #33522c solid;
@@ -65,7 +65,7 @@ body
   border: 2px #33522c solid;
   text-decoration: none;
 }
-/* Increase specificity to override component styles */
+
  .MuiButton-root.login_button:hover {
   background-color:#8cc63f9e;
   border: 5px #33522c solid;

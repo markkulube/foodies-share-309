@@ -1,8 +1,11 @@
 import profilePic from "../images/profile.png";
 
-// Methods in this file modifies the SignUp component state
+// Methods in this file modifies the global appState
 const log = console.log;
 
+
+// Want to push new account to the server
+// code below requires server call
 // Function to add an account
 export const addAccount = signup => {
   const accountList = signup.props.appState.accounts;
@@ -28,6 +31,8 @@ export const addAccount = signup => {
   });
 };
 
+// Want to pull accounts from the server
+// code below requires server call
 // Function to verify an account
 export const checkAccount = signup => {
   const accountList = signup.state.accounts;
@@ -75,6 +80,9 @@ export const checkAccount = signup => {
   
 };
 
+// Want to alter account info to "loggedOut"
+// code below requires server call
+// Function to set currentUser to null and sign out
 export const signOut = signup => {
   const app_accountList = signup.props.appState.accounts;
   
@@ -88,7 +96,6 @@ export const signOut = signup => {
         }
    }
  
-
 };
 
   

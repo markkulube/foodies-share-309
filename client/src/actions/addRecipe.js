@@ -1,3 +1,11 @@
+// Methods in this file modifies the global appState
+//Methods mainly used to save/create recipes in account objects
+const log = console.log;
+
+
+// Want to alter account info and push to server
+// code below requires server call
+// Function to add recipe to an account
 export const addRecipeFunc = addRecipe => {
     const currentUser = addRecipe.props.appState.currentUser;
 
@@ -26,6 +34,9 @@ export const addRecipeFunc = addRecipe => {
 
 }
 
+// Want to alter account info and push to server
+// code below requires server call
+// Function to add recipe to an account's favourite recipes
 export const addtoFavourites = addRecipe => {
 
     let flag=true;
