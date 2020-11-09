@@ -3,11 +3,15 @@ import ModalPosts from '../ModalPosts/ModalPosts'
 
 import "./AdminTable.css"
 
+/**
+ * User table with registration info of all users
+ * that are username, age, password, and favmeal
+ */
 class AdminTable extends Component {
 
     constructor(props) {
         super(props)
-    
+        // API call: GET all user account info from server MongoDB.
         this.state = {
              table_len: props.appState.accounts.length + 2,
              modalDisplay: false,
@@ -21,7 +25,7 @@ class AdminTable extends Component {
         this.showModalPosts = this.showModalPosts.bind(this)  
     }
     
-
+    // Handle click event that enable editing of user info.
     editRow(e) {
         let no = e.target.name
         document.getElementById("edit_button"+no).style.display="none";
@@ -43,6 +47,7 @@ class AdminTable extends Component {
         favmeal.innerHTML="<input type='text' name='"+favmeal_data +"' id='favmeal_text"+no+"' value='"+favmeal_data+"'>";
     }
 
+    // Handle click event that saves updates of user account info.
     saveRow(e) {
         let no = e.target.name
 
@@ -53,6 +58,7 @@ class AdminTable extends Component {
         let password_val=document.getElementById("password_text"+no).value;
         let favmeal_val=document.getElementById("favmeal_text"+no).value;
  
+        // API call: POST request to server updating user account info in MongoDB 
         let accounts = this.props.appState.accounts
         accounts.forEach(account => {
             if (account.userName===oldUserName) {
@@ -76,11 +82,13 @@ class AdminTable extends Component {
         document.getElementById("save_button"+no).style.display="none";
     }
 
+     // Handle click event that deletes of user account info.
     deleteRow(e) {
         let no = e.target.name
 
         let username = document.getElementById("username"+no+"").innerHTML
         
+        // API call: POST request to server deleting user account info in MongoDB 
         let accounts = this.props.appState.accounts
         
         for (let index = 0; index < accounts.length; index++) {
@@ -94,6 +102,7 @@ class AdminTable extends Component {
         document.getElementById("row"+no+"").outerHTML="";
     }
 
+    // Handle click event that creates new user account info.
     addRow(e) {
         let new_username=document.getElementById("new_username").value;
         let new_age=document.getElementById("new_age").value;
@@ -114,7 +123,7 @@ class AdminTable extends Component {
                 isLoggedIn: false,
                 posts:[]
             }
-        
+        // API call: POST request to server creating new user account info in MongoDB 
         this.props.appState.accounts.push(newUser)
 
         document.getElementById("new_username").value="";
@@ -127,6 +136,7 @@ class AdminTable extends Component {
           });
     }
 
+    // Handle click event that renders a modal box display user timeline.
     showModalPosts(e) {
 
         let row = e.target.name
@@ -149,6 +159,7 @@ class AdminTable extends Component {
             display: 'none'
         }
 
+        // API Call: GET all user account info from server/MongoDB
         let accounts = this.props.appState.accounts
 
         let row = 1
@@ -177,6 +188,7 @@ class AdminTable extends Component {
 
     }
 
+    // Filter user table based on input in search bar.
     myFunction() {
         let input = document.getElementById("admin-search");
         let filter = input.value.toUpperCase();
