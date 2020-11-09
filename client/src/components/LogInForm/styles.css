@@ -32,7 +32,6 @@ position:absolute;
 
 .logIn-form__button-grid {
   line-height: 5;
-
   justify-content: center;
   direction:"column";
   alignItems:"center";
