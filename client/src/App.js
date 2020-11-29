@@ -149,7 +149,47 @@ class App extends React.Component {
     }
   }
 
+  // An example of how to call a GET backend API from the frontend.
+  // TODO: example fetch method; remove this later on.
+  getExample = async () => {
+    try {
+      const response = await fetch(new Request('/api/all', {
+        method: 'get'
+      }));
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  // An example of how to call a POST backend API from the frontend.
+  // TODO: example fetch method; remove this later on.
+  postExample = async (userName, password, age, favMeal) => {
+    try {
+      const response = await fetch(new Request('/api/user', {
+        method: 'post',
+        body: JSON.stringify({
+          userName: userName,
+          password: password,
+          age: age,
+          favMeal: favMeal
+        }),
+        headers: {
+          Accept: "application/json, text/plain, */*",
+          "Content-Type": "application/json"
+        }
+      }));
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   render() {
+    this.getExample().catch(e => console.log(e));  // TODO: example fetch method call; remove this later on.
+
     return (
         <div>
         <BrowserRouter>
@@ -171,6 +211,8 @@ class App extends React.Component {
                             (<Admin appState={this.state}/>)}/>
             <Route exact path='/PostRecipePage' render={() =>
                             (<PostRecipePage appState={this.state}/>)}/>
+            {/* TODO: Render a custom 404 page. */}
+            <Route render={() => <div>404: Page Not Found</div>}/>
           </Switch>
         </BrowserRouter>
       </div>
