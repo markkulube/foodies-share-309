@@ -54,6 +54,7 @@ const mongoChecker = (req, res, next) => {
 }
 
 // Middleware function for authenticating users.
+// TODO: @Brandon, this is an example authenticator, feel free to change or replace it to fit your needs.
 const authenticate = async (req, res, next) => {
     if (req.session.user) {
         try {
@@ -89,6 +90,7 @@ app.use(session({
 // -------------------------- //
 
 // Login with the given credentials.
+// TODO: This is an example route, feel free to delete if it conflicts with a route you need to create.
 app.post('/api/login', async (req, res) => {
     console.log("POST request for api/login");
 
@@ -117,13 +119,14 @@ app.get('/api/logout', (req, res) => {
     req.session.destroy(error => error ? res.status(500).send(error) : res.send());
 });
 
-// TODO: Add routes to login, logout, and check authentication using the session here.
+// TODO: Add more routes to login, logout, and check authentication using the session here.
 
 
 // ==== API Route Handling ==== //
 // ---------------------------- //
 
 // Retrieve all existing data from server as a test.
+// TODO: This is an example route, feel free to delete if it conflicts with a route you need to create.
 app.get('/api/all', mongoChecker, async (req, res) => {
     console.log("GET request for api/all");
 
@@ -144,12 +147,14 @@ app.get('/api/all', mongoChecker, async (req, res) => {
 });
 
 // Retrieve the currently authenticated user.
+// TODO: This is an example route, feel free to delete if it conflicts with a route you need to create.
 app.get('/api/user', mongoChecker, authenticate, async (req, res) => {
     console.log(`GET request for api/user: user=${req.user._id}`);
     res.send(req.user);
 });
 
 // Create a new user with the given request data.
+// TODO: This is an example route, feel free to delete if it conflicts with a route you need to create.
 app.post('/api/user', mongoChecker, async (req, res) => {
     console.log("POST request for api/user");
 
@@ -158,8 +163,9 @@ app.post('/api/user', mongoChecker, async (req, res) => {
         password: req.body.password,
         age: req.body.age,
         favMeal: req.body.favMeal,
-        favPosts: [],
-        isAdmin: false
+        savedPosts: [],
+        isAdmin: false,
+        likedPosts: []
     });
 
     try {
@@ -174,6 +180,8 @@ app.post('/api/user', mongoChecker, async (req, res) => {
     }
 });
 
+// Delete the given user from the database.
+// TODO: This is an example route, feel free to delete if it conflicts with a route you need to create.
 app.delete('/api/user', mongoChecker, async (req, res) => {
     console.log('DELETE request for api/user');
 
@@ -190,7 +198,7 @@ app.delete('/api/user', mongoChecker, async (req, res) => {
     }
 });
 
-// TODO: Add routes to get server data here.
+// TODO: Add more routes to get server data here.
 
 
 // ==== Serving Frontend ==== //

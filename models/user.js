@@ -14,8 +14,8 @@ const UserSchema = new mongoose.Schema({
     // The username of this user.
     userName: {
         type: String,
-        required: true,
-        minlength: 1,
+        required: [true, "Username is required."],
+        minlength: [1, "Password cannot be empty."],
         trim: true,
         unique: true
     },
@@ -25,20 +25,18 @@ const UserSchema = new mongoose.Schema({
     // The password of this user's account.
     password: {
         type: String,
-        required: true,
-        minlength: 1
+        required: [true, "Password is required."],
+        minlength: [1, "Password cannot be empty."]
     },
 
     // The age of this user.
     age: {
-        type: Number,
-        required: false
+        type: Number
     },
 
     // This user's favourite meal.
     favMeal: {
         type: String,
-        required: false,
         minlength: 1,
         trim: true
     },
@@ -46,7 +44,7 @@ const UserSchema = new mongoose.Schema({
     // TODO: Refer to insight (1) for why "posts" is missing.
 
     // A list of the _id's of posts this user has added to favourites.
-    favPosts: [{
+    savedPosts: [{
         type: mongoose.Schema.Types.ObjectID,
         required: true,
         ref: 'Post'
@@ -55,7 +53,7 @@ const UserSchema = new mongoose.Schema({
     // Whether or not this user is an admin.
     isAdmin: {
         type: Boolean,
-        required: true
+        required: [true, "User must be defined as regular or admin."]
     },
 
     // A list of the _id's of posts this user has liked.

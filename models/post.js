@@ -14,7 +14,7 @@ const PostSchema = new mongoose.Schema({
     // The username of this post's creator.
     userName: {
         type: String,
-        required: true,
+        required: [true, "Username is required."],
         minlength: 1,
         trim: true
     },
@@ -24,33 +24,33 @@ const PostSchema = new mongoose.Schema({
     // The title of this post.
     title: {
         type: String,
-        required: true,
+        required: [true, "Title is required."],
         trim: true
     },
 
     // The description of this post.
     description: {
         type: String,
-        required: true,
+        required: [true, "Description is required."],
         trim: true
     },
 
     // The date this post was created.
     datePosted: {
         type: Date,
-        required: true
+        required: [true, "Date posted is required."]
     },
 
     // The ingredients for the recipe in this post.
     ingredients: {
         type: [String],
-        required: true
+        required: [true, "Ingredients are required."]
     },
 
     // The steps for making the recipe in this post.
     steps: {
         type: [String],
-        required: true
+        required: [true, "Steps are required."]
     },
 
     // The reviews on this post.

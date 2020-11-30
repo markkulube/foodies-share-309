@@ -11,7 +11,7 @@ const ReviewSchema = new mongoose.Schema({
     // The username of this review's creator.
     userName: {
         type: String,
-        required: true,
+        required: [true, "Username is required."],
         minlength: 1,
         trim: true
     },
@@ -21,7 +21,7 @@ const ReviewSchema = new mongoose.Schema({
     // The content of this review.
     content: {
         type: String,
-        required: true,
+        required: [true, "Content is required."],
         trim: true
     },
 
