@@ -1,24 +1,34 @@
 {
-  "name": "express_server",
+  "name": "team53",
   "version": "1.0.0",
-  "description": "",
+  "description": "Team project - Foodies",
   "main": "server.js",
   "scripts": {
-    "setup": "npm install && cd client && npm install && cd ..",
-    "build-run": "cd client && npm run build && cd .. && node server.js",
+    "setup": "npm install && cd client && npm install",
     "start": "node server.js",
+    "dev": "concurrently \"nodemon server.js\" \"cd client && npm start\"",
     "heroku-postbuild": "cd client && npm install && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/csc309-fall-2020/team53.git"
+  },
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/csc309-fall-2020/team53/issues"
+  },
+  "homepage": "https://github.com/csc309-fall-2020/team53#readme",
+  "devDependencies": {
+    "concurrently": "^5.3.0"
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
-    "express-session": "^1.17.0",
-    "mongodb": "^3.5.9",
-    "mongoose": "^5.9.26",
-    "validator": "^13.1.1"
+    "express-session": "^1.17.1",
+    "mongodb": "^3.6.3",
+    "mongoose": "^5.10.17"
   }
 }
