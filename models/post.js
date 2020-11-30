@@ -28,6 +28,12 @@ const PostSchema = new mongoose.Schema({
         trim: true
     },
 
+    // The food category of this post's recipe.
+    category: {
+        type: String,
+        required: [true, "Category is required."],
+    },
+
     // The description of this post.
     description: {
         type: String,
