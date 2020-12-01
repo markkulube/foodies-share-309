@@ -20,6 +20,11 @@ const PostSchema = new mongoose.Schema({
     },
 
     // TODO: Refer to insight (1) for why "profilePic" is missing.
+    profilePic: {
+        type: String,
+        required: true,
+        trim: true
+    },
 
     // The title of this post.
     title: {
@@ -35,7 +40,7 @@ const PostSchema = new mongoose.Schema({
     },
 
     // The description of this post.
-    description: {
+    desc: {
         type: String,
         required: [true, "Description is required."],
         trim: true

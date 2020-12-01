@@ -21,7 +21,12 @@ const UserSchema = new mongoose.Schema({
     },
 
     // TODO: Refer to insight (2) for why "profilePic" is temporarily missing.
-
+    profilePic: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    
     // The password of this user's account.
     password: {
         type: String,

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import Input from "./../Input";
 import { TextField } from "@material-ui/core";
-import {addRecipeFunc} from "../../actions/addRecipe";
+import {addRecipeFunc} from "../../actions/post";
 
 //stylesheet
 import "./PostRecipe.css"
