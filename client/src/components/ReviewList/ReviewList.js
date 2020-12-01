@@ -41,7 +41,7 @@ export default class ReviewList extends React.Component {
 
     render() {
         // get the username and profile picture of the user viewing this ReviewList.
-        const { username, profilePic } = this.props;
+        const { currentUser, profilePic } = this.props;
 
         return(
             <div id={"review-list-container"}>
@@ -53,7 +53,7 @@ export default class ReviewList extends React.Component {
                                   placeholder={"Write a review"}/>
                         <Stars rating={this.state.currentRating} updateStar={updateStar} parent={this}/>
                         <button onClick={() =>
-                            handleCreateReview(this, username, this.state.content, this.state.currentRating)}>
+                            handleCreateReview(this, currentUser.userName, this.state.content, this.state.currentRating)}>
                             Post
                         </button>
                     </div>

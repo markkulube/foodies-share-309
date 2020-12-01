@@ -125,7 +125,7 @@ export default class Timeline extends React.Component {
                 <Feed
                     posts={this.state.posts}
                     profilePic={profilePic}
-                    username={this.state.currentUser.userName || ""}
+                    currentUser={this.state.currentUser}
                     handleSearchFilter={handleSearchFilter}
                     parent={this}
                     deletePost={deletePost}
