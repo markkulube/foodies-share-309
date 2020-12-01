@@ -165,7 +165,8 @@ app.post('/api/user', mongoChecker, async (req, res) => {
         favMeal: req.body.favMeal,
         savedPosts: [],
         isAdmin: false,
-        likedPosts: []
+        likedPosts: [],
+        dislikedPosts: []
     });
 
     try {

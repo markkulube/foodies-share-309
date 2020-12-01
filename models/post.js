@@ -60,10 +60,7 @@ const PostSchema = new mongoose.Schema({
     },
 
     // The reviews on this post.
-    reviews: [{
-        type: ReviewSchema,
-        required: true
-    }],
+    reviews: [ReviewSchema],
 
     // The number of likes this post has.
     likes: {
