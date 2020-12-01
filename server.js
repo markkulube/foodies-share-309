@@ -244,6 +244,37 @@ app.post('/api/post', mongoChecker, async (req, res) => {
     }
 })
 
+app.get("/api/timeline/post", mongoChecker, async (req, res) => {
+    console.log("GET request for api/timeline/post");
+
+    try {
+        res.send(await Post.find());
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Internal server error");
+    }
+});
+
+app.delete("/api/timeline/post", mongoChecker, authenticate, async (req, res) => {
+    console.log("DELETE request for api/timeline/post");
+
+    if (!ObjectID(req.user._id).equals(ObjectID(req.body.creator))) {
+        res.status(401).send("Unauthorized");
+        return;
+    }
+
+    try {
+        res.send(await Post.findOneAndRemove({ _id: ObjectID(req.body.postId) }));
+    } catch (error) {
+        console.log(error);
+        if (isMongoError(error)) {
+            res.status(500).send('Internal server error');
+        } else {
+            res.status(400).send('Bad Request');  // 400 for bad request gets sent to client.
+        }
+    }
+});
+
 // ==== Serving Frontend ==== //
 // -------------------------- //
 

@@ -7,7 +7,7 @@ import "./Post.css"
 import ReviewList from "../ReviewList/ReviewList";
 
 // logic imports
-import { handleLikeDislike, getLikeStatus } from "./PostLogic";
+import { handleLikeDislike, deletePost } from "./PostLogic";
 import { addtoFavourites } from "../../actions/addRecipe";
 
 /**
@@ -31,9 +31,9 @@ class Post extends React.Component{
     }
 
     componentDidMount() {
-        const { appState, username, post } = this.props;
+        const { post } = this.props;
         // determine status for like/dislike of this post
-        const status = getLikeStatus(this, appState.accounts, username, post);
+        const status = post.liked;
 
         switch (status) {
             case 0:  // disliked
@@ -101,7 +101,7 @@ class Post extends React.Component{
     }
 
     render() {
-        const { username, profilePic, post, canSave, appState, deletePost, timeline } = this.props;
+        const { username, profilePic, post, canSave } = this.props;
 
         // decide whether to render active or inactive like button
         const likeButton = this.renderLike(this.state.liked);
@@ -116,7 +116,7 @@ class Post extends React.Component{
                     <img src={post.profilePic} className="profilePic" alt="profile picture"/>
                     <h3 className="username">{post.userName}</h3>
                     {canSave &&
-                        <button className="save" onClick={() => addtoFavourites(this, appState, post)}>
+                        <button className="save" onClick={() => console.log("Add to favourites")}>
                             Save to Favourites
                         </button>
                     }
@@ -129,7 +129,6 @@ class Post extends React.Component{
                         category={post.category}
                         ingredients={post.ingredients}
                         steps={post.steps}
-                        appState={appState}
                         username={username}
                         datePosted={post.datePosted}
                     />
@@ -138,7 +137,7 @@ class Post extends React.Component{
                 {dislikeButton}
                 <button className="nonLike" onClick={this.toggleShowHide}>{this.state.reviewsButton}</button>
                 { username === post.userName &&
-                    <button className="delete red" onClick={() => deletePost(timeline, post)}>Delete</button>
+                    <button className="delete red" onClick={() => deletePost(post.creator, post._id)}>Delete</button>
                 }
                 <UnmountClosed isOpened={this.state.isOpened}>
                     <ReviewList username={username} profilePic={profilePic} reviews={post.reviews}/>

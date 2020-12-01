@@ -19,6 +19,7 @@ import postsPic from "../../images/posts.png";
 // import logic from logic file
 import { handleFilter, handleSearchFilter, deletePost, getAllPosts } from "./TimelineLogic";
 import { signOut } from "../../actions/signup";
+import { ObjectID } from "mongodb";
 
 /**
  * The main page after the login procedure. Display timeline of posts, option to create a post, and other navigation
@@ -32,24 +33,46 @@ export default class Timeline extends React.Component {
     constructor(props) {
         super(props);
         this.props.history.push("/Timeline");
+        this.state = {
+            posts: [],
+            currentUser: {}
+        }
     }
 
-     state = {
-          posts: []
-      }
+    async componentDidMount() {
+        // Fetch all posts and the current user.
+        const posts = await getAllPosts();
+        let user;
+        try {
+            const response = await fetch("/user/check-session");
+            user = (await response.json()).currentUser;
+        } catch (error) {
+            console.error(error);
+        }
 
-    componentDidMount() {
-        // begin by showing all posts
-        this.setState({ posts: getAllPosts(this) })
-        
-        if (this.props.app.state.currentUser.isAdmin) {
+        console.log("POSTS:", posts);
+
+        // Conditionally render the admin button based.
+        if (user.isAdmin) {
             document.getElementById('admin-button').style.display = 'inline-block';
-        } 
+        }
+
+        // Set liked or disliked status of each post according to the current user.
+        posts.forEach(post => {
+            if (user.likedPosts.find(postId => ObjectID(postId).equals(ObjectID(post._id)))) {
+                post.liked = 1;
+            } else if (user.dislikedPosts.find(postId => ObjectID(postId).equals(ObjectID(post._id)))) {
+                post.liked = 0;
+            } else {
+                post.liked = -1;
+            }
+        });
+
+        this.setState({ posts: posts });
+        this.setState({ currentUser: user });
     }
 
     render() {
-        const username = this.props.app.state.currentUser.userName;
-
         return(
             <div id={"timeline"}>
                 <div className={"side-container"}>
@@ -98,7 +121,7 @@ export default class Timeline extends React.Component {
                 <Feed
                     posts={this.state.posts}
                     profilePic={profilePic}
-                    username={username}
+                    username={this.state.currentUser.userName || ""}
                     handleSearchFilter={handleSearchFilter}
                     parent={this}
                     deletePost={deletePost}

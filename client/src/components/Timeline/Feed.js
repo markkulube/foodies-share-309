@@ -19,7 +19,7 @@ export default class Feed extends React.Component {
 
     render() {
         // obtain the list of post objects, profile picture, and current user from props
-        const { posts, profilePic, username, handleSearchFilter, parent, deletePost } = this.props;
+        const { posts, profilePic, username, handleSearchFilter, parent } = this.props;
 
         return (
             <div id={"feed-container"}>
@@ -34,12 +34,10 @@ export default class Feed extends React.Component {
 
                 <input onChange={(event) => handleSearchFilter(event, parent)} placeholder={"Search for a recipe"}/>
                 {
-                
                     posts.map(post => {
                         return (
                             <div key={uid(post)}>
-                                <Post username={username} profilePic={profilePic} post={post} canSave={true}
-                                      appState={parent.props.appState} deletePost={deletePost} timeline={parent}/>
+                                <Post username={username} profilePic={profilePic} post={post} canSave={true}/>
                                 <hr />
                             </div>
                         );

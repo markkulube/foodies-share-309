@@ -3,16 +3,19 @@
 /**
  * Return a list of all existing posts sorted by date posted (earliest first).
  */
-export const getAllPosts = (timeline) => {
-    // TODO: Replace use of appState with GET request for posts from server API.
+export const getAllPosts = async () => {
+    try {
+        const response = await fetch("/api/timeline/post");
+        const posts = await response.json();
 
-    // get a list of all existing posts from appState
-    const posts = [];
+        // Sort the posts by (descending) date posted.
+        posts.sort((a, b) => b.datePosted - a.datePosted);
 
-    // sort the posts by (descending) date posted
-    posts.sort((a, b) => b.datePosted - a.datePosted);
-
-    return posts;
+        return posts;
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
 }
 
 /**

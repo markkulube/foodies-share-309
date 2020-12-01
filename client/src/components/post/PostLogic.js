@@ -1,5 +1,26 @@
 /* Logic file for the Post component. */
 
+export const deletePost = async (creator, postId) => {
+    try {
+        const response = await fetch(new Request('/api/timeline/post', {
+            method: 'delete',
+            body: JSON.stringify({
+                creator: creator,
+                postId: postId
+            }),
+            headers: {
+                Accept: "application/json, text/plain, */*",
+                "Content-Type": "application/json"
+            }
+        }));
+        const deletedPost = await response.json();
+
+        console.log(`Deleted post: ${deletedPost}`);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 /**
  * Update the like/dislike state of this post and the global app state with a like action.
  *
@@ -69,35 +90,5 @@ export const handleLikeDislike = (component, appState, username, post, liking) =
             appState.accounts[posterIndex].posts[postIndex].dislikes--;
             component.setState({ disliked: false })
         }
-    }
-}
-
-/**
- * Return a status for what the like and dislike buttons should be rendered as.
- *  - If the post should be disliked, return 0.
- *  - If the post should be liked, return 1.
- *  - Otherwise, if both should be untouched, return -1.
- *
- * @param component {Post} The post component to determine state for.
- * @param accounts {Object[]} The complete list of accounts.
- * @param username {string} The username of the current user.
- * @param post {Object} The data for the post to render like/dislike for.
- * @returns {int} Status code describing what state like/dislike should be in.
- */
-export const getLikeStatus = (component, accounts, username, post) => {
-    // TODO: accounts will be replaced with an API call to GET like/dislike status of the post.
-    console.log(accounts)
-    // according to the likes of the user, decide whether or not to toggle like/dislike buttons on/off
-    const account = accounts.find((account) => account.userName === username);
-    const liked = account.likes.filter((curr) => (  // this should only ever return 0 or 1 post
-        curr[1].getTime() === post.datePosted.getTime() && curr[0] === post.userName
-    ))
-
-    if (liked.length > 0) {  // user either liked of disliked this post
-        // if status is 1, user liked the post, otherwise, it's 0 -> user disliked the post
-        return liked[0][2];
-    } else {
-        // liked and disliked both stay inactive
-        return -1
     }
 }
