@@ -91,7 +91,7 @@ app.use(session({
 
 // Login with the given credentials.
 // TODO: This is an example route, feel free to delete if it conflicts with a route you need to create.
-app.post('/api/login', async (req, res) => {
+app.post('/user/login', async (req, res) => {
     console.log("POST request for api/login");
 
     const userName = req.body.userName;
@@ -109,7 +109,7 @@ app.post('/api/login', async (req, res) => {
         default:  // Must have found user.
             req.session.user = user;
             req.session.userName = user.userName;
-            res.send({ currentUser: user.userName });
+            res.send({ currentUser: user });
     }
 });
 
@@ -120,7 +120,14 @@ app.get('/api/logout', (req, res) => {
 });
 
 // TODO: Add more routes to login, logout, and check authentication using the session here.
-
+// A route to check if a user is logged in on the session
+app.get("/user/check-session", (req, res) => {
+    if (req.session.user) {
+        res.send({ currentUser: req.session.user });
+    } else {
+        res.status(401).send();
+    }
+});
 
 // ==== API Route Handling ==== //
 // ---------------------------- //
@@ -160,6 +167,7 @@ app.post('/api/user', mongoChecker, async (req, res) => {
 
     const user = new User({
         userName: req.body.userName,
+        profilePic: req.body.profilePic,
         password: req.body.password,
         age: req.body.age,
         favMeal: req.body.favMeal,
@@ -199,7 +207,41 @@ app.delete('/api/user', mongoChecker, async (req, res) => {
 });
 
 // TODO: Add more routes to get server data here.
+// a POST route to *create* a post
+app.post('/api/post', mongoChecker, async (req, res) => {
 
+    // Create a new post using the Post mongoose model
+    const post = new Post({
+        userName: req.body.userName,
+        profilePic: req.body.profilePic,
+        title: req.body.title,
+        category: req.body.category,
+        desc: req.body.desc,
+        datePosted: req.body.datePosted,
+        ingredients: req.body.ingredients,
+        steps: req.body.steps,
+        reviews: req.body.reviews,
+        likes: req.body.likes,
+        dislikes: req.body.dislikes,
+        creator: req.body.creator // creator id from the authenticate middleware
+   
+	})
+
+    // Save post to the database
+    // async-await version:
+    try {
+        const result = await post.save()
+        console.log(result) 
+        res.send(result)
+    } catch(error) {
+        console.log(error) // log server error to the console, not to the client.
+        if (isMongoError(error)) { // check for if mongo server suddenly dissconnected before this request.
+            res.status(500).send('Internal server error')
+        } else {
+            res.status(400).send('Bad Request') // 400 for bad request gets sent to client.
+        }
+    }
+})
 
 // ==== Serving Frontend ==== //
 // -------------------------- //

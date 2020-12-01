@@ -7,7 +7,7 @@ export const getAllPosts = (timeline) => {
     // TODO: Replace use of appState with GET request for posts from server API.
 
     // get a list of all existing posts from appState
-    const posts = timeline.props.appState.accounts.map(acc => acc.posts).flat();
+    const posts = [];
 
     // sort the posts by (descending) date posted
     posts.sort((a, b) => b.datePosted - a.datePosted);

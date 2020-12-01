@@ -5,7 +5,7 @@ import PostRecipe from "./../PostRecipe";
 import Timeline from "./../Timeline";
 
 // Importing actions/required methods
-import { addRecipeFunc } from "../../actions/addRecipe";
+import { addRecipeFunc } from "../../actions/post";
 
 /* Component for the PostRecipePage page */
 class PostRecipePage extends React.Component {

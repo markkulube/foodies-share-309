@@ -5,18 +5,20 @@ import LogInForm from "./../LogInForm";
 import Timeline from "../../components/Timeline";
 
 // Importing actions/required methods
-import { checkAccount } from "../../actions/signup";
+import { checkAccount } from "../../actions/user";
 import "./styles.css";
 
 /* Component for the LogIn page */
 class LogIn extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.props.history.push("/LogIn");
+  }
+
    state = {
-    username: "",
-    password: "",
-    flag:false,
-    accounts:[{ username: "user", password: "user" },
-      { username: "admin", password: "admin" }]
+    userName: "",
+    password: ""
   };
 
   // Generic handler for whenever we type in an input box.
@@ -32,6 +34,10 @@ class LogIn extends React.Component {
 
   
   render() {
+
+    const { app } = this.props
+    console.log(app)
+
     return (
       <div className="App">
       {/* Log In Form component with text and function props*/}
@@ -39,11 +45,10 @@ class LogIn extends React.Component {
           userName={this.state.userName}
           password={this.state.password}
           handleChange={this.handleInputChange}
-          checkAccount={() => checkAccount(this)}
+          checkAccount={() => checkAccount(this, app)}
         />
-          {this.state.flag&&
-            <Redirect to="/Timeline" render={() => 
-                            (<Timeline appState={this.state}/>)}/>
+          {app.state.currentUser&&
+             <Redirect to='/Timeline' render={props => <Timeline {...props} app={this}/>} />
           }
       </div>
     );

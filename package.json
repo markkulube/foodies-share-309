@@ -4,7 +4,8 @@
   "description": "Team project - Foodies",
   "main": "server.js",
   "scripts": {
-    "setup": "npm install && cd client && npm install",
+    "setup": "npm install && cd client && npm install && cd ..",
+    "build-run": "cd client && npm run build && cd .. && node server.js",
     "start": "node server.js",
     "dev": "concurrently \"nodemon server.js\" \"cd client && npm start\"",
     "heroku-postbuild": "cd client && npm install && npm run build",
