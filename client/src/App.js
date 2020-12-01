@@ -2,7 +2,7 @@
 import React from 'react';
 
 // Importing react-router-dom to use the React Router
-import { Route, Switch, BrowserRouter } from 'react-router-dom';
+import { Route, Switch, BrowserRouter, Redirect } from 'react-router-dom';
 import './App.css';
 
 // Importing the Queue and our simple Home Page
@@ -22,131 +22,21 @@ import keren from "./images/keren.png";
 import brandon from "./images/brandon.png";
 import profilePic from "./images/profile.png";
 import adminPic from "./images/admin.png";
+import { checkSession } from "./actions/user";
 
 class App extends React.Component {
   // Get accounts from server
   // code below requires server call
   // a 'global' state that you can pass through to any child componenets of App.
+
+  constructor(props) 
+  {
+      super(props);
+      checkSession(this);
+  }
+
   state = {
-    accounts: [
-      {
-        userName: "user",
-        profilePic: profilePic,
-        password: "user",
-        age: "404",
-        favMeal: "Filet Mignon",
-        posts: userPosts,
-        favPost: markPosts,
-        isLoggedIn: false,
-        isAdmin: false,
-        likes: [
-            [eddiePosts[0].userName, eddiePosts[0].datePosted, 1],  // 1 = like, 0 = dislike
-            [markPosts[0].userName, markPosts[0].datePosted, 1],
-            [adminPosts[0].userName, adminPosts[0].datePosted, 0]
-        ],
-        savedPosts: []
-      },
-      {
-        userName: "admin",
-        profilePic: adminPic,
-        password: "admin",
-        age: "30",
-        favMeal: "Sliced Oranges",
-        posts: adminPosts,
-        isLoggedIn: false,
-        isAdmin: true,
-        likes: [  // 1 == like, 0 == dislike
-          [eddiePosts[0].userName, eddiePosts[0].datePosted, 1],
-          [markPosts[0].userName, markPosts[0].datePosted, 0]
-        ],
-        savedPosts: []
-      },
-      {
-        userName: "Eddie",
-        profilePic: eddie,
-        password: "password",
-        age: "20",
-        favMeal: "Pho",
-        posts: eddiePosts,
-        isLoggedIn: false,
-        isAdmin: false,
-        likes: [  // 1 == like, 0 == dislike
-          [userPosts[0].userName, userPosts[0].datePosted, 1],
-          [markPosts[0].userName, markPosts[0].datePosted, 1],
-          [adminPosts[0].userName, adminPosts[0].datePosted, 0],
-          [brandonPosts[0].userName, brandonPosts[0].datePosted, 1],
-          [kerenPosts[0].userName, kerenPosts[0].datePosted, 1]
-        ],
-        savedPosts: []
-      },
-      {
-        userName: "Mark",
-        profilePic: mark,
-        password: "password",
-        age: "23",
-        favMeal: "Apple Pie",
-        posts: markPosts,
-        isLoggedIn: false,
-        isAdmin: false,
-        likes: [  // 1 == like, 0 == dislike
-          [userPosts[0].userName, userPosts[0].datePosted, 1],
-          [brandonPosts[0].userName, brandonPosts[0].datePosted, 1],
-          [kerenPosts[0].userName, kerenPosts[0].datePosted, 1]
-        ],
-        savedPosts: []
-      },
-      {
-        userName: "Keren",
-        profilePic: keren,
-        password: "password",
-        age: "21",
-        favMeal: "Japanese Curry",
-        posts: kerenPosts,
-        isLoggedIn: false,
-        isAdmin: false,
-        likes: [  // 1 == like, 0 == dislike
-          [userPosts[0].userName, userPosts[0].datePosted, 0],
-          [markPosts[0].userName, markPosts[0].datePosted, 1],
-          [adminPosts[0].userName, adminPosts[0].datePosted, 0],
-        ],
-        savedPosts: []
-      },
-      {
-        userName: "Brandon",
-        profilePic: brandon,
-        password: "password",
-        age: "22",
-        favMeal: "Cheeseburger",
-        posts: brandonPosts,
-        isLoggedIn: false,
-        isAdmin: false,
-        likes: [  // 1 == like, 0 == dislike
-          [eddiePosts[0].userName, eddiePosts[0].datePosted, 1],
-          [adminPosts[0].userName, adminPosts[0].datePosted, 0],
-          [brandonPosts[0].userName, brandonPosts[0].datePosted, 1],
-          [kerenPosts[0].userName, kerenPosts[0].datePosted, 1]
-        ],
-        savedPosts: []
-      }
-    ],
-    posts: [],
-    currentUser: {
-      userName: "user",
-      profilePic: profilePic,
-      password: "user",
-      age: "404",
-      favMeal: "Filet Mignon",
-      posts: userPosts,
-      favPosts: null,
-      isLoggedIn: true,
-      isAdmin: false,
-      likes: [
-        [eddiePosts[0].userName, eddiePosts[0].datePosted, 1],  // 1 = like, 0 = dislike
-        [markPosts[0].userName, markPosts[0].datePosted, 1],
-        [adminPosts[0].userName, adminPosts[0].datePosted, 0]
-      ],
-      savedPosts: []
-    }
+    currentUser: null
   }
 
   // An example of how to call a GET backend API from the frontend.
@@ -189,30 +79,27 @@ class App extends React.Component {
 
   render() {
     this.getExample().catch(e => console.log(e));  // TODO: example fetch method call; remove this later on.
+    const {currentUser} = this.state;
+    console.log(currentUser)
 
     return (
         <div>
         <BrowserRouter>
-          <Switch> { /* Similar to a switch statement - shows the component depending on the URL path */ }
+          <Switch> 
             { /* Each Route below shows a different component depending on the exact path in the URL  */ }
-            <Route exact path='/' render={() => 
-                            (<Home appState={this.state}/>)}/>
-            <Route exact path='/SignUp' render={() => 
-                            (<SignUp appState={this.state}/>)}/>
-            <Route exact path='/LogIn' render={() => 
-                            (<LogIn appState={this.state}/>)}/>
-            <Route exact path='/Timeline' render={() => 
-                            (<Timeline appState={this.state}/>)}/>
-            <Route exact path='/UserTimeline' render={() => 
-                            (<UserTimeline appState={this.state}/>)}/>
-            <Route exact path='/AccountInfo' render={() => 
-                            (<AccountInfo appState={this.state}/>)}/>
-            <Route exact path='/Admin' render={() => 
-                            (<Admin appState={this.state}/>)}/>
-            <Route exact path='/PostRecipePage' render={() =>
-                            (<PostRecipePage appState={this.state}/>)}/>
-            {/* TODO: Render a custom 404 page. */}
-            <Route render={() => <div>404: Page Not Found</div>}/>
+            <Route exact path="/" render={props => <Home {...props} app={this} />} />
+            <Route exact path='/SignUp' render={props => <SignUp {...props} app={this}/>} />
+            <Route exact path='/LogIn' render={props => <LogIn {...props} app={this}/>} />
+            <Route exact path='/PostRecipePage' render={props => <PostRecipePage {...props} app={this}/>} />
+            <Route
+               exact path={["/", "/Timeline"]}
+               render={ props => (
+                <div className="app">
+                {!currentUser ? <Home {...props} app={this} /> : <Timeline {...props} app={this} />}
+                </div>                   // ... spread operator - provides all of the props in the props object
+                            
+                        )}
+                    />
           </Switch>
         </BrowserRouter>
       </div>
@@ -225,6 +112,7 @@ export default App;
 // Get posts from server (server will have objects that contain accounts and posts together)
 // code below requires server call
 // below statements contain mock data
+
 const eddiePosts = [{
   userName: "Eddie",
   profilePic: eddie,
@@ -449,3 +337,5 @@ const adminPosts = [{
   likes: 3,
   dislikes: 4
 }]
+
+

@@ -19,6 +19,7 @@ class SignUpForm extends React.Component {
       handleChange,
       addAccount,
     } = this.props;
+
     
     return (
     <div className="parent">
@@ -59,7 +60,7 @@ class SignUpForm extends React.Component {
           item
           xs={12}
         >
-         <Link className="signUp_button-link" to={"./Timeline"}>
+         <Link className="signUp_button-link" to={"./Login"}>
           <Button
             variant="contained"
             color="primary"

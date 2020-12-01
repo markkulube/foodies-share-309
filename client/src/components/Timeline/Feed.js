@@ -34,7 +34,7 @@ export default class Feed extends React.Component {
 
                 <input onChange={(event) => handleSearchFilter(event, parent)} placeholder={"Search for a recipe"}/>
                 {
-
+                
                     posts.map(post => {
                         return (
                             <div key={uid(post)}>

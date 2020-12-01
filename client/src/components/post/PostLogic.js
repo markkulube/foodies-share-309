@@ -86,7 +86,7 @@ export const handleLikeDislike = (component, appState, username, post, liking) =
  */
 export const getLikeStatus = (component, accounts, username, post) => {
     // TODO: accounts will be replaced with an API call to GET like/dislike status of the post.
-
+    console.log(accounts)
     // according to the likes of the user, decide whether or not to toggle like/dislike buttons on/off
     const account = accounts.find((account) => account.userName === username);
     const liked = account.likes.filter((curr) => (  // this should only ever return 0 or 1 post

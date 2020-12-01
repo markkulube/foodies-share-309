@@ -31,22 +31,24 @@ export default class Timeline extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            posts: []
-        }
+        this.props.history.push("/Timeline");
     }
+
+     state = {
+          posts: []
+      }
 
     componentDidMount() {
         // begin by showing all posts
         this.setState({ posts: getAllPosts(this) })
         
-        if (this.props.appState.currentUser.isAdmin) {
+        if (this.props.app.state.currentUser.isAdmin) {
             document.getElementById('admin-button').style.display = 'inline-block';
         } 
     }
 
     render() {
-        const username = this.props.appState.currentUser.userName;
+        const username = this.props.app.state.currentUser.userName;
 
         return(
             <div id={"timeline"}>

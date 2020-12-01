@@ -2,26 +2,25 @@ import React from "react";
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 
 import SignUpForm from "./../SignUpForm";
-import Timeline from "../../components/Timeline";
+import LogIn from "../../components/LogIn";
 
 // Importing actions/required methods
-import { addAccount } from "../../actions/signup";
+import { addAccount } from "../../actions/user";
 
 /* Component for the SignUp page */
 class SignUp extends React.Component {
 
 constructor(props) {
     super(props);
-    this.state = {
+    this.props.history.push("/SignUp");
+}
+
+  state = {
       username: "",
       password: "",
       age: "",
-      typeMeal: "",
-      accounts:[{ username: "user", password: "user", age: "404", typeMeal: "Filet Mignon"},
-        { username: "admin", password: "admin", age: "30", typeMeal: "Sliced Oranges"}],
-      posts: []
-    };
-}
+      favMeal: "" 
+  };
 
   // Generic handler for whenever we type in an input box.
   handleInputChange = event => {
@@ -33,10 +32,10 @@ constructor(props) {
       [name]: value 
     });
 
-    console.log(this.state)
   };
 
   render() {
+
     return (
       <div className="App">
       {/* Sign Up Form component with text and function props*/}
@@ -50,8 +49,7 @@ constructor(props) {
         />
         <BrowserRouter>
           <Switch>
-            <Route exact path='/Timeline' render={() => 
-                            (<Timeline appState={this.state}/>)}/>
+             <Route exact path='/LogIn' render={props => <LogIn {...props} app={this}/>} />
           </Switch>
         </BrowserRouter>
       </div>
