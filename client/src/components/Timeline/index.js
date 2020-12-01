@@ -35,6 +35,7 @@ export default class Timeline extends React.Component {
         this.props.history.push("/Timeline");
         this.state = {
             posts: [],
+            allPosts: [],
             currentUser: {}
         }
     }
@@ -68,8 +69,11 @@ export default class Timeline extends React.Component {
             }
         });
 
-        this.setState({ posts: posts });
-        this.setState({ currentUser: user });
+        this.setState({
+            allPosts: posts,
+            posts: posts,
+            currentUser: user
+        });
     }
 
     render() {

@@ -1,5 +1,13 @@
 /* Logic file for the Post component. */
 
+/**
+ * Delete the post with the given _id.
+ * This process should only succeed when the current user matches the given creator.
+ *
+ * @param {string} creator -- The ObjectID string of the given post's creator.
+ * @param {string} postId -- The ObjectID string of the post to delete.
+ * @returns {Promise<void>}
+ */
 export const deletePost = async (creator, postId) => {
     try {
         const response = await fetch(new Request('/api/timeline/post', {

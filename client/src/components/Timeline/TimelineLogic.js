@@ -28,7 +28,7 @@ export const handleFilter = (timeline, option) => {
     console.log("filtering posts with option:", option);
 
     // get list of all posts (sorted)
-    const posts = getAllPosts(timeline);
+    const posts = timeline.state.allPosts;
 
     switch (option) {
         case "home":  // obtain all posts
@@ -68,7 +68,7 @@ export const handleSearchFilter = (event, timeline) => {
     console.log("filtering post with parameter:", value);
 
     // filter posts that match the user input, ignoring case
-    const target = getAllPosts(timeline).filter((post) => post.title.toLowerCase().includes(value))
+    const target = timeline.state.allPosts.filter((post) => post.title.toLowerCase().includes(value))
 
     timeline.setState({ posts: target })
 }
