@@ -12,15 +12,16 @@ class PostRecipePage extends React.Component {
 
 constructor(props) {
     super(props);
-    this.state = {
+     this.props.history.push("/PostRecipePage");
+}
+
+ state = {
          recipeName:"",
          description:"",
          category:"",
          ingredients:"",
          instruction:""
     };
-
-}
 
   // Generic handler for whenever we type in an input box.
   handleInputChange = event => {
@@ -34,6 +35,8 @@ constructor(props) {
   };
 
   render() {
+    const { app } = this.props
+    
     return (
       <div className="App">
       {/* Post Recipe component with text and function props*/}

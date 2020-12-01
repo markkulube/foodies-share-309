@@ -90,6 +90,7 @@ class App extends React.Component {
             <Route exact path="/" render={props => <Home {...props} app={this} />} />
             <Route exact path='/SignUp' render={props => <SignUp {...props} app={this}/>} />
             <Route exact path='/LogIn' render={props => <LogIn {...props} app={this}/>} />
+            <Route exact path='/PostRecipePage' render={props => <PostRecipePage {...props} app={this}/>} />
             <Route
                exact path={["/", "/Timeline"]}
                render={ props => (

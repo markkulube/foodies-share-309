@@ -36,7 +36,6 @@ class LogIn extends React.Component {
   render() {
 
     const { app } = this.props
-    console.log(app)
 
     return (
       <div className="App">

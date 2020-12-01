@@ -50,8 +50,6 @@ export default class Timeline extends React.Component {
     render() {
         const username = this.props.app.state.currentUser.userName;
 
-        console.log(this.props.app.state.currentUser)
-
         return(
             <div id={"timeline"}>
                 <div className={"side-container"}>

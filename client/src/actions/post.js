@@ -2,7 +2,7 @@ import profilePic from "../images/profile.png";
 
 // A function to send a POST request with a new user
 export const addRecipeFunc = addRecipe => {
-    const currentUser = addRecipe.props.appState.currentUser;
+    const currentUser = addRecipe.props.app.state.currentUser;
   
     // the URL for the request
     const url = "/api/post";
@@ -20,16 +20,9 @@ export const addRecipeFunc = addRecipe => {
         reviews: [],
         likes: 0,
         dislikes: 0,
-        creator: currentUser.userName
+        creator: currentUser._id
     };
 
-    // find index of the account of the recipe poster
-    const accIndex = addRecipe.props.appState.accounts.findIndex((account) => account.isLoggedIn);
-
-    // add the new post to their list of posts
-    if (accIndex !== -1) {
-        addRecipe.props.appState.accounts[accIndex].posts.push(post);
-    }
 
     // Create our request constructor with all the parameters we need
   const request = new Request(url, {

@@ -86,8 +86,9 @@ const PostSchema = new mongoose.Schema({
 
     // The _id of the user who created this post.
     creator: {
-        type: String,
-        required: true
+        type: mongoose.Schema.Types.ObjectID,
+        required: true,
+        ref: 'User'
     }
 
 });
