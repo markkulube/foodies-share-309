@@ -14,7 +14,8 @@ constructor(props) {
     super(props);
     this.props.history.push("/SignUp");
    
-    if(this.props.app.currentUser!==null){
+    if(this.props.app.state.currentUser!==null)
+    {
       this.props.history.push("/Timeline");
     }
 }
