@@ -37,7 +37,7 @@ export default class Feed extends React.Component {
                     posts.map(post => {
                         return (
                             <div key={uid(post)}>
-                                <Post currentUser={currentUser} profilePic={profilePic} post={post} canSave={true}/>
+                                <Post currentUser={currentUser} profilePic={profilePic} post={post} canSave={true} context={parent}/>
                                 <hr />
                             </div>
                         );

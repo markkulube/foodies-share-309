@@ -273,6 +273,8 @@ app.delete("/api/timeline/post", mongoChecker, authenticate, async (req, res) =>
             res.status(400).send('Bad Request');  // 400 for bad request gets sent to client.
         }
     }
+
+    // TODO: update any relevant data fields as well (any users who liked/disliked/saved this post, etc.)
 });
 
 app.post("/api/timeline/like", mongoChecker, authenticate, async (req, res) => {

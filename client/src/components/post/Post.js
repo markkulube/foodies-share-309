@@ -68,15 +68,15 @@ class Post extends React.Component{
      * @param liked {boolean} Whether or not this post is liked or not.
      */
     renderLike = (liked) => {
-        const { post } = this.props;
+        const { post, context } = this.props;
 
         if (liked) {
             return <button className={"link green"}
-                           onClick={() => handleLike(post._id)}>
+                           onClick={() => handleLike(post._id, context)}>
                 Like {post.likes}</button>;
         } else {
             return <button className={"link"}
-                           onClick={() => handleLike(post._id)}>
+                           onClick={() => handleLike(post._id, context)}>
                 Like {post.likes}</button>;
         }
     }
@@ -87,21 +87,21 @@ class Post extends React.Component{
      * @param disliked {boolean} Whether or not this post is disliked or not.
      */
     renderDislike = (disliked) => {
-        const { post } = this.props;
+        const { post, context } = this.props;
 
         if (disliked) {
             return <button className={"link red"}
-                                    onClick={() => handleDislike(post._id)}>
+                                    onClick={() => handleDislike(post._id, context)}>
                 Dislike {post.dislikes}</button>;
         } else {
             return <button className={"link"}
-                                    onClick={() => handleDislike(post._id)}>
+                                    onClick={() => handleDislike(post._id, context)}>
                 Dislike {post.dislikes}</button>;
         }
     }
 
     render() {
-        const { currentUser, profilePic, post, canSave } = this.props;
+        const { currentUser, profilePic, post, canSave, context } = this.props;
 
         // decide whether to render active or inactive like button
         const likeButton = this.renderLike(this.state.liked);
@@ -136,7 +136,7 @@ class Post extends React.Component{
                 {dislikeButton}
                 <button className="nonLike" onClick={this.toggleShowHide}>{this.state.reviewsButton}</button>
                 { currentUser.userName === post.userName &&
-                    <button className="delete red" onClick={() => deletePost(post.creator, post._id)}>Delete</button>
+                    <button className="delete red" onClick={() => deletePost(post.creator, post._id, context)}>Delete</button>
                 }
                 <UnmountClosed isOpened={this.state.isOpened}>
                     <ReviewList currentUser={currentUser} profilePic={profilePic} reviews={post.reviews}/>
