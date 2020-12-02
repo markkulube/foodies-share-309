@@ -70,6 +70,15 @@ class SignUpForm extends React.Component {
             Sign Up
           </Button>
         </Link>
+        <Link className="signUp_button-link" to={"./"}>
+          <Button
+            variant="contained"
+            color="primary"
+            className="signUp-form__submit-button"
+          >
+            Back to Home
+          </Button>
+          </Link>
         </Grid>
       </Grid>
 

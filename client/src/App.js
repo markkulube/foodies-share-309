@@ -38,7 +38,7 @@ class App extends React.Component {
   state = {
     currentUser: null
   }
-
+  
   // An example of how to call a GET backend API from the frontend.
   // TODO: example fetch method; remove this later on.
   getExample = async () => {
@@ -80,7 +80,6 @@ class App extends React.Component {
   render() {
     this.getExample().catch(e => console.log(e));  // TODO: example fetch method call; remove this later on.
     const {currentUser} = this.state;
-    console.log(currentUser)
 
     return (
         <div>
@@ -91,15 +90,17 @@ class App extends React.Component {
             <Route exact path='/SignUp' render={props => <SignUp {...props} app={this}/>} />
             <Route exact path='/LogIn' render={props => <LogIn {...props} app={this}/>} />
             <Route exact path='/PostRecipePage' render={props => <PostRecipePage {...props} app={this}/>} />
+            <Route exact path='/UserTimeline' render={props => <UserTimeline {...props} app={this}/>} />
+            <Route exact path='/AccountInfo' render={props => <AccountInfo {...props} app={this}/>} />
+            <Route exact path='/Admin' render={props => <Admin {...props} app={this}/>} />
             <Route
-               exact path={["/", "/Timeline"]}
+               exact path={["/", "/SignUp", "/LogIn", "/Timeline", "/PostRecipePage", "/UserTimeline", "/AccountInfo", "/Admin"]}
                render={ props => (
                 <div className="app">
                 {!currentUser ? <Home {...props} app={this} /> : <Timeline {...props} app={this} />}
                 </div>                   // ... spread operator - provides all of the props in the props object
-                            
-                        )}
-                    />
+                )}
+             />
           </Switch>
         </BrowserRouter>
       </div>
