@@ -265,6 +265,23 @@ app.delete("/api/timeline/post", mongoChecker, authenticate, async (req, res) =>
 
     try {
         res.send(await Post.findOneAndRemove({ _id: ObjectID(req.body.postId) }));
+
+        // Update all users who have interacted with this post in some way.
+        // Note: Reviews of a post will be deleted automatically since Review is a sub-document of Post.
+        const response = await User.updateMany(
+            { $or: [
+                { savedPosts: { $in: req.body.postId } },
+                { likedPosts: { $in: req.body.postId } },
+                { dislikedPosts: { $in: req.body.postId } }
+            ] },
+            { $pull: {
+                "savedPosts": req.body.postId,
+                "likedPosts": req.body.postId,
+                "dislikedPosts": req.body.postId
+            } }
+        );
+
+        console.log(`Matched ${response.n} documents and updated ${response.nModified} documents`);
     } catch (error) {
         console.log(error);
         if (isMongoError(error)) {
@@ -273,8 +290,6 @@ app.delete("/api/timeline/post", mongoChecker, authenticate, async (req, res) =>
             res.status(400).send('Bad Request');  // 400 for bad request gets sent to client.
         }
     }
-
-    // TODO: update any relevant data fields as well (any users who liked/disliked/saved this post, etc.)
 });
 
 app.post("/api/timeline/like", mongoChecker, authenticate, async (req, res) => {
