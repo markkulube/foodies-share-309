@@ -66,6 +66,13 @@ const UserSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectID,
         required: true,
         ref: 'Post'
+    }],
+
+    // A list of the _id's of posts this user has disliked.
+    dislikedPosts: [{
+        type: mongoose.Schema.Types.ObjectID,
+        required: true,
+        ref: 'Post'
     }]
 
 });

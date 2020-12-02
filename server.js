@@ -173,7 +173,8 @@ app.post('/api/user', mongoChecker, async (req, res) => {
         favMeal: req.body.favMeal,
         savedPosts: [],
         isAdmin: false,
-        likedPosts: []
+        likedPosts: [],
+        dislikedPosts: []
     });
 
     try {
@@ -242,6 +243,232 @@ app.post('/api/post', mongoChecker, async (req, res) => {
         }
     }
 })
+
+app.get("/api/timeline/post", mongoChecker, async (req, res) => {
+    console.log("GET request for api/timeline/post");
+
+    try {
+        res.send(await Post.find());
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Internal server error");
+    }
+});
+
+app.delete("/api/timeline/post", mongoChecker, authenticate, async (req, res) => {
+    console.log("DELETE request for api/timeline/post");
+
+    if (!ObjectID(req.user._id).equals(ObjectID(req.body.creator))) {
+        res.status(401).send("Unauthorized");
+        return;
+    }
+
+    try {
+        res.send(await Post.findOneAndRemove({ _id: ObjectID(req.body.postId) }));
+
+        // Update all users who have interacted with this post in some way.
+        // Note: Reviews of a post will be deleted automatically since Review is a sub-document of Post.
+        const response = await User.updateMany(
+            { $or: [
+                { savedPosts: { $in: req.body.postId } },
+                { likedPosts: { $in: req.body.postId } },
+                { dislikedPosts: { $in: req.body.postId } }
+            ] },
+            { $pull: {
+                "savedPosts": req.body.postId,
+                "likedPosts": req.body.postId,
+                "dislikedPosts": req.body.postId
+            } }
+        );
+
+        console.log(`Matched ${response.n} documents and updated ${response.nModified} documents`);
+    } catch (error) {
+        console.log(error);
+        if (isMongoError(error)) {
+            res.status(500).send('Internal server error');
+        } else {
+            res.status(400).send('Bad Request');  // 400 for bad request gets sent to client.
+        }
+    }
+});
+
+app.post("/api/timeline/like", mongoChecker, authenticate, async (req, res) => {
+    console.log("PATCH request for api/timeline/like");
+
+    // Check if postId is even defined.
+    let postId;
+    req.body.postId ? postId = req.body.postId : res.status(400).send("Bad request (0)");
+
+    let post, user;
+    try {
+        if (req.user.likedPosts.find(pId => ObjectID(pId).equals(ObjectID(postId)))) {
+            // If post is already liked by current user, un-like it.
+            post = await Post.findOneAndUpdate(
+                { _id: postId },
+                { $inc: { "likes": -1 } },
+                { new: true, useFindAndModify: false }
+            );
+            if (!post) {
+                res.status(400).send("Bad request (5.1)");
+                return;
+            }
+
+            user = await User.findOneAndUpdate(
+                { _id: req.user._id },
+                { $pull: { "likedPosts": postId } },
+                { new: true, useFindAndModify: false }
+            );
+            if (!user) {
+                res.status(400).send("Bad request (5.2)");
+            }
+        } else {
+            // If the user has previously disliked the post, remove the dislike from said user and post.
+            if (req.user.dislikedPosts.find(pId => ObjectID(pId).equals(ObjectID(postId)))) {
+                post = await Post.findOneAndUpdate(
+                    { _id: postId },
+                    { $inc: { "dislikes": -1 } },
+                    { new: true, useFindAndModify: false }
+                );
+                if (!post) {
+                    res.status(400).send("Bad request (4.1)");
+                    return;
+                }
+
+                user = await User.findOneAndUpdate(
+                    { _id: req.user._id },
+                    { $pull: { "dislikedPosts": postId } },
+                    { new: true, useFindAndModify: false }
+                );
+                if (!user) {
+                    res.status(400).send("Bad request (4.2)");
+                }
+            }
+
+            // Find the post with the given _id. If no match is found, terminate with bad request (400).
+            // Then, increment the given post's likes by 1.
+            post = await Post.findOneAndUpdate(
+                { _id: postId },
+                { $inc: { "likes": 1 } },
+                { new: true, useFindAndModify: false }
+            );
+            if (!post) {
+                res.status(400).send("Bad request (2)");
+                return;
+            }
+
+            // Add the given _id to the current user's likedPosts.
+            user = await User.findOneAndUpdate(
+                { _id: req.user._id },
+                { $push: { "likedPosts": postId } },
+                { new: true, useFindAndModify: false }
+            );
+            if (!user) {
+                res.status(400).send("Bad request (3)");
+            }
+        }
+
+        // Update the current session.
+        req.session.user = user;
+
+        res.send({ user: user, post: post });
+    } catch (error) {
+        console.log(error);
+        if (isMongoError(error)) {
+            res.status(500).send('Internal server error');
+        } else {
+            res.status(400).send('Bad Request');  // 400 for bad request gets sent to client.
+        }
+    }
+});
+
+app.post("/api/timeline/dislike", mongoChecker, authenticate, async (req, res) => {
+    console.log("PATCH request for api/timeline/dislike");
+
+    // Check if postId is even defined.
+    let postId;
+    req.body.postId ? postId = req.body.postId : res.status(400).send("Bad request (0)");
+
+    let post, user;
+    try {
+        if (req.user.dislikedPosts.find(pId => ObjectID(pId).equals(ObjectID(postId)))) {
+            // If post is already disliked by current user, un-dislike it.
+            post = await Post.findOneAndUpdate(
+                { _id: postId },
+                { $inc: { "dislikes": -1 } },
+                { new: true, useFindAndModify: false }
+            );
+            if (!post) {
+                res.status(400).send("Bad request (5.1)");
+                return;
+            }
+
+            user = await User.findOneAndUpdate(
+                { _id: req.user._id },
+                { $pull: { "dislikedPosts": postId } },
+                { new: true, useFindAndModify: false }
+            );
+            if (!user) {
+                res.status(400).send("Bad request (5.2)");
+            }
+        } else {
+            // If the user has previously liked the post, remove the like from said user and post.
+            if (req.user.likedPosts.find(pId => ObjectID(pId).equals(ObjectID(postId)))) {
+                post = await Post.findOneAndUpdate(
+                    { _id: postId },
+                    { $inc: { "likes": -1 } },
+                    { new: true, useFindAndModify: false }
+                );
+                if (!post) {
+                    res.status(400).send("Bad request (4.1)");
+                    return;
+                }
+
+                user = await User.findOneAndUpdate(
+                    { _id: req.user._id },
+                    { $pull: { "likedPosts": postId } },
+                    { new: true, useFindAndModify: false }
+                );
+                if (!user) {
+                    res.status(400).send("Bad request (4.2)");
+                }
+            }
+
+            // Find the post with the given _id. If no match is found, terminate with bad request (400).
+            // Then, increment the given post's dislikes by 1.
+            post = await Post.findOneAndUpdate(
+                { _id: postId },
+                { $inc: { "dislikes": 1 } },
+                { new: true, useFindAndModify: false }
+            );
+            if (!post) {
+                res.status(400).send("Bad request (2)");
+                return;
+            }
+
+            // Add the given _id to the current user's dislikedPosts.
+            user = await User.findOneAndUpdate(
+                { _id: req.user._id },
+                { $push: { "dislikedPosts": postId } },
+                { new: true, useFindAndModify: false }
+            );
+            if (!user) {
+                res.status(400).send("Bad request (3)");
+            }
+        }
+
+        // Update the current session.
+        req.session.user = user;
+
+        res.send({ user: user, post: post });
+    } catch (error) {
+        console.log(error);
+        if (isMongoError(error)) {
+            res.status(500).send('Internal server error');
+        } else {
+            res.status(400).send('Bad Request');  // 400 for bad request gets sent to client.
+        }
+    }
+});
 
 // ==== Serving Frontend ==== //
 // -------------------------- //

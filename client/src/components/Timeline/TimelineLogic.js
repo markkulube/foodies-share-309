@@ -3,16 +3,19 @@
 /**
  * Return a list of all existing posts sorted by date posted (earliest first).
  */
-export const getAllPosts = (timeline) => {
-    // TODO: Replace use of appState with GET request for posts from server API.
+export const getAllPosts = async () => {
+    try {
+        const response = await fetch("/api/timeline/post");
+        const posts = await response.json();
 
-    // get a list of all existing posts from appState
-    const posts = [];
+        // Sort the posts by (descending) date posted.
+        posts.sort((a, b) => b.datePosted - a.datePosted);
 
-    // sort the posts by (descending) date posted
-    posts.sort((a, b) => b.datePosted - a.datePosted);
-
-    return posts;
+        return posts;
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
 }
 
 /**
@@ -25,7 +28,7 @@ export const handleFilter = (timeline, option) => {
     console.log("filtering posts with option:", option);
 
     // get list of all posts (sorted)
-    const posts = getAllPosts(timeline);
+    const posts = timeline.state.allPosts;
 
     switch (option) {
         case "home":  // obtain all posts
@@ -65,7 +68,7 @@ export const handleSearchFilter = (event, timeline) => {
     console.log("filtering post with parameter:", value);
 
     // filter posts that match the user input, ignoring case
-    const target = getAllPosts(timeline).filter((post) => post.title.toLowerCase().includes(value))
+    const target = timeline.state.allPosts.filter((post) => post.title.toLowerCase().includes(value))
 
     timeline.setState({ posts: target })
 }
