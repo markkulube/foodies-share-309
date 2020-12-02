@@ -9,8 +9,9 @@ class Home extends React.Component {
 
   constructor(props) {
     super(props);
-   
-    if(this.props.app.currentUser!==null){
+    
+    if(this.props.app.state.currentUser!==null)
+    {
       this.props.history.push("/Timeline");
     }
 }

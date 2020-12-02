@@ -34,8 +34,8 @@ export const addAccount = signup => {
     favMeal: signup.state.favMeal,
     savedPosts: [],
     isAdmin:false,
-    likedPosts: []  // 1 = like, 0 = dislike
-   
+    likedPosts: [],  // 1 = like, 0 = dislike
+    dislikedPosts: []
   };
   
   // Create our request constructor with all the parameters we need

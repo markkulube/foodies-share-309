@@ -12,22 +12,27 @@ class AccountInfo extends Component {
     constructor(props) {
         super(props)
         // API call: GET use info from MongoDB
+
+        this.props.history.push("/AccountInfo");
+
+        console.log(this.props.app.state.currentUser)
+
         this.state = {
-            username: this.props.appState.currentUser.userName,
-            password: this.props.appState.currentUser.password,
-            age: this.props.appState.currentUser.age,
-            favmeal: this.props.appState.currentUser.favMeal,
+            username: this.props.app.state.currentUser.userName,
+            password: this.props.app.state.currentUser.password,
+            age: this.props.app.state.currentUser.age,
+            favmeal: this.props.app.state.currentUser.favMeal,
 
             user: {
-                    username: this.props.appState.currentUser.userName,
-                    password: this.props.appState.currentUser.password,
-                    age: this.props.appState.currentUser.age,
-                    favmeal: this.props.appState.currentUser.favMeal
+                    username: this.props.app.state.currentUser.userName,
+                    password: this.props.app.state.currentUser.password,
+                    age: this.props.app.state.currentUser.age,
+                    favmeal: this.props.app.state.currentUser.favMeal
             }
             
         }
 
-        this.avatar = this.props.appState.currentUser.profilePic
+        this.avatar = this.props.app.state.currentUser.profilePic
 
         this.handleEditClick = this.handleEditClick.bind(this)
         this.handleCancelClick = this.handleCancelClick.bind(this)
@@ -36,7 +41,7 @@ class AccountInfo extends Component {
     }
 
     componentDidMount () {
-        if (this.props.appState.currentUser.isAdmin) {
+        if (this.props.app.state.currentUser.isAdmin) {
             document.getElementById('admin-button').style.display = 'inline-block'
         } 
     }
@@ -86,24 +91,45 @@ class AccountInfo extends Component {
     // Handle click event that saves updated account info.
     handleUpdateClick = (e) => {
 
-    // API call: POST request to server updating user account info in MongoDB
-    this.props.appState.currentUser.userName = this.state.username;
-    this.props.appState.currentUser.password = this.state.password;
-    this.props.appState.currentUser.age= this.state.age;
-    this.props.appState.currentUser.favMeal= this.state.favmeal;
-    
-    let app_accountList = this.props.appState.accounts;
-    
-    // Update user account values.
-    for(let i=0; i<app_accountList.length; i++) {
-        if(app_accountList[i].isLoggedIn.valueOf()) {
-            app_accountList[i].userName = this.state.username;
-            app_accountList[i].password = this.state.password;
-            app_accountList[i].age= this.state.age;
-            app_accountList[i].favMeal= this.state.favmeal;
-            break;
-        }
-    }
+      const user = {
+        userName: this.state.userName,
+        profilePic: this.state.avatar,
+        password: this.state.password,
+        age: this.state.age,
+        favMeal: this.state.favMeal,
+        savedPosts: this.props.app.state.currentUser.savedPosts,
+        isAdmin: this.props.app.state.currentUser.isAdmin,
+        likedPosts: this.props.app.state.currentUser.likedPosts,  // 1 = like, 0 = dislike
+        dislikedPosts: this.props.app.state.currentUser.dislikedPosts,
+      };
+
+      // Create our request constructor with all the parameters we need
+      const request = new Request('/api/account/${this.props.app.state.currentUser._id}', {
+            method: "PATCH",
+            body: JSON.stringify(user),
+            headers: {
+                Accept: "application/json, text/plain, */*",
+                "Content-Type": "application/json"
+            }
+      });
+
+        // Send the request with fetch()
+        fetch(request)
+            .then(function (res) {
+                // Handle response we get from the API.
+                // Usually check the error codes to see what happened.
+                if (res.status === 200) {
+                    // If student was added successfully, tell the user.
+                   
+                } else {
+                    // If server couldn't add the student, tell the user.
+                    // Here we are adding a generic message, but you could be more specific in your app.
+                  
+                }
+            })
+        .catch(error => {
+            console.log(error);
+        });
 
     let newuser = {
             username: this.state.username,

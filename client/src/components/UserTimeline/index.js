@@ -71,8 +71,8 @@ class UserTimeline extends React.Component{
 
     render(){
         //retrieve the current user's username and profile pictures from appState 
-        const username = this.props.appState.currentUser.userName;
-        const profilePic = this.props.appState.currentUser.profilePic;
+        const username = this.props.app.currentUser.userName;
+        const profilePic = this.props.app.currentUser.profilePic;
         const flag=true;
         return(
             <div id={"timeline"}>
