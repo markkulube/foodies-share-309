@@ -6,6 +6,15 @@ import "./styles.css";
 
 /* Component for the Home page */
 class Home extends React.Component {
+
+  constructor(props) {
+    super(props);
+   
+    if(this.props.app.currentUser!==null){
+      this.props.history.push("/Timeline");
+    }
+}
+
   render() {
     return (
     <div>
