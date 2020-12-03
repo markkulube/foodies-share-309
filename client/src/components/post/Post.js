@@ -7,7 +7,7 @@ import "./Post.css"
 import ReviewList from "../ReviewList/ReviewList";
 
 // logic imports
-import { handleLike, handleDislike, deletePost } from "./PostLogic";
+import { handleLike, handleDislike, deletePost, handleSave } from "./PostLogic";
 import { addtoFavourites } from "../../actions/addRecipe";
 
 /**
@@ -116,7 +116,7 @@ class Post extends React.Component{
                     <img src={post.profilePic} className="profilePic" alt="profile picture"/>
                     <h3 className="username">{post.userName}</h3>
                     {canSave &&
-                        <button className="save" onClick={() => console.log("Add to favourites")}>
+                        <button className="save" onClick={() => handleSave(post._id)}>
                             Save to Favourites
                         </button>
                     }

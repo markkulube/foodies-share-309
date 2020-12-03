@@ -69,6 +69,7 @@ export const handleDislike = async (postId, context) => {
  *
  * @param {string} postId -- The ObjectID string of the post to like.
  * @param {Timeline} context -- The timeline component to re-render after liking.
+ * @returns {Promise<void>}
  */
 export const handleLike = async (postId, context) => {
     try {
@@ -88,6 +89,32 @@ export const handleLike = async (postId, context) => {
         context.componentDidMount().catch(error => console.error(error));
 
         console.log(`User ${data.user._id} liked post ${data.post._id}`);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+/**
+ * Have the current user save the given post to their saved posts (favourites).
+ *
+ * @param {string} postId -- The ObjectID string of the post to save.
+ * @returns {Promise<void>}
+ */
+export const handleSave = async (postId) => {
+    try {
+        const response = await fetch(new Request("/api/timeline/save", {
+            method: "post",
+            body: JSON.stringify({
+                postId: postId
+            }),
+            headers: {
+                Accept: "application/json, text/plain, */*",
+                "Content-Type": "application/json"
+            }
+        }));
+        const user = await response.json();
+
+        console.log(`User ${user._id} saved post ${postId} to favourites.`);
     } catch (error) {
         console.error(error);
     }
