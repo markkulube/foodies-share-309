@@ -52,8 +52,7 @@ const UserSchema = new mongoose.Schema({
     savedPosts: [{
         type: mongoose.Schema.Types.ObjectID,
         required: true,
-        ref: 'Post',
-        unique: true
+        ref: 'Post'
     }],
 
     // Whether or not this user is an admin.
