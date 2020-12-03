@@ -17,7 +17,7 @@ import adminPic from "../../images/admin.png";
 import postsPic from "../../images/posts.png";
 
 // import logic from logic file
-import { handleFilter, handleSearchFilter, deletePost, getAllPosts } from "./TimelineLogic";
+import { handleFilter, handleSearchFilter, getAllPosts } from "./TimelineLogic";
 import { signOut } from "../../actions/signup";
 import { ObjectID } from "mongodb";
 
@@ -128,7 +128,6 @@ export default class Timeline extends React.Component {
                     currentUser={this.state.currentUser}
                     handleSearchFilter={handleSearchFilter}
                     parent={this}
-                    deletePost={deletePost}
                 />
                 <div className={"side-container"}>
                 </div>
