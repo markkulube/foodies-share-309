@@ -79,18 +79,21 @@ const UserSchema = new mongoose.Schema({
 
 // Mongoose middleware to hash password before saving.
 UserSchema.pre('save', function(next) {
-    if (this.isModified('password')) {  // If we haven't already hashed the password...
-        // Generate salt and hash the password.
-        bcrypt.genSalt(10, (err, salt) => {
-            bcrypt.hash(this.password, salt, (err, hash) => {
-                this.password = hash;
-                next();
-            });
-        });
-    } else {
-        next();
-    }
-});
+	const user = this; // binds this to User document instance
+
+	// checks to ensure we don't hash password more than once
+	if (user.isModified('password')) {
+		// generate salt and hash the password
+		bcrypt.genSalt(10, (err, salt) => {
+			bcrypt.hash(user.password, salt, (err, hash) => {
+				user.password = hash
+				next()
+			})
+		})
+	} else {
+		next()
+	}
+})
 
 /**
  * Return a user from the database with the given username and password to signify login succeeded.
