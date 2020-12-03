@@ -125,14 +125,17 @@ class AccountInfo extends Component {
                 // Handle response we get from the API.
                 // Usually check the error codes to see what happened.
                 if (res.status === 200) {
-                    // If student was added successfully, tell the user.
+
+                    // TODO
+                    // If update was a success, tell the user.
                     console.log('success::account info updated')
                    
                 } else {
-                    // If server couldn't add the student, tell the user.
+                    // TODO
+                    // If update failed, tell the user.
                     // Here we are adding a generic message, but you could be more specific in your app.
                     console.log('fail::account info not updated')
-                  
+
                 }
             })
         .catch(error => {
