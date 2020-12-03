@@ -212,45 +212,65 @@ app.delete('/api/user', mongoChecker, async (req, res) => {
 
 // Update the given user from the database.
 app.patch('/api/account/:id', async (req, res) => {
-	const id = req.param.id
+    console.log("PATCH request for /api/account/:id")
 
-	if (!ObjectID.isValid(id)) {
-		res.status(404).send()
-		return;  // so that we don't run the rest of the handler.
-	}
+    const id = req.params.id
 
-	// check mongoose connection established.
+ 	// check mongoose connection established.
 	if (mongoose.connection.readyState != 1) {
 		log('Issue with mongoose connection')
 		res.status(500).send('Internal server error')
 		return;
 	}
 
-    console.log(req.body)
-	// Find the fields to update and their values.
-	const fieldsToUpdate = {}
-	req.body.map((change) => {
-		const propertyToChange = change.path.substr(1) // getting rid of the '/' character
-		fieldsToUpdate[propertyToChange] = change.value
-	})
+	// Good practise: Validate id immediately
+	if (!ObjectID.isValid(id)) {
+		res.status(404).send() // if invalid id, definitely can't find resource, 404.
+		return;  // so that we don't run the rest of the handler.
+    }
 
-
-
-	// Update the student by their id.
+	// if id valid findById
 	try {
-		const user = await User.findOneAndUpdate({_id: id}, {$set: fieldsToUpdate}, {new: true, useFindAndModify: false})
-		if (!student) {
-			res.status(404).send('Resource not found')
-		} else {   
-			res.send(user)
-		}
-	} catch (error) {
-		log(error)
-		if (isMongoError(error)) { // check for if mongo server suddenly dissconnected before this request.
-			res.status(500).send('Internal server error')
+		
+        const user = await User.findOneAndUpdate({_id: ObjectID(id)}, req.body,
+                                function(err, user) {
+                                    if (err) {
+                                        return next(err)
+                                    } else {
+                                        user.userName = req.body.userName
+                                        user.favMeal = req.body.favMeal
+                                        user.age = parseInt(req.body.age)
+                                        user.password =  req.body.password
+                                        user.save(function (err, user) {
+                                            if (err) {
+                                                // res.send("Error: ", err);
+                                                // res.status(500).send('Internal Server Error') 
+                                                console.log("error::password hashing")
+                                            } else {
+                                            // res.send("password updated successfully!");
+                                            // res.send(user) 
+                                            console.log("success::password hashed")
+                                            }
+                                        })
+                                    }
+                                
+                                }, 
+                                {useFindAndModify:false, new: false}
+                                )
+
+		if(!user) {
+
+            res.status(404).send('Resource not found') // could not find this user
+            
 		} else {
-			res.status(400).send('Bad Request') // bad request for changing the student.
-		}
+
+			// sometimes we might wrap returned object in another object
+            // res.send({user})
+			res.send(user) 
+		} 
+	} catch (error) {
+		console.log(error)
+		res.status(500).send('Internal Server Error') // server error
 	}
 });
 
