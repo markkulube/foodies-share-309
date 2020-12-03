@@ -8,7 +8,6 @@ import "./AccountInfo.css"
  * edit, update, and save operations.
  */
 class AccountInfo extends Component {
-
     constructor(props) {
         super(props)
         // API call: GET use info from MongoDB
@@ -16,10 +15,10 @@ class AccountInfo extends Component {
         this.props.history.push("/AccountInfo");
 
         console.log(this.props.app.state.currentUser)
-
         this.state = {
             username: this.props.app.state.currentUser.userName,
             password: this.props.app.state.currentUser.password,
+            old_password: "",
             age: this.props.app.state.currentUser.age,
             favmeal: this.props.app.state.currentUser.favMeal,
 
@@ -47,7 +46,11 @@ class AccountInfo extends Component {
     }
 
     // Handle click event that enables editing of account info values.
-    handleEditClick = (e) => {
+    handleEditClick = (e) => { 
+
+        this.setState({
+            password: ""
+          });
 
         document.querySelector("#psw-default").style.display="none"
         document.querySelector("#edit").style.display="none"
@@ -74,7 +77,7 @@ class AccountInfo extends Component {
         for (let index = 0; index < length; index++) {
             elems[index].style.display="none"
         }
-
+        
         let username = this.state.user.username
         let password = this.state.user.password
         let age = this.state.user.age
@@ -91,20 +94,23 @@ class AccountInfo extends Component {
     // Handle click event that saves updated account info.
     handleUpdateClick = (e) => {
 
+        let final_password 
+        this.state.password === ""? final_password = this.state.user.password: final_password = this.state.password
       const user = {
-        userName: this.state.userName,
+        userName: this.state.username,
         profilePic: this.state.avatar,
-        password: this.state.password,
+        password: final_password,
         age: this.state.age,
-        favMeal: this.state.favMeal,
+        favMeal: this.state.favmeal,
         savedPosts: this.props.app.state.currentUser.savedPosts,
         isAdmin: this.props.app.state.currentUser.isAdmin,
         likedPosts: this.props.app.state.currentUser.likedPosts,  // 1 = like, 0 = dislike
         dislikedPosts: this.props.app.state.currentUser.dislikedPosts,
       };
-
+      
+      console.log(this.props.app.state.currentUser._id)
       // Create our request constructor with all the parameters we need
-      const request = new Request('/api/account/${this.props.app.state.currentUser._id}', {
+      const request = new Request('/api/account/'+ this.props.app.state.currentUser._id, {
             method: "PATCH",
             body: JSON.stringify(user),
             headers: {
@@ -112,26 +118,31 @@ class AccountInfo extends Component {
                 "Content-Type": "application/json"
             }
       });
-
+      
         // Send the request with fetch()
         fetch(request)
             .then(function (res) {
                 // Handle response we get from the API.
                 // Usually check the error codes to see what happened.
                 if (res.status === 200) {
-                    // If student was added successfully, tell the user.
+
+                    // TODO
+                    // If update was a success, tell the user.
+                    console.log('success::account info updated')
                    
                 } else {
-                    // If server couldn't add the student, tell the user.
+                    // TODO
+                    // If update failed, tell the user.
                     // Here we are adding a generic message, but you could be more specific in your app.
-                  
+                    console.log('fail::account info not updated')
+
                 }
             })
         .catch(error => {
             console.log(error);
         });
 
-    let newuser = {
+        let newuser = {
             username: this.state.username,
             password: this.state.password,
             age: this.state.age,
