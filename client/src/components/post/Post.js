@@ -101,7 +101,12 @@ class Post extends React.Component{
     }
 
     render() {
-        const { currentUser, profilePic, post, canSave, context } = this.props;
+        let { currentUser, profilePic, post, canSave, context } = this.props;
+
+        if(post.userName===currentUser.userName)
+        {
+            canSave=false;
+        }
 
         // decide whether to render active or inactive like button
         const likeButton = this.renderLike(this.state.liked);

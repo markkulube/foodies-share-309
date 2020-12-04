@@ -81,6 +81,7 @@ class App extends React.Component {
     this.getExample().catch(e => console.log(e));  // TODO: example fetch method call; remove this later on.
     const {currentUser} = this.state;
     console.log(currentUser)
+    console.log(this)
 
     return (
         <div>

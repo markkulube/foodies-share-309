@@ -115,7 +115,6 @@ app.post('/user/login', async (req, res) => {
 
 app.get('/api/logout', (req, res) => {
     console.log("GET request for api/logout");
-
     req.session.destroy(error => error ? res.status(500).send(error) : res.send());
 });
 
