@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 
 import "./AccountInfo.css"
 
+import { signOut } from "../../actions/user";
+
 /**
  * A component that renders user account info. The use is allowed
  * edit, update, and save operations.
@@ -223,7 +225,7 @@ class AccountInfo extends Component {
                             <button className={"account-info-nav-buttons"} id={"admin-button"} style={{display: "none"}}>Admin</button>
                         </Link>
                         <Link to={""}>
-                            <button className={"account-info-nav-buttons"}>Sign Out</button>
+                            <button onClick={() => signOut(this)} className={"account-info-nav-buttons"}>Sign Out</button>
                         </Link>
                     </div>
                     <div className="imgcontainer">
