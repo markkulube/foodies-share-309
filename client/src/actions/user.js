@@ -89,8 +89,6 @@ export const checkAccount = (loginComp, app) => {
         }
     });
 
-    console.log(loginComp.state)
-
     // Send the request with fetch()
     fetch(request)
         .then(res => {
@@ -101,8 +99,23 @@ export const checkAccount = (loginComp, app) => {
         .then(json => {
             if (json.currentUser !== undefined) {
                 app.setState({ currentUser: json.currentUser });
-                console.log(app.state)
             }
+        })
+        .catch(error => {
+            console.log(error);
+        });
+};
+
+// A function to send a GET request to logout the current user
+export const signOut = app => {
+    const url = "/api/logout";
+
+    fetch(url)
+        .then(res => {
+            app.props.app.setState({
+                currentUser: null,
+                message: { type: "", body: "" }
+            });
         })
         .catch(error => {
             console.log(error);

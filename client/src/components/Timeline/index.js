@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import Feed from "./Feed";
 
 // styles and images
@@ -18,7 +18,7 @@ import postsPic from "../../images/posts.png";
 
 // import logic from logic file
 import { handleFilter, handleSearchFilter, getAllPosts } from "./TimelineLogic";
-import { signOut } from "../../actions/signup";
+import { signOut } from "../../actions/user";
 import { ObjectID } from "mongodb";
 
 /**
@@ -37,6 +37,11 @@ export default class Timeline extends React.Component {
             posts: [],
             allPosts: [],
             currentUser: {}
+        }
+
+       if(this.props.app.state.currentUser===null)
+        {
+          this.props.history.push("/");
         }
     }
 
@@ -116,7 +121,7 @@ export default class Timeline extends React.Component {
                     <button onClick={() => handleFilter(this, "other")}>
                     <img id={"symbol"} src={otherPic} alt={otherPic}/>
                     Other</button>
-                    <Link id={"signout-link"} to={""}>
+                    <Link id={"signout-link"} to={"/"}>
                         <button onClick={() => signOut(this)}>
                         <img id={"symbol"} src={signOutPic} alt={signOutPic}/>
                         Sign Out</button>

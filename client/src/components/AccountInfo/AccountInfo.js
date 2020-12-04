@@ -118,6 +118,8 @@ class AccountInfo extends Component {
                 "Content-Type": "application/json"
             }
       });
+
+      console.log(request)
       
         // Send the request with fetch()
         fetch(request)
