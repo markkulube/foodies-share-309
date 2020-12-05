@@ -64,10 +64,7 @@ export default class ReviewList extends React.Component {
                     this.state.reviews.map(review => {
                         return (
                             <div key={uid(review)}>
-                                <Review username={review.userName}
-                                        profilePic={review.profilePic}
-                                        content={review.content}
-                                        rating={review.rating}/>
+                                <Review currentUser={currentUser} review={review} postId={postId} context={this}/>
                                 <hr/>
                             </div>
                         );

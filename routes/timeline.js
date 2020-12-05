@@ -25,7 +25,7 @@ router.get("/post", mongoChecker, async (req, res) => {
     try {
         res.send(await Post.find());
     } catch (error) {
-        console.log(error);
+        console.error(error);
         res.status(500).send("Internal server error");
     }
 });
@@ -64,7 +64,7 @@ router.delete("/post", mongoChecker, authenticate, async (req, res) => {
 
         console.log(`Matched ${response.n} documents and updated ${response.nModified} documents`);
     } catch (error) {
-        console.log(error);
+        console.error(error);
         if (isMongoError(error)) {
             res.status(500).send('Internal server error');
         } else {
@@ -158,7 +158,7 @@ router.post("/like", mongoChecker, authenticate, async (req, res) => {
 
         res.send({ user: user, post: post });
     } catch (error) {
-        console.log(error);
+        console.error(error);
         if (isMongoError(error)) {
             res.status(500).send('Internal server error');
         } else {
@@ -252,7 +252,7 @@ router.post("/dislike", mongoChecker, authenticate, async (req, res) => {
 
         res.send({ user: user, post: post });
     } catch (error) {
-        console.log(error);
+        console.error(error);
         if (isMongoError(error)) {
             res.status(500).send('Internal server error');
         } else {
@@ -281,7 +281,7 @@ router.post("/save", mongoChecker, authenticate, async (req, res) => {
             res.send(user);
         }
     } catch (error) {
-        console.log(error);
+        console.error(error);
         if (isMongoError(error)) {
             res.status(500).send('Internal server error');
         } else {
@@ -290,6 +290,13 @@ router.post("/save", mongoChecker, authenticate, async (req, res) => {
     }
 });
 
+/**
+ * POST request to create a new review for the given post.
+ *
+ * @param {string} content -- The content of the review.
+ * @param {Number} rating -- The rating given from 0-5. If a 0-star rating is given, convert it to a 1-star rating.
+ * @param {string} postId -- The ObjectID string of the post this review is for.
+ */
 router.post("/review", mongoChecker, authenticate, async (req, res) => {
     console.log("POST request for api/timeline/review");
 
@@ -298,7 +305,7 @@ router.post("/review", mongoChecker, authenticate, async (req, res) => {
         profilePic: req.user.profilePic,
         content: req.body.content,
         datePosted: new Date(),
-        rating: req.body.rating,
+        rating: req.body.rating ? req.body.rating : 1,
         creator: req.user._id
     };
 
@@ -314,7 +321,37 @@ router.post("/review", mongoChecker, authenticate, async (req, res) => {
             res.send(post.reviews);
         }
     } catch (error) {
-        console.log(error);
+        console.error(error);
+        if (isMongoError(error)) {
+            res.status(500).send('Internal server error');
+        } else {
+            res.status(400).send('Bad Request');  // 400 for bad request gets sent to client.
+        }
+    }
+});
+
+/**
+ * DELETE request to remove a review.
+ *
+ * @param {string} postId -- The ObjectID string of the post the given review is for.
+ * @param {string} reviewId -- The ObjectID string of the review to remove.
+ */
+router.delete("/review", mongoChecker, authenticate, async (req, res) => {
+    console.log("DELETE request for /api/timeline/review");
+
+    try {
+        const post = await Post.findOneAndUpdate(
+            { _id: req.body.postId },
+            { $pull: { "reviews": { _id: req.body.reviewId } } },
+            { new: true, useFindAndModify: false }
+        );
+        if (!post) {
+            res.status(400).send("Bad request");
+        } else {
+            res.send(post.reviews);
+        }
+    } catch (error) {
+        console.error(error);
         if (isMongoError(error)) {
             res.status(500).send('Internal server error');
         } else {

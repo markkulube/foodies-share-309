@@ -4,3 +4,12 @@
     width: 50px;
     border-radius: 50%;
 }
+
+.review-delete {
+    cursor: pointer;
+    color: #AD2626;
+}
+
+.review-delete:hover {
+    color: darkred;
+}
