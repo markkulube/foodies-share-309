@@ -27,7 +27,7 @@ export default class Feed extends React.Component {
                     <Link id={"profile-container"} to={"AccountInfo"}>
                         <img id={"profile"} src={currentUser.profilePic} alt={"profile picture"}/>
                     </Link>
-                    <Link id={"post-button"} to={"./PostRecipePage"}>  {/* TODO: replace with link to "create post" page */}
+                    <Link id={"post-button"} to={"./PostRecipePage"}>
                         <button>Post A Recipe</button>
                     </Link>
                 </div>

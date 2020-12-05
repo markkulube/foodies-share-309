@@ -1,7 +1,5 @@
 /* Logic file for the Post component. */
 
-import {lazy} from "react";
-
 /**
  * Delete the post with the given _id.
  * This process should only succeed when the current user matches the given creator.
@@ -12,8 +10,10 @@ import {lazy} from "react";
  * @returns {Promise<void>}
  */
 export const deletePost = async (creator, postId, context) => {
+    console.log(`Current user is deleting post ${postId}`);
+
     try {
-        const response = await fetch(new Request('/api/timeline/post', {
+        await fetch(new Request('/api/timeline/post', {
             method: 'delete',
             body: JSON.stringify({
                 creator: creator,
@@ -24,12 +24,9 @@ export const deletePost = async (creator, postId, context) => {
                 "Content-Type": "application/json"
             }
         }));
-        const deletedPost = await response.json();
 
         // Re-render the timeline.
         context.componentDidMount().catch(error => console.error(error));
-
-        console.log(`Deleted post: ${deletedPost}`);
     } catch (error) {
         console.error(error);
     }
@@ -42,8 +39,10 @@ export const deletePost = async (creator, postId, context) => {
  * @param {Timeline} context -- The timeline component to re-render after disliking.
  */
 export const handleDislike = async (postId, context) => {
+    console.log(`Current user is disliking post ${postId}`);
+
     try {
-        const response = await fetch(new Request('/api/timeline/dislike', {
+        await fetch(new Request('/api/timeline/dislike', {
             method: 'post',
             body: JSON.stringify({
                 postId: postId
@@ -53,12 +52,9 @@ export const handleDislike = async (postId, context) => {
                 "Content-Type": "application/json"
             }
         }));
-        const data = await response.json();
 
         // Re-render the timeline.
         context.componentDidMount().catch(error => console.error(error));
-
-        console.log(`User ${data.user._id} disliked post ${data.post._id}`);
     } catch (error) {
         console.error(error);
     }
@@ -72,8 +68,10 @@ export const handleDislike = async (postId, context) => {
  * @returns {Promise<void>}
  */
 export const handleLike = async (postId, context) => {
+    console.log(`Current user is liking post ${postId}`);
+
     try {
-        const response = await fetch(new Request('/api/timeline/like', {
+        await fetch(new Request('/api/timeline/like', {
             method: 'post',
             body: JSON.stringify({
                 postId: postId
@@ -83,12 +81,9 @@ export const handleLike = async (postId, context) => {
                 "Content-Type": "application/json"
             }
         }));
-        const data = await response.json();
 
         // Re-render the timeline.
         context.componentDidMount().catch(error => console.error(error));
-
-        console.log(`User ${data.user._id} liked post ${data.post._id}`);
     } catch (error) {
         console.error(error);
     }

@@ -249,8 +249,7 @@ router.post("/dislike", mongoChecker, authenticate, async (req, res) => {
 
         // Update the current session.
         req.session.user = user;
-
-        res.send({ user: user, post: post });
+        res.send();
     } catch (error) {
         console.error(error);
         if (isMongoError(error)) {
