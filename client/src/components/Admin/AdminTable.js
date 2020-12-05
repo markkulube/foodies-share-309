@@ -13,9 +13,10 @@ class AdminTable extends Component {
         super(props)
         // API call: GET all user account info from server MongoDB.
         this.state = {
-             table_len: props.appState.accounts.length + 2,
+             table_len: 2,
              modalDisplay: false,
-             currentUser: ""
+             currentUser: null,
+             users: []
         }
 
         this.addRow = this.addRow.bind(this)
@@ -23,6 +24,31 @@ class AdminTable extends Component {
         this.saveRow = this.saveRow.bind(this)
         this.deleteRow = this.deleteRow.bind(this)
         this.showModalPosts = this.showModalPosts.bind(this)  
+    }
+
+    async componentDidMount() {
+        const data = await this.getAllData()
+        const users = data.users
+        this.setState({
+            users: users,
+            table_len: users.length
+        })
+
+    }
+
+     getAllData = async () => {
+         // Create our request constructor with all the parameters we need
+         let data = []
+         try {
+            const response = await fetch("/api/all");
+            data = await response.json();
+            console.log(data)
+         } catch (error) {
+             console.log(error)
+         }
+
+         return data
+
     }
     
     // Handle click event that enable editing of user info.
@@ -43,7 +69,8 @@ class AdminTable extends Component {
             
         username.innerHTML="<input type='text' name='"+username_data +"' id='username_text"+no+"' value='"+username_data+"'>";
         age.innerHTML="<input type='text' name='"+age_data +"' id='age_text"+no+"' value='"+age_data+"'>";
-        password.innerHTML="<input type='text' name='"+password_data +"' id='password_text"+no+"' value='"+password_data+"'>";
+/*         password.innerHTML="<input type='text' name='"+password_data +"' id='password_text"+no+"' value='"+password_data+"'>"; */
+        password.innerHTML="<input type='text'" + "placeholder='Enter New Password'" + " name='"+password_data +"' id='password_text"+no+"' value=''>";
         favmeal.innerHTML="<input type='text' name='"+favmeal_data +"' id='favmeal_text"+no+"' value='"+favmeal_data+"'>";
     }
 
@@ -57,25 +84,70 @@ class AdminTable extends Component {
         let age_val=document.getElementById("age_text"+no).value;
         let password_val=document.getElementById("password_text"+no).value;
         let favmeal_val=document.getElementById("favmeal_text"+no).value;
- 
-        // API call: POST request to server updating user account info in MongoDB 
-        let accounts = this.props.appState.accounts
-        accounts.forEach(account => {
-            if (account.userName===oldUserName) {
-                account.userName=username_val
-                account.age=age_val
-                account.password=password_val
-                account.favMeal=favmeal_val
 
-                account.posts.forEach(post => {
-                    post.userName=username_val
-                });
+        
+ 
+        // API call: PATCH request to server updating user account info in MongoDB 
+        let users = this.state.users
+        let user, user_id
+        users.forEach(userObj => {
+            if (userObj.userName===oldUserName) {
+                user_id = userObj._id
+                let final_password 
+                password_val === ""? final_password = userObj.password: final_password = password_val
+                user = {
+                    userName: username_val,
+                    profilePic: userObj.profilePic,
+                    password: final_password,
+                    age: age_val,
+                    favMeal: favmeal_val,
+                    savedPosts: userObj.savedPosts,
+                    isAdmin: userObj.isAdmin,
+                    likedPosts: userObj.likedPosts,  // 1 = like, 0 = dislike
+                    dislikedPosts: userObj.dislikedPosts,
+                  };
             }
+        });
+
+        // Create our request constructor with all the parameters we need
+        const request = new Request('/api/account/'+ user_id, {
+            method: "PATCH",
+            body: JSON.stringify(user),
+            headers: {
+                Accept: "application/json, text/plain, */*",
+                "Content-Type": "application/json"
+            }
+        });
+
+        console.log(request)
+
+        // Send the request with fetch()
+        fetch(request)
+            .then(function (res) {
+                // Handle response we get from the API.
+                // Usually check the error codes to see what happened.
+                if (res.status === 200) {
+
+                    // TODO
+                    // If update was a success, tell the user.
+                    console.log('success::account info updated')
+                    
+                } else {
+                    // TODO
+                    // If update failed, tell the user.
+                    // Here we are adding a generic message, but you could be more specific in your app.
+                    console.log('fail::account info not updated')
+
+                }
+            })
+            .catch(error => {
+                console.log(error);
         });
 
         document.getElementById("username"+no).innerHTML=username_val;
         document.getElementById("age"+no).innerHTML=age_val;
-        document.getElementById("password"+no).innerHTML=password_val;
+        /* document.getElementById("password"+no).innerHTML=password_val; */
+        document.getElementById("password"+no).innerHTML="******";
         document.getElementById("favmeal"+no).innerHTML=favmeal_val;
 
         document.getElementById("edit_button"+no).style.display="block";
@@ -88,14 +160,55 @@ class AdminTable extends Component {
 
         let username = document.getElementById("username"+no+"").innerHTML
         
-        // API call: POST request to server deleting user account info in MongoDB 
-        let accounts = this.props.appState.accounts
+        // API call: GET request to server deleting user account info in MongoDB 
+        let users = this.state.users
+        let user, user_id
+        users.forEach(userObj => {
+            if (userObj.userName===username) {
+                user_id = userObj._id
+                user = userObj
+            }
+        });
+         // Create our request constructor with all the parameters we need
+         const request = new Request('/api/user/'+user_id, {
+            method: "DELETE",
+            body: JSON.stringify(user),
+            headers: {
+                Accept: "application/json, text/plain, */*",
+                "Content-Type": "application/json"
+            }
+        });
+
+        console.log(request)
+
+        // Send the request with fetch()
+        fetch(request)
+            .then(function (res) {
+                // Handle response we get from the API.
+                // Usually check the error codes to see what happened.
+                if (res.status === 200) {
+
+                    // TODO
+                    // If delete was a success, tell the admin.
+                    console.log('success::user: '+user.userName+' account deleted')
+                    
+                } else {
+                    // TODO
+                    // If update failed, tell the admin.
+                    // Here we are adding a generic message, but you could be more specific in your app.
+                    console.log('fail::user: '+user.userName+' not account deleted')
+
+                }
+            })
+            .catch(error => {
+                console.log(error);
+        });
         
-        for (let index = 0; index < accounts.length; index++) {
-            const account = accounts[index];
+        for (let index = 0; index < users.length; index++) {
+            const account = users[index];
     
             if (account.userName===username) {
-                accounts.splice(index, 1)
+                users.splice(index, 1)
             }
         }
 
@@ -113,18 +226,54 @@ class AdminTable extends Component {
         let table_rows=(table.rows.length);
         let table_len=(this.state.table_len)-1
         
-        let newUser = {
+        let user = {
                 userName: new_username,
-                age: new_age,
+                profilePic: "../../images/profile.png",
                 password: new_password,
+                age: new_age,
                 favMeal: new_favmeal,
-                profilePic: "",
-                isAdmin: false,
-                isLoggedIn: false,
-                posts:[]
+                savedPosts: [],
+                isAdmin:false,
+                likedPosts: [],  // 1 = like, 0 = dislike
+                dislikedPosts: []
             }
+
         // API call: POST request to server creating new user account info in MongoDB 
-        this.props.appState.accounts.push(newUser)
+        // Create our request constructor with all the parameters we need
+        const request = new Request('/api/user', {
+            method: "POST",
+            body: JSON.stringify(user),
+            headers: {
+                Accept: "application/json, text/plain, */*",
+                "Content-Type": "application/json"
+            }
+        });
+
+        console.log(request)
+
+        // Send the request with fetch()
+        fetch(request)
+            .then(function (res) {
+                // Handle response we get from the API.
+                // Usually check the error codes to see what happened.
+                if (res.status === 200) {
+
+                    // TODO
+                    // If account creation was a success, tell the admin.
+                    console.log('success::user: '+user.userName+' account created')
+                    
+                } else {
+                    // TODO
+                    // If account creation failed, tell the user.
+                    // Here we are adding a generic message, but you could be more specific in your app.
+                    console.log('fail::user: '+user.userName+' not account created')
+
+                }
+            })
+            .catch(error => {
+                console.log(error);
+        });
+
 
         document.getElementById("new_username").value="";
         document.getElementById("new_age").value="";
@@ -160,17 +309,18 @@ class AdminTable extends Component {
         }
 
         // API Call: GET all user account info from server/MongoDB
-        let accounts = this.props.appState.accounts
+        let users = this.state.users
 
         let row = 1
 
         let tableRows = []
         let tableRow
-        accounts.forEach(account => {
+        users.forEach(account => {
             tableRow = <tr id={"row"+row}>
                             <td id={"username"+row} value={account.userName}>{account.userName}</td>
                             <td id={"age"+row} value={account.age}>{account.age}</td>
-                            <td id={"password"+row} value={account.password}>{account.password}</td>
+                            {/* <td id={"password"+row} value={account.password}>{account.password}</td> */}
+                            <td id={"password"+row} value={account.password}>*******</td>
                             <td id={"favmeal"+row} value={account.favMeal}>{account.favMeal}</td>
                             <td>
                                 <button id={"edit_button"+row} value="Edit" className="edit" name={row} onClick={this.editRow}>Edit</button>
@@ -238,7 +388,7 @@ class AdminTable extends Component {
                     </table>
                 </div>
 
-                <ModalPosts currentUser={this.state.currentUser} appState={this.props.appState} onClose={this.showModalPosts} show={this.state.modalDisplay}>Message in Modal</ModalPosts>
+                <ModalPosts currentUser={this.state.currentUser} app={this.state} onClose={this.showModalPosts} show={this.state.modalDisplay}>Message in Modal</ModalPosts>
             </div>
             
         )
