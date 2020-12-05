@@ -19,13 +19,13 @@ export default class Feed extends React.Component {
 
     render() {
         // obtain the list of post objects, profile picture, and current user from props
-        const { posts, profilePic, currentUser, handleSearchFilter, parent } = this.props;
+        const { posts, currentUser, handleSearchFilter, parent } = this.props;
 
         return (
             <div id={"feed-container"}>
                 <div className={"feed-header"}>
                     <Link id={"profile-container"} to={"AccountInfo"}>
-                        <img id={"profile"} src={profilePic} alt={"profile picture"}/>
+                        <img id={"profile"} src={currentUser.profilePic} alt={"profile picture"}/>
                     </Link>
                     <Link id={"post-button"} to={"./PostRecipePage"}>  {/* TODO: replace with link to "create post" page */}
                         <button>Post A Recipe</button>
@@ -37,7 +37,7 @@ export default class Feed extends React.Component {
                     posts.map(post => {
                         return (
                             <div key={uid(post)}>
-                                <Post currentUser={currentUser} profilePic={profilePic} post={post} canSave={true} context={parent}/>
+                                <Post currentUser={currentUser} post={post} canSave={true} context={parent}/>
                                 <hr />
                             </div>
                         );

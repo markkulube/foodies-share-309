@@ -41,13 +41,13 @@ export default class ReviewList extends React.Component {
 
     render() {
         // get the username and profile picture of the user viewing this ReviewList.
-        const { currentUser, profilePic } = this.props;
+        const { currentUser } = this.props;
 
         return(
             <div id={"review-list-container"}>
                 <div>
                     <br/>
-                    <img id={"profile"} src={profilePic} alt={"profile"}/>
+                    <img id={"profile"} src={currentUser.profilePic} alt={"profile"}/>
                     <div>
                         <textarea onChange={this.handleContentUpdate} rows={4} cols={30}
                                   placeholder={"Write a review"}/>

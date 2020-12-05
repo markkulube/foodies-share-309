@@ -290,4 +290,36 @@ router.post("/save", mongoChecker, authenticate, async (req, res) => {
     }
 });
 
+router.post("/review", mongoChecker, authenticate, async (req, res) => {
+    console.log("POST request for api/timeline/review");
+
+    const review = {
+        userName: req.user.userName,
+        profilePic: req.user.profilePic,
+        content: req.body.content,
+        rating: req.body.rating,
+        creator: req.user._id
+    };
+
+    try {
+        const post = await Post.findOneAndUpdate(
+            { _id: req.body.postId },
+            { $push: { "reviews": review } },
+            { new: true, useFindAndModify: false }
+        );
+        if (!post) {
+            res.status(400).send("Bad request");
+        } else {
+            res.send(post);
+        }
+    } catch (error) {
+        console.log(error);
+        if (isMongoError(error)) {
+            res.status(500).send('Internal server error');
+        } else {
+            res.status(400).send('Bad Request');  // 400 for bad request gets sent to client.
+        }
+    }
+});
+
 module.exports = router;
