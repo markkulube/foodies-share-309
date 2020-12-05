@@ -101,7 +101,7 @@ class Post extends React.Component{
     }
 
     render() {
-        let { currentUser, profilePic, post, canSave, context } = this.props;
+        let { currentUser, post, canSave, context } = this.props;
 
         if(post.userName===currentUser.userName)
         {
@@ -144,7 +144,7 @@ class Post extends React.Component{
                     <button className="delete red" onClick={() => deletePost(post.creator, post._id, context)}>Delete</button>
                 }
                 <UnmountClosed isOpened={this.state.isOpened}>
-                    <ReviewList currentUser={currentUser} profilePic={profilePic} reviews={post.reviews}/>
+                    <ReviewList currentUser={currentUser} reviews={post.reviews} postId={post._id}/>
                 </UnmountClosed>
             </div>
         );

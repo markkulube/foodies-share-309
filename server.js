@@ -12,7 +12,6 @@ const { mongoose } = require("./db/mongoose");
 mongoose.set('useFindAndModify', false);  // Fix deprecation issues.
 
 // Import mongoose models (AKA. schemas)
-const { Review } = require("./models/review");
 const { User } = require("./models/user");
 const { Post } = require("./models/post");
 
@@ -142,7 +141,6 @@ app.get('/api/all', mongoChecker, async (req, res) => {
     try {
         const users = await User.find();
         const posts = await Post.find();
-        const reviews = await Review.find();
 
         res.send({
             users: users,

@@ -29,6 +29,7 @@ export default class ReviewList extends React.Component {
     }
 
     componentDidMount() {
+        this.props.reviews.sort((a, b) => (new Date(b.datePosted)).getTime() - (new Date(a.datePosted)).getTime());
         this.setState({ reviews: this.props.reviews });
     }
 
@@ -41,19 +42,19 @@ export default class ReviewList extends React.Component {
 
     render() {
         // get the username and profile picture of the user viewing this ReviewList.
-        const { currentUser, profilePic } = this.props;
+        const { currentUser, postId } = this.props;
+        const { content, currentRating } = this.state;
 
-        return(
+        return (
             <div id={"review-list-container"}>
                 <div>
                     <br/>
-                    <img id={"profile"} src={profilePic} alt={"profile"}/>
+                    <img id={"profile"} src={currentUser.profilePic} alt={"profile"}/>
                     <div>
                         <textarea onChange={this.handleContentUpdate} rows={4} cols={30}
                                   placeholder={"Write a review"}/>
                         <Stars rating={this.state.currentRating} updateStar={updateStar} parent={this}/>
-                        <button onClick={() =>
-                            handleCreateReview(this, currentUser.userName, this.state.content, this.state.currentRating)}>
+                        <button onClick={() => handleCreateReview(this, content, currentRating, postId)}>
                             Post
                         </button>
                     </div>
@@ -63,10 +64,7 @@ export default class ReviewList extends React.Component {
                     this.state.reviews.map(review => {
                         return (
                             <div key={uid(review)}>
-                                <Review username={review.username}
-                                        profilePic={review.profilePic}
-                                        content={review.content}
-                                        rating={review.rating}/>
+                                <Review currentUser={currentUser} review={review} postId={postId} context={this}/>
                                 <hr/>
                             </div>
                         );

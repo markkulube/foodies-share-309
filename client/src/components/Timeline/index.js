@@ -1,11 +1,10 @@
 import React from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Feed from "./Feed";
 
 // styles and images
 import "./Timeline.css";
 import logo from "../../images/foodies.png";
-import profilePic from "../../images/profile.png";  // TODO: remove once account data contains profilePic
 import homePic from "../../images/home.png";
 import breakfastPic from "../../images/breakfast.png";
 import lunchPic from "../../images/lunch.png";
@@ -57,8 +56,6 @@ export default class Timeline extends React.Component {
             return;
         }
 
-        console.log("POSTS:", posts);
-
         // Conditionally render the admin button based.
         if (user.isAdmin) {
             document.getElementById('admin-button').style.display = 'inline-block';
@@ -94,7 +91,7 @@ export default class Timeline extends React.Component {
                     </Link>
                     <Link id={"profile-link"} to={"AccountInfo"}>
                      <button> 
-                         <img id={"symbol"} src={profilePic} alt={profilePic}/>
+                         <img id={"symbol"} src={this.state.currentUser.profilePic} alt={"profile-pic"}/>
                      Account</button>
                     </Link>
 
@@ -130,7 +127,6 @@ export default class Timeline extends React.Component {
                 </div>
                 <Feed
                     posts={this.state.posts}
-                    profilePic={profilePic}
                     currentUser={this.state.currentUser}
                     handleSearchFilter={handleSearchFilter}
                     parent={this}
