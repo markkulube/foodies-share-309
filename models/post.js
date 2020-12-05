@@ -27,6 +27,12 @@ const ReviewSchema = new mongoose.Schema({
         trim: true
     },
 
+    // The date this review was posted.
+    datePosted: {
+        type: Date,
+        required: [true, "Date is required."],
+    },
+
     // The rating this review is giving.
     rating: {
         type: Number,

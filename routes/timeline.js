@@ -297,6 +297,7 @@ router.post("/review", mongoChecker, authenticate, async (req, res) => {
         userName: req.user.userName,
         profilePic: req.user.profilePic,
         content: req.body.content,
+        datePosted: new Date(),
         rating: req.body.rating,
         creator: req.user._id
     };
@@ -310,7 +311,7 @@ router.post("/review", mongoChecker, authenticate, async (req, res) => {
         if (!post) {
             res.status(400).send("Bad request");
         } else {
-            res.send(post);
+            res.send(post.reviews);
         }
     } catch (error) {
         console.log(error);

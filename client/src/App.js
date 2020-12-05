@@ -38,47 +38,8 @@ class App extends React.Component {
   state = {
     currentUser: null
   }
-  
-  // An example of how to call a GET backend API from the frontend.
-  // TODO: example fetch method; remove this later on.
-  getExample = async () => {
-    try {
-      const response = await fetch(new Request('/api/all', {
-        method: 'get'
-      }));
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  // An example of how to call a POST backend API from the frontend.
-  // TODO: example fetch method; remove this later on.
-  postExample = async (userName, password, age, favMeal) => {
-    try {
-      const response = await fetch(new Request('/api/user', {
-        method: 'post',
-        body: JSON.stringify({
-          userName: userName,
-          password: password,
-          age: age,
-          favMeal: favMeal
-        }),
-        headers: {
-          Accept: "application/json, text/plain, */*",
-          "Content-Type": "application/json"
-        }
-      }));
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.error(error);
-    }
-  }
 
   render() {
-    this.getExample().catch(e => console.log(e));  // TODO: example fetch method call; remove this later on.
     const {currentUser} = this.state;
     console.log(currentUser)
     console.log(this)

@@ -144,7 +144,7 @@ class Post extends React.Component{
                     <button className="delete red" onClick={() => deletePost(post.creator, post._id, context)}>Delete</button>
                 }
                 <UnmountClosed isOpened={this.state.isOpened}>
-                    <ReviewList currentUser={currentUser} reviews={post.reviews}/>
+                    <ReviewList currentUser={currentUser} reviews={post.reviews} postId={post._id}/>
                 </UnmountClosed>
             </div>
         );
