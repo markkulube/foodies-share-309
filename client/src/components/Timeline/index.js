@@ -54,6 +54,7 @@ export default class Timeline extends React.Component {
             user = (await response.json()).currentUser;
         } catch (error) {
             console.error(error);
+            return;
         }
 
         console.log("POSTS:", posts);
