@@ -113,7 +113,8 @@ class Post extends React.Component{
 
         // decide whether to render active or inactive dislike button
         const dislikeButton = this.renderDislike(this.state.disliked)
-        
+       
+        const canEdit = ((typeof currentUser)!=='undefined') && (currentUser.userName === post.userName)
         return(
             <div className="App reviews-container">
             <br/>
@@ -128,7 +129,7 @@ class Post extends React.Component{
                 </div>
                 <div className="block">
                     <Recipe
-                        canEdit={currentUser.userName === post.userName}
+                        canEdit={canEdit}
                         title={post.title}
                         desc={post.desc}
                         category={post.category}
@@ -147,7 +148,7 @@ class Post extends React.Component{
                 {likeButton}
                 {dislikeButton}
                 <button className="nonLike" onClick={this.toggleShowHide}>{this.state.reviewsButton}</button>
-                { currentUser.userName === post.userName &&
+                { canEdit &&
                     <button className="delete red" onClick={() => deletePost(post.creator, post._id, context)}>Delete</button>
                 }
                 <UnmountClosed isOpened={this.state.isOpened}>

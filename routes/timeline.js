@@ -39,7 +39,7 @@ router.get("/post", mongoChecker, async (req, res) => {
 router.delete("/post", mongoChecker, authenticate, async (req, res) => {
     console.log("DELETE request for api/timeline/post");
 
-    if (!ObjectID(req.user._id).equals(ObjectID(req.body.creator))) {
+    if (!req.body.creator === "Admin" && !ObjectID(req.user._id).equals(ObjectID(req.body.creator))) {
         res.status(401).send("Unauthorized");
         return;
     }

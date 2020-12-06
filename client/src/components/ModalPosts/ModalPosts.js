@@ -13,39 +13,72 @@ class ModalPosts extends Component {
         super(props)
     
         this.state = {
+            users: [], 
             posts: []
         }
 
         this.onClose = this.onClose.bind(this)
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        
         if(this.props.isModalPosts) {
             document.getElementById('feed-container').style.width='100%'
         }
+
+        const data = await this.getAllData()
+        const posts = data.posts
+        const users = data.users
+        this.setState({
+            users: users,
+            posts: posts
+        })
+
     }
+
+     getAllData = async () => {
+         // Create our request constructor with all the parameters we need
+         let data = []
+         try {
+            const response = await fetch("/api/all");
+            data = await response.json();
+         } catch (error) {
+             console.log(error)
+         }
+
+         return data
+
+    }
+
+    /* componentDidMount() {
+        if(this.props.isModalPosts) {
+            document.getElementById('feed-container').style.width='100%'
+        }
+    } */
 
     // Fetch the user's posts
     getAllPosts = () => {
 
         // API Call: GET the user's posts from the server/MongoDB
-        let accounts = this.props.appState.accounts
+        let users = this.state.users
 
         // get a list of all existing posts from appState
-        let posts = []
+        let posts = this.state.posts
         let profilePic
-        accounts.forEach(account => {
-            if (account.userName==this.props.currentUser) {
-                console.log(account.posts)
-                posts=account.posts;
-                // sort the posts by descending date posted
-                posts.sort((a, b) => b.datePosted - a.datePosted);
-                profilePic = account.profilePic
+        let user_posts = []
+        posts.forEach(post => {
+            if (post.userName==this.props.currentUser) {
+                user_posts.push(post)
+                profilePic = post.profilePic
+                
                 
             }
         });
 
-        return [posts, profilePic]
+        // sort the posts by descending date posted
+        user_posts.sort((a, b) => b.datePosted - a.datePosted);
+
+        return [user_posts, profilePic]
     }
 
     onClose = e => {
