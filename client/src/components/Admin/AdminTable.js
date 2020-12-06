@@ -304,6 +304,11 @@ class AdminTable extends Component {
                 console.log(error);
         });
 
+        document.getElementById("new_username").value="";
+        document.getElementById("new_age").value="";
+        document.getElementById("new_password").value="";
+        document.getElementById("new_favmeal").value="";
+
         const users = this.state.users
         users.push(user)
         this.setState({
