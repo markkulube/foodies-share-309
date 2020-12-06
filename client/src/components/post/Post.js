@@ -135,6 +135,13 @@ class Post extends React.Component{
                         ingredients={post.ingredients}
                         steps={post.steps}
                         datePosted={post.datePosted}
+                        userName={post.userName}
+                        profilePic={post.profilePic}
+                        reviews = {post.reviews}
+                        likes = {post.likes}
+                        dislikes = {post.dislikes}
+                        creator = {post.creator}
+                        id = {post._id}
                     />
                 </div>
                 {likeButton}

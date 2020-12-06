@@ -7,19 +7,57 @@
  */
 const saveChanges = (recipe) => {
     // TODO: edits to appState will be replaced with POST requests to server API.
+    console.log(recipe)
 
-    // obtain the information needed to find and edit this recipe in the global state.
-    const { username, datePosted, appState } = recipe.props;
+      const post = {
+        userName: recipe.props.userName,
+        profilePic: recipe.props.profilePic,
+        title: recipe.state.title,
+        category: recipe.state.category.toLowerCase(),  // casts string to correct check format
+        desc: recipe.state.desc,
+        datePosted: recipe.props.datePosted,
+        ingredients: recipe.state.ingredients,
+        steps: recipe.state.steps,
+        reviews: recipe.props.reviews,
+        likes: recipe.props.likes,
+        dislikes: recipe.props.likes,
+        creator: recipe.props.creator
+    };
+   
+   // Create our request constructor with all the parameters we need
+      const request = new Request('/api/post/'+ recipe.props.id, {
+            method: "PATCH",
+            body: JSON.stringify(post),
+            headers: {
+                Accept: "application/json, text/plain, */*",
+                "Content-Type": "application/json"
+            }
+      });
 
-    // get index of account and post of such account to save changes for.
-    const accountIndex = appState.accounts.findIndex(acc => acc.userName === username);
-    const postIndex = appState.accounts[accountIndex].posts.findIndex(post =>
-        post.datePosted.getTime() === datePosted.getTime()
-    );
+      console.log(request)
+      
+        // Send the request with fetch()
+        fetch(request)
+            .then(function (res) {
+                // Handle response we get from the API.
+                // Usually check the error codes to see what happened.
+                if (res.status === 200) {
 
-    // save changes by updating appState
-    appState.accounts[accountIndex].posts[postIndex].desc = recipe.state.desc;
-    appState.accounts[accountIndex].posts[postIndex].title = recipe.state.title;
+                    // TODO
+                    // If update was a success, tell the user.
+                    console.log('success::post info updated')
+                   
+                } else {
+                    // TODO
+                    // If update failed, tell the user.
+                    // Here we are adding a generic message, but you could be more specific in your app.
+                    console.log('fail::post info not updated')
+
+                }
+            })
+        .catch(error => {
+            console.log(error);
+        });
 }
 
 /**
