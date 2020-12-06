@@ -1,15 +1,25 @@
 import React, { Component } from 'react'
-import AdminTable from './AdminTable'
-import AdminPostTable from './AdminPostTable'
 import { Link } from "react-router-dom";
 
+import AdminTable from './AdminTable'
+import AdminPostTable from './AdminPostTable'
+
 import "./Admin.css"
+
+import { signOut } from "../../actions/user";
 
 /**
  * Parent component of admin page. Children include
  * user and posts table.
  */
 class Admin extends Component {
+
+    constructor(props) {
+        super(props);
+        this.props.history.push("/Admin");
+      }
+
+
     render() {
         return (
             
@@ -29,7 +39,7 @@ class Admin extends Component {
                             <button>Account</button>
                             </Link>
                             <Link to={""}>
-                            <button className={"account-info-nav-buttons"}>Sign Out</button>
+                            <button onClick={() => signOut(this)} className={"account-info-nav-buttons"}>Sign Out</button>
                             </Link>
                     </div>
                         
@@ -40,12 +50,12 @@ class Admin extends Component {
                     <div className={"admin-nav"}>
                     <h2>Foodie Users</h2>
                     </div>
-                    <AdminTable appState={this.props.appState}></AdminTable>
+                    <AdminTable app={this.props.app}></AdminTable>
 
                     <div className={"admin-nav"}>
                     <h2>Foodie Posts</h2>
                     </div>
-                    <AdminPostTable appState={this.props.appState}></AdminPostTable>
+                    <AdminPostTable app={this.props.app}></AdminPostTable>
                     
                 </div>
 

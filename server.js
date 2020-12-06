@@ -190,12 +190,14 @@ app.post('/api/user', mongoChecker, async (req, res) => {
 });
 
 // Delete the given user from the database.
-// TODO: This is an example route, feel free to delete if it conflicts with a route you need to create.
-app.delete('/api/user', mongoChecker, async (req, res) => {
+app.delete('/api/user/:id', mongoChecker, async (req, res) => {
     console.log('DELETE request for api/user');
 
+    const id = req.params.id
+    let user
+
     try {
-        const user = await User.findByIdAndRemove(req.body.user);
+        user = await User.findByIdAndRemove(id);
         user ? res.send(user) : res.status(404).send("User not found");
     } catch (error) {
         console.log(error)
@@ -203,6 +205,44 @@ app.delete('/api/user', mongoChecker, async (req, res) => {
             res.status(500).send('Internal server error');
         } else {
             res.status(400).send('Bad request')  // Input error by the client.
+        }
+    }
+
+    try {
+        const posts = await Post.find();
+
+        posts.forEach(async (post) => {
+            if (post.userName === user.userName) {
+          
+                const post_id = post._id
+            
+                await Post.findOneAndRemove({ _id: ObjectID(post_id) });
+
+                // Update all users who have interacted with this post in some way.
+                // Note: Reviews of a post will be deleted automatically since Review is a sub-document of Post.
+                const response = await User.updateMany(
+                    { $or: [
+                            { savedPosts: { $in: post_id } },
+                            { likedPosts: { $in: post_id } },
+                            { dislikedPosts: { $in: post_id } }
+                        ] },
+                    { $pull: {
+                            "savedPosts": req.body.postId,
+                            "likedPosts": req.body.postId,
+                            "dislikedPosts": req.body.postId
+                        } }
+                );
+
+                //console.log(`Matched ${response.n} documents and updated ${response.nModified} documents`);
+            }
+        });
+        
+    } catch (error) {
+        console.log(error);
+        if (isMongoError(error)) {
+            res.status(500).send('Internal server error');
+        } else {
+            res.status(400).send('Bad Request');  // 400 for bad request gets sent to client.
         }
     }
 });
