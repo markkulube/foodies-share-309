@@ -16,7 +16,8 @@ class AdminTable extends Component {
              table_len: 2,
              modalDisplay: false,
              currentUser: null,
-             users: []
+             users: [],
+             posts: []
         }
 
         this.addRow = this.addRow.bind(this)
@@ -29,8 +30,10 @@ class AdminTable extends Component {
     async componentDidMount() {
         const data = await this.getAllData()
         const users = data.users
+        const posts = data.posts
         this.setState({
             users: users,
+            posts: posts,
             table_len: users.length
         })
 
@@ -42,7 +45,6 @@ class AdminTable extends Component {
          try {
             const response = await fetch("/api/all");
             data = await response.json();
-            console.log(data)
          } catch (error) {
              console.log(error)
          }
@@ -75,7 +77,7 @@ class AdminTable extends Component {
     }
 
     // Handle click event that saves updates of user account info.
-    saveRow(e) {
+    async saveRow(e) {
         let no = e.target.name
 
         let oldUserName = document.getElementById("username_text"+no).name
@@ -144,6 +146,15 @@ class AdminTable extends Component {
                 console.log(error);
         });
 
+        const data = await this.getAllData()
+        users = data.users
+        const posts = data.posts
+        this.setState({
+            users: users,
+            posts: posts,
+            table_len: users.length
+        })
+
         document.getElementById("username"+no).innerHTML=username_val;
         document.getElementById("age"+no).innerHTML=age_val;
         /* document.getElementById("password"+no).innerHTML=password_val; */
@@ -202,17 +213,37 @@ class AdminTable extends Component {
             })
             .catch(error => {
                 console.log(error);
-        });
-        
-        for (let index = 0; index < users.length; index++) {
-            const account = users[index];
-    
-            if (account.userName===username) {
-                users.splice(index, 1)
-            }
-        }
+        }); 
 
         document.getElementById("row"+no+"").outerHTML="";
+
+        let p = []
+        
+        this.state.posts.forEach((post) => {
+            if (post.userName === user.userName) {
+                p.push(post._id)
+            }
+        });
+        
+        const table = document.getElementById("adminPostTable");
+        for (let i = 0, row; row = table.rows[i]; i++) {
+            console.log(p.includes(row.title))
+            if (p.includes(row.title)) {
+                //row.outerHTML=""
+                table.rows[i].style.display = 'none'
+                
+            }
+           //iterate through rows
+           //rows would be accessed using the "row" variable assigned in the for loop
+           /* for (var j = 0, col; col = row.cells[j]; j++) {
+             //iterate through columns
+             //columns would be accessed using the "col" variable assigned in the for loop
+           }   */
+        }
+
+   
+
+
     }
 
     // Handle click event that creates new user account info.
@@ -274,14 +305,11 @@ class AdminTable extends Component {
                 console.log(error);
         });
 
-
-        document.getElementById("new_username").value="";
-        document.getElementById("new_age").value="";
-        document.getElementById("new_password").value="";
-        document.getElementById("new_favmeal").value="";
-
+        const users = this.state.users
+        users.push(user)
         this.setState({
-            table_len: table_len +2
+            table_len: table_len +2,
+            users: users
           });
     }
 
@@ -371,10 +399,10 @@ class AdminTable extends Component {
                                 <th></th>
                             </tr>
                             <tr>
-                                <td><input type="text" id="new_username"></input></td>
-                                <td><input type="text" id="new_age"></input></td>
-                                <td><input type="text" id="new_password"></input></td>
-                                <td><input type="text" id="new_favmeal"></input></td>
+                                <td><input placeholder={"Enter New Username"} type="text" id="new_username"></input></td>
+                                <td><input placeholder={"Enter New User Age"} type="text" id="new_age"></input></td>
+                                <td><input placeholder={"Enter New User Password"} type="text" id="new_password"></input></td>
+                                <td><input placeholder={"Enter New User Fav Meal"}  type="text" id="new_favmeal"></input></td>
                                 <td><input type="button" className="add" onClick={this.addRow} value="Add Row"></input></td>
                             </tr>
     
