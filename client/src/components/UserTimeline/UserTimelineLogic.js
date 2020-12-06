@@ -62,3 +62,56 @@ export const handleSavedFilter = (event, usertimeline) => {
     console.log(target)
     usertimeline.setState({ savedPosts: target })
 }
+
+export const getUserPosts = async () => {
+    try {
+        const response = await fetch("/api/timeline/post");
+        const posts = await response.json();
+
+        let user;
+        try {
+            const response = await fetch("/user/check-session");
+            user = (await response.json()).currentUser;
+        } catch (error) {
+            console.error(error);
+            return;
+        }
+
+        let userPost = []
+        //search for post that thats created by user
+        posts.forEach(post => {
+            if (user.username==post.username) {
+                userPost.push(post)
+            }
+        });
+        // Sort the posts by (descending) date posted.
+        userPosts.sort((a, b) => b.datePosted - a.datePosted);
+
+        return userPosts;
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
+}
+
+export const getAllSavedPosts = async () => {
+    try {
+        let user;
+        try {
+            const response = await fetch("/user/check-session");
+            user = (await response.json()).currentUser;
+        } catch (error) {
+            console.error(error);
+            return;
+        }
+        const savedPosts = user.savedPosts;
+
+        // Sort the posts by (descending) date posted.
+        savedPosts.sort((a, b) => b.datePosted - a.datePosted);
+
+        return savedPosts;
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
+}

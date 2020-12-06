@@ -15,7 +15,7 @@ export default class UserFeed extends React.Component{
       
     render(){
         //getting neccessary objects from post
-        const { posts,favPosts, profilePic, username, handleSearchFilter, handleSavedFilter, flag, parent } = this.props;
+        const { userPosts,favPosts, currentUser, handleSearchFilter, handleSavedFilter, flag, parent } = this.props;
         return(         
             
             <div id={"feed-container"}>
@@ -37,7 +37,7 @@ export default class UserFeed extends React.Component{
                 posts.map(post => {
                 return (
                     <div key={uid(post)}>
-                        <Post username={username} profilePic={profilePic} post={post} canSave={false} appState={parent.props.appState}/>
+                        <Post currentUser={currentUser} post={userPosts} canSave={true} context={parent}/>
                         <hr />
                     </div>
                     );
@@ -54,7 +54,7 @@ export default class UserFeed extends React.Component{
                 favPosts.map(post => {
                 return (
                     <div key={uid(post)}>
-                        <Post username={username} profilePic={profilePic} post={post} canSave={false} appState={parent.props.appState}/>
+                        <Post currentUser={currentUser} post={favPosts} canSave={true} context={parent}/>
                         <hr />
                     </div>
                     );
