@@ -227,7 +227,6 @@ class AdminTable extends Component {
         
         const table = document.getElementById("adminPostTable");
         for (let i = 0, row; row = table.rows[i]; i++) {
-            console.log(p.includes(row.title))
             if (p.includes(row.title)) {
                 //row.outerHTML=""
                 table.rows[i].style.display = 'none'

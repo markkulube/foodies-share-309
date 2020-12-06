@@ -145,7 +145,6 @@ app.get('/api/all', mongoChecker, async (req, res) => {
         res.send({
             users: users,
             posts: posts,
-            reviews: reviews
         });
     } catch (error) {
         console.log(error);
