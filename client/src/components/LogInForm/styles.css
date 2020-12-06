@@ -40,3 +40,17 @@ position:absolute;
 .logIn_button-link {
   text-decoration: none;
 }
+
+
+.logIn-form__button-grid {
+  line-height: 5;
+  justify-content: right;
+  direction:"column";
+  alignItems:"right";
+}
+
+.logIn_button-link {
+  padding-top: 50px;
+  padding-left: 30px;
+  text-decoration: none;
+}

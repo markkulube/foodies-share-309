@@ -347,6 +347,78 @@ app.post('/api/post', mongoChecker, async (req, res) => {
     }
 })
 
+// Update the given post from the database.
+app.patch('/api/post/:id', async (req, res) => {
+    console.log("PATCH request for /api/post/:id")
+
+    const id = req.params.id
+
+ 	// check mongoose connection established.
+	if (mongoose.connection.readyState != 1) {
+		log('Issue with mongoose connection')
+		res.status(500).send('Internal server error')
+		return;
+	}
+
+	// Good practise: Validate id immediately
+	if (!ObjectID.isValid(id)) {
+		res.status(404).send() // if invalid id, definitely can't find resource, 404.
+		return;  // so that we don't run the rest of the handler.
+    }
+
+	// if id valid findById
+	try {
+		
+        const post = await Post.findOneAndUpdate({_id: ObjectID(id)}, req.body,
+                                function(err, post) {
+                                    if (err) {
+                                        return next(err)
+                                    } else {
+                                        post.userName = req.body.userName
+                                        post.profilePic = req.body.profilePic
+                                        post.title = req.body.title
+                                        post.category =  req.body.category
+                                        post.desc =  req.body.desc
+                                        post.datePosted =  req.body.datePosted
+                                        post.ingredients =  req.body.ingredients
+                                        post.steps =  req.body.steps
+                                        post.reviews =  req.body.reviews
+                                        post.likes =  req.body.likes
+                                        post.dislikes =  req.body.dislikes
+                                        post.creator =  req.body.creator
+                                        post.save(function (err, post) {
+                                            if (err) {
+                                                // res.send("Error: ", err);
+                                                // res.status(500).send('Internal Server Error') 
+                                                console.log("error")
+                                            } else {
+                                            // res.send("password updated successfully!");
+                                            // res.send(user) 
+                                            console.log("success")
+                                            }
+                                        })
+                                    }
+                                
+                                }, 
+                                {useFindAndModify:false, new: false}
+                                )
+
+		if(!post) {
+
+            res.status(404).send('Resource not found') // could not find this post
+            
+		} else {
+
+			// sometimes we might wrap returned object in another object
+            // res.send({user})
+			res.send(post) 
+		} 
+	} catch (error) {
+		console.log(error)
+		res.status(500).send('Internal Server Error') // server error
+	}
+});
+
 // ==== Serving Frontend ==== //
 // -------------------------- //
 

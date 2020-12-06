@@ -50,6 +50,15 @@ class LogInForm extends React.Component {
           >
             Log In
           </Button>   
+          <Link className="logIn_button-link" to={"./"}>
+          <Button
+            variant="contained"
+            color="primary"
+            className="logIn-form__submit-button"
+          >
+            Back to Home
+          </Button>
+          </Link>
         </Grid>
       </Grid>
       </div>

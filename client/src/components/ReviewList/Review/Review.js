@@ -50,7 +50,7 @@ export default class Review extends React.Component {
             <div>
                 <img className={"profile"} src={review.profilePic} alt={"profile"}/>
                 <div>
-                    <h1>{review.username}</h1>
+                    <h1>{review.userName}</h1>
                     <p>{review.content}</p>
                     {/* We pass in the identity function for updateStar because we don't want anything to happen
                         when clicking the stars of an existing review. */}
