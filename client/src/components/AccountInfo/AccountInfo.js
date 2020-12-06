@@ -245,7 +245,7 @@ class AccountInfo extends Component {
                         
                         <label id={"psw-default"} className={"label-default"} for="psw"><br></br><b>Password: ******* </b><br></br></label>
                         <label id={"psw-edit"} className={"edit-input"} for="psw"><br></br><b>Password: {this.state.password} </b><br></br></label>
-                        <input id={"psw-edit"} className={"edit-input"} onChange={this.handleTyping} type="password" placeholder="Enter Password" value={this.state.password} name="psw" required></input>
+                        <input id={"psw-edit"} className={"edit-input"} onChange={this.handleTyping} type="password" placeholder="Enter New Password" value={this.state.password} name="psw" required></input>
                     
                         <button id={"edit"} className={"label-default"} onClick={this.handleEditClick} >Edit<br></br></button>
                         <button id={"cancel"} className="edit-input" onClick={this.handleCancelClick} >Cancel<br></br></button><br></br>
