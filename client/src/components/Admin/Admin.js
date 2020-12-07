@@ -6,6 +6,18 @@ import AdminPostTable from './AdminPostTable'
 
 import "./Admin.css"
 
+// styles and images
+import logo from "../../images/foodies.png";
+import homePic from "../../images/home.png";
+import breakfastPic from "../../images/breakfast.png";
+import lunchPic from "../../images/lunch.png";
+import dinnerPic from "../../images/dinner.png";
+import dessertPic from "../../images/dessert.png";
+import otherPic from "../../images/other.png";
+import signOutPic from "../../images/signout.png";
+import adminPic from "../../images/admin.png";
+import postsPic from "../../images/posts.png";
+
 import { signOut } from "../../actions/user";
 
 /**
@@ -25,7 +37,7 @@ class Admin extends Component {
             
             <div id={"admin"}>
 
-                <div id="admin-header">
+                {/* <div id="admin-header">
 
                     <div className={"admin-nav"}>
                         <h1>Welcome Admin</h1>
@@ -43,21 +55,53 @@ class Admin extends Component {
                             </Link>
                     </div>
                         
+                </div> */}
+
+                <div id={"side-container-admin"} className={"side-container-admin"}>
+                    <img id={"logo"} src={logo} alt={logo}/>
+                    {/* <Link id={"profile-link"} to={"Admin"}>
+                     <button id={"admin-button"}> 
+                         <img id={"symbol"} src={adminPic} alt={adminPic}/>
+                     Admin</button>
+                    </Link> */}
+                    <Link id={"profile-link"} to={"AccountInfo"}>
+                     <button> 
+                         {/* <img id={"symbol"} src={this.state.currentUser.profilePic} alt={"profile-pic"}/> */}
+                     Account</button>
+                    </Link>
+                    <Link id={"timeLine-link"} to={"Timeline"}>
+                     <button><img id={"symbol"} src={homePic} alt={homePic}/>
+                     Timeline</button>
+                    </Link>
+                    <Link id={"userTimeline-link"} to={"UserTimeline"}>
+                     <button>
+                     <img id={"symbol"} src={postsPic} alt={postsPic}/>
+                     My Posts</button>
+                    </Link>
+                    <Link id={"signout-link"} to={"/"}>
+                        <button onClick={() => signOut(this)}>
+                        <img id={"symbol"} src={signOutPic} alt={signOutPic}/>
+                        Sign Out</button>
+                    </Link>
                 </div>
 
                 <div id={"admin-main"}>
 
                     <div className={"admin-nav"}>
+                    <h1>Welcome Admin</h1>
                     <h2>Foodie Users</h2>
                     </div>
-                    <AdminTable app={this.props.app}></AdminTable>
+                     <AdminTable app={this.props.app}></AdminTable>
 
-                    <div className={"admin-nav"}>
+                   <div className={"admin-nav"}>
+                   <br/>
                     <h2>Foodie Posts</h2>
                     </div>
                     <AdminPostTable app={this.props.app}></AdminPostTable>
                     
                 </div>
+
+                
 
             </div>
         )

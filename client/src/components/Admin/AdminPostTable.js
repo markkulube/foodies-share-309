@@ -184,9 +184,8 @@ class AdminPostTable extends Component {
         return (
             
             <div id={"admin-post-table"}>
-              
+                    <br></br>
                     <input type="text" id="post-table-search" onKeyUp={this.myFunction} placeholder="Search for posts.." title="Type in a name"></input>
-                
                 <table  cellSpacing={2} cellPadding={2} id={"adminPostTable"} border={1}>
                     
                     <thead>

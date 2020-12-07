@@ -5,6 +5,18 @@ import "./AccountInfo.css"
 
 import { signOut } from "../../actions/user";
 
+// styles and images
+import logo from "../../images/foodies.png";
+import homePic from "../../images/home.png";
+import breakfastPic from "../../images/breakfast.png";
+import lunchPic from "../../images/lunch.png";
+import dinnerPic from "../../images/dinner.png";
+import dessertPic from "../../images/dessert.png";
+import otherPic from "../../images/other.png";
+import signOutPic from "../../images/signout.png";
+import adminPic from "../../images/admin.png";
+import postsPic from "../../images/posts.png";
+
 /**
  * A component that renders user account info. The use is allowed
  * edit, update, and save operations.
@@ -40,12 +52,12 @@ class AccountInfo extends Component {
         this.handleUpdateClick = this.handleUpdateClick.bind(this)
         this.handleTyping = this.handleTyping.bind(this)
     }
-
+/* 
     componentDidMount () {
         if (this.props.app.state.currentUser.isAdmin) {
             document.getElementById('admin-button').style.display = 'inline-block'
         } 
-    }
+    } */
 
     // Handle click event that enables editing of account info values.
     handleEditClick = (e) => { 
@@ -211,9 +223,36 @@ class AccountInfo extends Component {
     render() {
         return (
             <div id="account-info">
+                <div id={"side-container-accinfo"} className={"side-container-accinfo"}>
+                        <img id={"logo"} src={logo} alt={logo}/>
+                        {/* <Link id={"profile-link"} to={"Admin"}>
+                        <button id={"admin-button"}> 
+                            <img id={"symbol"} src={adminPic} alt={adminPic}/>
+                        Admin</button>
+                        </Link> */}
+                        <Link id={"profile-link"} to={"Admin"}>
+                        <button> 
+                            {/* <img id={"symbol"} src={this.state.currentUser.profilePic} alt={"profile-pic"}/> */}
+                        Admin</button>
+                        </Link>
+                        <Link id={"timeLine-link"} to={"Timeline"}>
+                        <button><img id={"symbol"} src={homePic} alt={homePic}/>
+                        Timeline</button>
+                        </Link>
+                        <Link id={"userTimeline-link"} to={"UserTimeline"}>
+                        <button>
+                        <img id={"symbol"} src={postsPic} alt={postsPic}/>
+                        My Posts</button>
+                        </Link>
+                        <Link id={"signout-link"} to={"/"}>
+                            <button onClick={() => signOut(this)}>
+                            <img id={"symbol"} src={signOutPic} alt={signOutPic}/>
+                            Sign Out</button>
+                        </Link>
+                    </div>
                 <div id="form" >
 
-                    <div id="account-info-header">
+                    {/* <div id="account-info-header">
                         <h2>My Account</h2>
                         <Link to={"/Timeline"}>  
                             <button className={"account-info-nav-buttons"}>Home</button>
@@ -227,9 +266,9 @@ class AccountInfo extends Component {
                         <Link to={""}>
                             <button onClick={() => signOut(this)} className={"account-info-nav-buttons"}>Sign Out</button>
                         </Link>
-                    </div>
+                    </div> */}
                     <div className="imgcontainer">
-                        <img src={this.avatar} alt={this.avatar} className="avatar">
+                        <img src={this.avatar} alt={"user profile picture"} className="avatar">
                             </img>
                     </div>
 
@@ -252,7 +291,10 @@ class AccountInfo extends Component {
                         <button id={"update"} className="edit-input" onClick={this.handleUpdateClick} >Update<br></br></button>
                     </div>
 
+                    
+
                 </div>
+                    
             </div>
         )
     }
