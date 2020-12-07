@@ -4,20 +4,22 @@ body {
 }
 
 #account-info {
-    text-align: center;
-    height: 100%;
+    /* text-align: center;
+    height: 100%; */
 }
 
 
 #form {
     border: 3px solid  #33522c;
     border-radius: 5%;
-    width: 50%;
-    height: 50%;
+    width: 40%;
+    height: 40%;
     background-color:#8cc63f;
     display: inline-block;
     margin: 0 auto;
     margin-top: 5%;
+    margin-left: 43.5%;
+    text-align: center;
 }
 
 #account-info-header {
@@ -104,4 +106,92 @@ span.psw {
   .cancelbtn {
      width: 100%;
   }
+}
+
+
+/* Styling for nav side bar. */
+
+/* #timeline {
+  display: flex;
+}
+ */
+ #logo {
+  width: 100px;
+  margin-left: 105px;
+}
+
+#symbol {
+  width: 50px;
+  border-radius: 50%;
+  margin-left: 150px;
+  margin-right: 50px;
+  margin-top: 0px;
+  display:inline-block;
+
+}
+
+
+#side-container-accinfo {
+  display: inline-block;
+  width: 27%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+}
+
+
+.side-container-accinfo {
+ /*  display: block; */
+  background-color: #568c4a;
+  /* width: 27%; */
+  /* position: sticky; */
+ /*  position: fixed; */
+ /*  top: 0; */
+  /* height: 100vh; */
+}
+
+.side-container-accinfo button {
+  position:relative;
+  width: 200px;
+  height:50px;
+  display: block;
+  margin-left: 200px;
+  margin-right: 50px;
+  margin-top: 20px;
+  background-color:#8cc63f;
+  border: 4px #33522c solid;
+  border-radius: 0;
+  font-family: "American Typewriter", serif;
+  font-size: 1.5em;
+  color: #282c34;
+}
+
+.side-container-accinfo button img {
+  position: absolute;
+  top: 0px;
+  left: -225px;
+}
+
+#profile-link {
+  width: 0;
+  display: block;
+  text-decoration: none;
+}
+
+#admin-button {
+  display: none
+}
+
+#userTimeline-link {
+  text-decoration: block;
+}
+
+#timeLine-link {
+  text-decoration: none;
+}
+
+#signout-link {
+  width: 0;
+  display: block;
+  text-decoration: none;
 }
