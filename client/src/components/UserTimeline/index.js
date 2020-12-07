@@ -14,7 +14,9 @@ import lunchPic from "../../images/lunch.png";
 import dinnerPic from "../../images/dinner.png";
 import dessertPic from "../../images/dessert.png";
 import signOutPic from "../../images/signout.png";
+import otherPic from "../../images/other.png";
 import adminPic from "../../images/admin.png";
+import postsPic from "../../images/posts.png";
 
 /*
     similar to Timeline, but consist only user's posts and user's favorited posts.
@@ -29,6 +31,8 @@ class UserTimeline extends React.Component{
             savedPosts:[],
             currentUser: {}
         }
+
+         this.props.history.push("/UserTimeline");
 
         console.log(props)
     }
@@ -90,6 +94,7 @@ class UserTimeline extends React.Component{
                     </Link>
                     
                     <button onClick={() => handleFilter(this, "home")}>
+                    <img id={"symbol"} src={postsPic} alt={postsPic}/>
                     All Recipes</button>
                     <button onClick={() => handleFilter(this, "breakfast")}>
                     <img id={"symbol"} src={breakfastPic} alt={breakfastPic}/>
@@ -103,6 +108,9 @@ class UserTimeline extends React.Component{
                     <button onClick={() => handleFilter(this, "dessert")}>
                     <img id={"symbol"} src={dessertPic} alt={dessertPic}/>
                     Dessert</button>
+                    <button onClick={() => handleFilter(this, "other")}>
+                    <img id={"symbol"} src={otherPic} alt={otherPic}/>
+                    Other</button>
                     <Link id={"signout-link"} to={""}>
                         <button onClick={() => signOut(this)}>
                         <img id={"symbol"} src={signOutPic} alt={signOutPic}/>
