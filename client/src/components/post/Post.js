@@ -102,8 +102,9 @@ class Post extends React.Component{
 
     render() {
         let { currentUser, post, canSave, context } = this.props;
+        const canEdit = ((typeof currentUser)!=='undefined') && (currentUser.userName === post.userName)
 
-        if(post.userName===currentUser.userName)
+        if(canEdit && (post.userName===currentUser.userName))
         {
             canSave=false;
         }
@@ -114,7 +115,7 @@ class Post extends React.Component{
         // decide whether to render active or inactive dislike button
         const dislikeButton = this.renderDislike(this.state.disliked)
        
-        const canEdit = ((typeof currentUser)!=='undefined') && (currentUser.userName === post.userName)
+
         return(
             <div className="App reviews-container">
             <br/>
