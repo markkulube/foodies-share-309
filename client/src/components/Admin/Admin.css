@@ -2,10 +2,13 @@
   margin: 0 auto;
 }
 
-#admin #admin-main {
+#admin-main {
   border: 0.1pc solid  #33522c;
   text-align: center;
   background-color:#8cc63f;
+  display: inline-block;
+  width: 60%;
+  margin-left: 30%;
 }
 
 .admin-nav {
@@ -40,4 +43,92 @@
   cursor: pointer;
   width: 10%;
   display: inline-block;
+}
+
+
+/* Stylesheet for the Timeline page. */
+
+/* #timeline {
+  display: flex;
+}
+ */
+#logo {
+  width: 100px;
+  margin-left: 105px;
+}
+
+#symbol {
+  width: 50px;
+  border-radius: 50%;
+  margin-left: 150px;
+  margin-right: 50px;
+  margin-top: 0px;
+  display:inline-block;
+
+}
+
+
+#side-container-admin {
+  display: inline-block;
+  width: 27%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+}
+
+
+.side-container-admin {
+ /*  display: block; */
+  background-color: #568c4a;
+  /* width: 27%; */
+  /* position: sticky; */
+ /*  position: fixed; */
+ /*  top: 0; */
+  /* height: 100vh; */
+}
+
+.side-container-admin button {
+  position:relative;
+  width: 200px;
+  height:50px;
+  display: block;
+  margin-left: 200px;
+  margin-right: 50px;
+  margin-top: 20px;
+  background-color:#8cc63f;
+  border: 4px #33522c solid;
+  border-radius: 0;
+  font-family: "American Typewriter", serif;
+  font-size: 1.5em;
+  color: #282c34;
+}
+
+.side-container-admin button img {
+  position: absolute;
+  top: 0px;
+  left: -225px;
+}
+
+#profile-link {
+  width: 0;
+  display: block;
+  text-decoration: none;
+}
+
+#admin-button {
+  display: none
+}
+
+#userTimeline-link {
+  text-decoration: block;
+}
+
+#timeLine-link {
+  text-decoration: none;
+}
+
+#signout-link {
+  width: 0;
+  display: block;
+  text-decoration: none;
 }
