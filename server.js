@@ -135,7 +135,7 @@ app.use("/api/timeline", require("./routes/timeline"));
 
 // Retrieve all existing data from server as a test.
 // TODO: This is an example route, feel free to delete if it conflicts with a route you need to create.
-app.get('/api/all', mongoChecker, async (req, res) => {
+app.get('/api/all', mongoChecker, authenticate, async (req, res) => {
     console.log("GET request for api/all");
 
     try {
@@ -161,7 +161,7 @@ app.get('/api/user', mongoChecker, authenticate, async (req, res) => {
 
 // Create a new user with the given request data.
 // TODO: This is an example route, feel free to delete if it conflicts with a route you need to create.
-app.post('/api/user', mongoChecker, async (req, res) => {
+app.post('/api/user', mongoChecker, authenticate, async (req, res) => {
     console.log("POST request for api/user");
 
     const user = new User({
@@ -189,7 +189,7 @@ app.post('/api/user', mongoChecker, async (req, res) => {
 });
 
 // Delete the given user from the database.
-app.delete('/api/user/:id', mongoChecker, async (req, res) => {
+app.delete('/api/user/:id', mongoChecker, authenticate, async (req, res) => {
     console.log('DELETE request for api/user');
 
     const id = req.params.id
@@ -247,7 +247,7 @@ app.delete('/api/user/:id', mongoChecker, async (req, res) => {
 });
 
 // Update the given user from the database.
-app.patch('/api/account/:id', async (req, res) => {
+app.patch('/api/account/:id', mongoChecker, authenticate, async (req, res) => {
     console.log("PATCH request for /api/account/:id")
 
     const id = req.params.id
@@ -312,7 +312,7 @@ app.patch('/api/account/:id', async (req, res) => {
 
 // TODO: Add more routes to get server data here.
 // a POST route to *create* a post
-app.post('/api/post', mongoChecker, async (req, res) => {
+app.post('/api/post', mongoChecker, authenticate, async (req, res) => {
 
     // Create a new post using the Post mongoose model
     const post = new Post({
@@ -348,7 +348,7 @@ app.post('/api/post', mongoChecker, async (req, res) => {
 })
 
 // Update the given post from the database.
-app.patch('/api/post/:id', async (req, res) => {
+app.patch('/api/post/:id',  mongoChecker, authenticate, async (req, res) => {
     console.log("PATCH request for /api/post/:id")
 
     const id = req.params.id
