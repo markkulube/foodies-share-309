@@ -36,8 +36,8 @@ class Admin extends Component {
         return (
             
             <div id={"admin"}>
-{/* 
-                <div id="admin-header">
+
+                {/* <div id="admin-header">
 
                     <div className={"admin-nav"}>
                         <h1>Welcome Admin</h1>
@@ -59,17 +59,20 @@ class Admin extends Component {
 
                 <div id={"side-container-admin"} className={"side-container-admin"}>
                     <img id={"logo"} src={logo} alt={logo}/>
-                    <Link id={"profile-link"} to={"Admin"}>
+                    {/* <Link id={"profile-link"} to={"Admin"}>
                      <button id={"admin-button"}> 
                          <img id={"symbol"} src={adminPic} alt={adminPic}/>
                      Admin</button>
-                    </Link>
+                    </Link> */}
                     <Link id={"profile-link"} to={"AccountInfo"}>
                      <button> 
                          {/* <img id={"symbol"} src={this.state.currentUser.profilePic} alt={"profile-pic"}/> */}
                      Account</button>
                     </Link>
-
+                    <Link id={"timeLine-link"} to={"Timeline"}>
+                     <button><img id={"symbol"} src={homePic} alt={homePic}/>
+                     Timeline</button>
+                    </Link>
                     <Link id={"userTimeline-link"} to={"UserTimeline"}>
                      <button>
                      <img id={"symbol"} src={postsPic} alt={postsPic}/>
@@ -85,11 +88,13 @@ class Admin extends Component {
                 <div id={"admin-main"}>
 
                     <div className={"admin-nav"}>
+                    <h1>Welcome Admin</h1>
                     <h2>Foodie Users</h2>
                     </div>
                      <AdminTable app={this.props.app}></AdminTable>
 
                    <div className={"admin-nav"}>
+                   <br/>
                     <h2>Foodie Posts</h2>
                     </div>
                     <AdminPostTable app={this.props.app}></AdminPostTable>
