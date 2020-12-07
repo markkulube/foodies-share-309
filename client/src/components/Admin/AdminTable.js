@@ -392,6 +392,7 @@ class AdminTable extends Component {
 
             <div>
                 <div id={"admin-table"}>
+                        <br></br>
                         <input type="text" id="admin-search" onKeyUp={this.myFunction} placeholder="Search for users.." title="Type in a name"></input>
                     <table  cellSpacing={2} cellPadding={5} id={"adminTable"} border={1}>
                         <thead>
