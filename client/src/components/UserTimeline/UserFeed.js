@@ -21,7 +21,7 @@ export default class UserFeed extends React.Component{
             <div id={"feed-container"}>
                 <div className={"feed-header"}>
                     <Link id={"profile-container"} to={"AccountInfo"}>
-                        <img id={"profile"} src={profilePic} alt={"profile picture"}/>
+                        <img id={"profile"} src={currentUser.profilePic} alt={"profile picture"}/>
                     </Link>
                     {flag &&
                     <Link id={"post-button"} to={"./PostRecipePage"}>  
@@ -33,8 +33,8 @@ export default class UserFeed extends React.Component{
                 <input onChange={(event) => handleSearchFilter(event, parent)} placeholder={"Search for a recipe"}/>
                 }
                 <h2>My Recipe</h2>
-                { posts ? (
-                posts.map(post => {
+                { userPosts ? (
+                userPosts.map(post => {
                 return (
                     <div key={uid(post)}>
                         <Post currentUser={currentUser} post={userPosts} canSave={true} context={parent}/>

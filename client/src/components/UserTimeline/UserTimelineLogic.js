@@ -85,9 +85,9 @@ export const getUserPosts = async () => {
             }
         });
         // Sort the posts by (descending) date posted.
-        userPosts.sort((a, b) => b.datePosted - a.datePosted);
+        userPost.sort((a, b) => b.datePosted - a.datePosted);
 
-        return userPosts;
+        return userPost;
     } catch (error) {
         console.error(error);
         return [];
