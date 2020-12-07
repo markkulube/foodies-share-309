@@ -95,7 +95,6 @@ class Admin extends Component {
                     <AdminPostTable app={this.props.app}></AdminPostTable>
                     
                 </div>
-
                 
 
             </div>
