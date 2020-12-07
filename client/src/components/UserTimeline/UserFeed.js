@@ -15,7 +15,11 @@ export default class UserFeed extends React.Component{
       
     render(){
         //getting neccessary objects from post
-        const { posts,favPosts, profilePic, username, handleSearchFilter, handleSavedFilter, flag, parent } = this.props;
+        const { userPosts, favPosts, currentUser, handleSearchFilter, handleSavedFilter, profilePic, flag, parent } = this.props;
+        console.log(this.props)
+        console.log(userPosts)
+        console.log(favPosts)
+
         return(         
             
             <div id={"feed-container"}>
@@ -33,11 +37,11 @@ export default class UserFeed extends React.Component{
                 <input onChange={(event) => handleSearchFilter(event, parent)} placeholder={"Search for a recipe"}/>
                 }
                 <h2>My Recipe</h2>
-                { posts ? (
-                posts.map(post => {
+                { userPosts ? (
+                userPosts.map(post => {
                 return (
                     <div key={uid(post)}>
-                        <Post username={username} profilePic={profilePic} post={post} canSave={false} appState={parent.props.appState}/>
+                        <Post currentUser={currentUser} post={post} canSave={true} context={parent}/>
                         <hr />
                     </div>
                     );
@@ -54,7 +58,7 @@ export default class UserFeed extends React.Component{
                 favPosts.map(post => {
                 return (
                     <div key={uid(post)}>
-                        <Post username={username} profilePic={profilePic} post={post} canSave={false} appState={parent.props.appState}/>
+                        <Post currentUser={currentUser} post={post} canSave={true} context={parent}/>
                         <hr />
                     </div>
                     );

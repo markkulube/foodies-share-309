@@ -14,7 +14,10 @@ class ModalPosts extends Component {
     
         this.state = {
             users: [], 
-            posts: []
+            posts: [],
+            userPosts:[],
+            savedPosts:[],
+            profilePic: ""
         }
 
         this.onClose = this.onClose.bind(this)
@@ -61,24 +64,41 @@ class ModalPosts extends Component {
 
         // API Call: GET the user's posts from the server/MongoDB
         let users = this.state.users
-
+        let currentUser = null
+        
+        for(let i=0;i<this.props.app.users.length;i++)
+        {
+            if (this.props.currentUser===this.props.app.users[i].userName)
+            {
+                   currentUser = this.props.app.users[i]
+            }
+        }
         // get a list of all existing posts from appState
         let posts = this.state.posts
         let profilePic
         let user_posts = []
+        let saved_posts = []
         posts.forEach(post => {
             if (post.userName==this.props.currentUser) {
                 user_posts.push(post)
-                profilePic = post.profilePic
-                
-                
+                profilePic = post.profilePic   
+            }
+        });
+        
+        console.log(this.props)
+        posts.forEach(post => {
+            if(currentUser!==null){
+            if (currentUser.savedPosts.includes(post._id)) {
+                saved_posts.push(post) 
+            }
             }
         });
 
         // sort the posts by descending date posted
         user_posts.sort((a, b) => b.datePosted - a.datePosted);
+        saved_posts.sort((a, b) => b.datePosted - a.datePosted);
 
-        return [user_posts, profilePic]
+        return [user_posts, saved_posts, currentUser, profilePic]
     }
 
     onClose = e => {
@@ -88,7 +108,7 @@ class ModalPosts extends Component {
     render() {
 
         const username = this.props.currentUser;
-        const [posts, profilePic] = this.getAllPosts()
+        const [userPosts, savedPosts, currentUser, profilePic] = this.getAllPosts()
         const flag = false;
 
         if(!this.props.show){
@@ -99,13 +119,13 @@ class ModalPosts extends Component {
             <div className="modal" id="modal">
                 <div className={"modal-content"}>
                     <div>
-          
                         <button className={"close"} onClick={this.onClose}>
                             Close
                         </button>
-
                         <UserFeed
-                        posts={posts}
+                        userPosts={userPosts}
+                        favPosts={savedPosts}
+                        currentUser={currentUser}
                         profilePic={profilePic}
                         username={username}
                         handleSearchFilter={handleSearchFilter}

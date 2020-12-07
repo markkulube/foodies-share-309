@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import UserFeed from "./UserFeed";
-import { handleFilter, handleSearchFilter, handleSavedFilter } from "./UserTimelineLogic";
+import { handleFilter, handleSearchFilter, handleSavedFilter,getUserPosts,getAllSavedPosts } from "./UserTimelineLogic";
 import {signOut} from "../../actions/signup";
 //stylesheet
 import "../Timeline/Timeline.css";
@@ -25,54 +25,49 @@ class UserTimeline extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            posts: [],
-            savedPosts:[]
+            userPosts: [],
+            savedPosts:[],
+            currentUser: {}
         }
+
+        console.log(props)
     }
-    componentDidMount() {
+    async componentDidMount() {
+        // Fetch all posts and the current user.
         
-        if (this.props.appState.currentUser.isAdmin) {
-            document.getElementById('admin-button').style.display = 'inline-block'
-        } 
-    }
+        let user;
+        try {
+            const response = await fetch("/user/check-session");
+            user = (await response.json()).currentUser;
+        } catch (error) {
+            console.error(error);
+            return;
+        }
 
-     getAllPosts = () => {
-        // get a list of all user posts from appState
-        let posts = []  
-        posts = posts.concat(this.props.appState.currentUser.posts);
+        // Conditionally render the admin button based.
+        if (user.isAdmin) {
+            document.getElementById('admin-button').style.display = 'inline-block';
+        }
 
-        // sort the posts by descending date posted
-        posts.sort((a, b) => b.datePosted - a.datePosted);
+        // Set liked or disliked status of each post according to the current user.
+       const userPosts = await getUserPosts()  
+       const savedPosts = await getAllSavedPosts()
 
-        return posts;
-    }
 
-     getAllSavedPosts = () => {
-        // get a list of all favorite posts from appState
-        let savedPosts = []  // this will contain all favorite posts
-        savedPosts = savedPosts.concat(this.props.appState.currentUser.savedPosts);
-
-        // sort the posts by descending date posted
-        savedPosts.sort((a, b) => b.datePosted - a.datePosted);
-
-        return savedPosts;
-    }
-
-    componentDidMount() {
-        // begin by showing all posts
-        this.setState({ posts: this.getAllPosts() })
-        this.setState({ savedPosts: this.getAllSavedPosts() })
-        
-        if (this.props.appState.currentUser.isAdmin) {
-            document.getElementById('admin-button').style.display = 'inline-block'
-        } 
+       console.log(savedPosts)
+       console.log(userPosts)
+        this.setState({
+            userPosts: userPosts,
+            savedPosts: savedPosts,
+            currentUser: user
+        });
     }
 
 
     render(){
         //retrieve the current user's username and profile pictures from appState 
-        const username = this.props.app.currentUser.userName;
-        const profilePic = this.props.app.currentUser.profilePic;
+        const username = this.props.app.state.currentUser.userName;
+        const profilePic = this.props.app.state.currentUser.profilePic;
         const flag=true;
         return(
             <div id={"timeline"}>
@@ -115,10 +110,10 @@ class UserTimeline extends React.Component{
                     </Link>
                 </div>
                <UserFeed
-                   posts={this.state.posts}
+                   userPosts={this.state.userPosts}
                    favPosts={this.state.savedPosts}
+                   currentUser={this.state.currentUser}
                    profilePic={profilePic}
-                   username={username}
                    handleSearchFilter={handleSearchFilter}
                    handleSavedFilter={handleSavedFilter}
                    flag={flag}

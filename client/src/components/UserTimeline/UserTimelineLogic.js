@@ -8,7 +8,9 @@ export const handleFilter = (usertimeline, option) => {
     console.log("filtering posts with option:", option);
 
     // get list of all posts (sorted)
-    const posts = usertimeline.getAllPosts();
+    const post1 = usertimeline.getUserPosts();
+    const post2 = usertimeline.getAllSavedPosts();
+    const posts = post1.concat(post2)
 
     // TODO: All cases in switch will contain API calls to receive posts from backend
     switch (option) {
@@ -61,4 +63,66 @@ export const handleSavedFilter = (event, usertimeline) => {
     const target = usertimeline.getAllSavedPosts().filter((post) => post.title.toLowerCase().includes(value)) 
     console.log(target)
     usertimeline.setState({ savedPosts: target })
+}
+
+export const getUserPosts = async () => {
+    try {
+        const response = await fetch("/api/timeline/post");
+        const posts = await response.json();
+
+        let user;
+        try {
+            const response = await fetch("/user/check-session");
+            user = (await response.json()).currentUser;
+        } catch (error) {
+            console.error(error);
+            return;
+        }
+
+        let userPosts = []
+        //search for post that thats created by user
+        posts.forEach(post => {
+            if (user.userName===post.userName) {
+                userPosts.push(post)
+            }
+        });
+        // Sort the posts by (descending) date posted.
+        userPosts.sort((a, b) => b.datePosted - a.datePosted);
+        return userPosts;
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
+}
+
+export const getAllSavedPosts = async () => {
+     try {
+        const response = await fetch("/api/timeline/post");
+        const posts = await response.json();
+
+        let user;
+        try {
+            const response = await fetch("/user/check-session");
+            user = (await response.json()).currentUser;
+        } catch (error) {
+            console.error(error);
+            return;
+        }
+
+        let savedPosts = []
+        //search for post that thats created by user
+        posts.forEach(post => {
+            if (user.savedPosts.includes(post._id)) {
+                savedPosts.push(post)
+            }
+        });
+        
+        // Sort the posts by (descending) date posted.
+        savedPosts.sort((a, b) => b.datePosted - a.datePosted);
+
+        return savedPosts;
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
 }
