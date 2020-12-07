@@ -38,9 +38,10 @@
   height: 5%;
 }
 
-#admin-table #admin-search {
+#admin-search {
   background-color: #dddddd;
   font-size: 2pc;
+  width: 50%;
 }
 
 #adminTable {
