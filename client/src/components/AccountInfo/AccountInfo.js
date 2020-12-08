@@ -21,8 +21,30 @@ class AccountInfo extends Component {
         // API call: GET use info from MongoDB
 
         this.props.history.push("/AccountInfo");
+        
+        if(this.props.app.state.currentUser===null)
+        {
+          this.props.history.push("/");
+          this.state = {
+            username: '',
+            password: '',
+            old_password: "",
+            age: 0,
+            favmeal: '',
 
-        console.log(this.props.app.state.currentUser)
+            user: {
+                    username: '',
+                    password: '',
+                    age: 0,
+                    favmeal: ''
+            }
+            
+        }
+
+        this.avatar = ''
+        }
+        else
+        {
         this.state = {
             username: this.props.app.state.currentUser.userName,
             password: this.props.app.state.currentUser.password,
@@ -40,18 +62,23 @@ class AccountInfo extends Component {
         }
 
         this.avatar = this.props.app.state.currentUser.profilePic
+        }
 
         this.handleEditClick = this.handleEditClick.bind(this)
         this.handleCancelClick = this.handleCancelClick.bind(this)
         this.handleUpdateClick = this.handleUpdateClick.bind(this)
         this.handleTyping = this.handleTyping.bind(this)
+
+       
     }
 
     componentDidMount () {
+        if(this.props.app.state.currentUser!==null){
         if (this.props.app.state.currentUser.isAdmin) {
             document.getElementById('profile-link').style.display = 'block'
         } else {
             document.getElementById('profile-link').style.display = 'none'
+        }
         }
     }
 
@@ -238,11 +265,14 @@ class AccountInfo extends Component {
     }
     
     render() {
-        let displayAdminButt
+        let displayAdminButt;
+        if(this.props.app.state.currentUser!==null)
+        {
         if (this.props.app.state.currentUser.isAdmin) {
             displayAdminButt = {diplay: 'block'}
         } else {
             displayAdminButt = {diplay: 'none'}
+        }
         }
         
         return (

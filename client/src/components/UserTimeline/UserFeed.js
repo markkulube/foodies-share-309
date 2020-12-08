@@ -53,7 +53,9 @@ export default class UserFeed extends React.Component{
                 {flag &&
                 <input onChange={(event) => handleSavedFilter(event, parent)} placeholder={"Search for a recipe"}/>
                 }
+                {favPosts.length>0 &&
                 <h2>Saved Recipe</h2>
+                }
                 { favPosts ?(
                 favPosts.map(post => {
                 return (
