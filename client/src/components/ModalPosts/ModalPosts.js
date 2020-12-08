@@ -125,6 +125,7 @@ class ModalPosts extends Component {
                         handleSearchFilter={handleSearchFilter}
                         flag={flag}
                         parent={this}
+                        isModalPosts={true}
                         />
                       
                     </div>
