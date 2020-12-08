@@ -8,13 +8,7 @@ import { signOut } from "../../actions/user";
 // styles and images
 import logo from "../../images/foodies.png";
 import homePic from "../../images/home.png";
-import breakfastPic from "../../images/breakfast.png";
-import lunchPic from "../../images/lunch.png";
-import dinnerPic from "../../images/dinner.png";
-import dessertPic from "../../images/dessert.png";
-import otherPic from "../../images/other.png";
 import signOutPic from "../../images/signout.png";
-import adminPic from "../../images/admin.png";
 import postsPic from "../../images/posts.png";
 
 /**
@@ -52,15 +46,17 @@ class AccountInfo extends Component {
         this.handleUpdateClick = this.handleUpdateClick.bind(this)
         this.handleTyping = this.handleTyping.bind(this)
     }
-/* 
+
     componentDidMount () {
         if (this.props.app.state.currentUser.isAdmin) {
-            document.getElementById('admin-button').style.display = 'inline-block'
-        } 
-    } */
+            document.getElementById('profile-link').style.display = 'block'
+        } else {
+            document.getElementById('profile-link').style.display = 'none'
+        }
+    }
 
     // Handle click event that enables editing of account info values.
-    handleEditClick = (e) => { 
+    handleEditClick = () => { 
 
         this.setState({
             password: ""
@@ -80,7 +76,7 @@ class AccountInfo extends Component {
     }
 
     // Handle click event that cancels editing of account info values.
-    handleCancelClick = (e) => {
+    handleCancelClick = () => {
 
         document.querySelector("#psw-default").style.display="block"
         document.querySelector("#edit").style.display="inline-block"
@@ -105,8 +101,21 @@ class AccountInfo extends Component {
           });
     }
 
+    checkInput(username, age, password, favmeal) {
+        return (username.length>0) && (age !== "") && (password.length>0) && (favmeal.length>0)
+    }
+
+    alertBox (cased) {
+        if (cased === "success") {
+            alert("SUCCESS: Account Info Updated.")
+        } else {
+            alert("Complete all inputs before updating account info.")
+        }
+        
+    }
+
     // Handle click event that saves updated account info.
-    handleUpdateClick = (e) => {
+    handleUpdateClick = () => {
 
         let final_password 
         this.state.password === ""? final_password = this.state.user.password: final_password = this.state.password
@@ -121,69 +130,77 @@ class AccountInfo extends Component {
         likedPosts: this.props.app.state.currentUser.likedPosts,  // 1 = like, 0 = dislike
         dislikedPosts: this.props.app.state.currentUser.dislikedPosts,
       };
+
+
       
-      console.log(this.props.app.state.currentUser._id)
-      // Create our request constructor with all the parameters we need
-      const request = new Request('/api/account/'+ this.props.app.state.currentUser._id, {
+      if (this.checkInput(this.state.username, this.state.age, this.state.password, this.state.favmeal))  {
+        // Create our request constructor with all the parameters we need
+        const request = new Request('/api/account/'+ this.props.app.state.currentUser._id, {
             method: "PATCH",
             body: JSON.stringify(user),
             headers: {
                 Accept: "application/json, text/plain, */*",
                 "Content-Type": "application/json"
             }
-      });
-
-      console.log(request)
-      
-        // Send the request with fetch()
-        fetch(request)
-            .then(function (res) {
-                // Handle response we get from the API.
-                // Usually check the error codes to see what happened.
-                if (res.status === 200) {
-
-                    // TODO
-                    // If update was a success, tell the user.
-                    console.log('success::account info updated')
-                   
-                } else {
-                    // TODO
-                    // If update failed, tell the user.
-                    // Here we are adding a generic message, but you could be more specific in your app.
-                    console.log('fail::account info not updated')
-
-                }
-            })
-        .catch(error => {
-            console.log(error);
-        });
-
-        let newuser = {
-            username: this.state.username,
-            password: this.state.password,
-            age: this.state.age,
-            favmeal: this.state.favmeal
-        }
-
-        this.setState({
-            user: newuser
           });
+    
+          console.log(request)
+          
+            // Send the request with fetch()
+            fetch(request)
+                .then(function (res) {
+                    // Handle response we get from the API.
+                    // Usually check the error codes to see what happened.
+                    if (res.status === 200) {
+    
+                        // TODO
+                        // If update was a success, tell the user.
+                        console.log('success::account info updated')
+                       
+                    } else {
+                        // TODO
+                        // If update failed, tell the user.
+                        // Here we are adding a generic message, but you could be more specific in your app.
+                        console.log('fail::account info not updated')
+    
+                    }
+                })
+            .catch(error => {
+                console.log(error);
+            });
+    
+            let newuser = {
+                username: this.state.username,
+                password: this.state.password,
+                age: this.state.age,
+                favmeal: this.state.favmeal
+            }
+    
+            this.setState({
+                user: newuser
+              });
+    
+            document.querySelector("#psw-default").style.display="block"
+            document.querySelector("#edit").style.display="inline-block"
+    
+            // Select and hide editing of input fields
+            let elems = document.querySelectorAll(".edit-input")
+            let length = elems.length;
+            for (let index = 0; index < length; index++) {
+                elems[index].style.display="none"
+            }
+    
+            elems = document.querySelectorAll(".label-default")
+            length = elems.length;
+            for (let index = 0; index < length; index++) {
+                elems[index].style.display="block"
+            }
 
-        document.querySelector("#psw-default").style.display="block"
-        document.querySelector("#edit").style.display="inline-block"
+            this.alertBox("success")
+      } else {
+          this.alertBox()
+      }
 
-        // Select and hide editing of input fields
-        let elems = document.querySelectorAll(".edit-input")
-        let length = elems.length;
-        for (let index = 0; index < length; index++) {
-            elems[index].style.display="none"
-        }
-
-        elems = document.querySelectorAll(".label-default")
-        length = elems.length;
-        for (let index = 0; index < length; index++) {
-            elems[index].style.display="block"
-        }
     }
 
     // update state of input values as user types
@@ -221,6 +238,13 @@ class AccountInfo extends Component {
     }
     
     render() {
+        let displayAdminButt
+        if (this.props.app.state.currentUser.isAdmin) {
+            displayAdminButt = {diplay: 'block'}
+        } else {
+            displayAdminButt = {diplay: 'none'}
+        }
+        
         return (
             <div id="account-info">
                 <div id={"side-container-accinfo"} className={"side-container-accinfo"}>
@@ -230,8 +254,8 @@ class AccountInfo extends Component {
                             <img id={"symbol"} src={adminPic} alt={adminPic}/>
                         Admin</button>
                         </Link> */}
-                        <Link id={"profile-link"} to={"Admin"}>
-                        <button> 
+                        <Link style={displayAdminButt} id={"profile-link"} to={"Admin"}>
+                        <button > 
                             {/* <img id={"symbol"} src={this.state.currentUser.profilePic} alt={"profile-pic"}/> */}
                         Admin</button>
                         </Link>
@@ -252,21 +276,6 @@ class AccountInfo extends Component {
                     </div>
                 <div id="form" >
 
-                    {/* <div id="account-info-header">
-                        <h2>My Account</h2>
-                        <Link to={"/Timeline"}>  
-                            <button className={"account-info-nav-buttons"}>Home</button>
-                        </Link>
-                        <Link to={"/userTimeline"}>
-                        <button className={"account-info-nav-buttons"}>My Timeline</button>
-                        </Link>
-                        <Link to={"/Admin"}>  
-                            <button className={"account-info-nav-buttons"} id={"admin-button"} style={{display: "none"}}>Admin</button>
-                        </Link>
-                        <Link to={""}>
-                            <button onClick={() => signOut(this)} className={"account-info-nav-buttons"}>Sign Out</button>
-                        </Link>
-                    </div> */}
                     <div className="imgcontainer">
                         <img src={this.avatar} alt={"user profile picture"} className="avatar">
                             </img>
