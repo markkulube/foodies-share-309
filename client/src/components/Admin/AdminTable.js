@@ -87,82 +87,88 @@ class AdminTable extends Component {
         let password_val=document.getElementById("password_text"+no).value;
         let favmeal_val=document.getElementById("favmeal_text"+no).value;
 
-        
- 
-        // API call: PATCH request to server updating user account info in MongoDB 
-        let users = this.state.users
-        let user, user_id
-        users.forEach(userObj => {
-            if (userObj.userName===oldUserName) {
-                user_id = userObj._id
-                let final_password 
-                password_val === ""? final_password = userObj.password: final_password = password_val
-                user = {
-                    userName: username_val,
-                    profilePic: userObj.profilePic,
-                    password: final_password,
-                    age: age_val,
-                    favMeal: favmeal_val,
-                    savedPosts: userObj.savedPosts,
-                    isAdmin: userObj.isAdmin,
-                    likedPosts: userObj.likedPosts,  // 1 = like, 0 = dislike
-                    dislikedPosts: userObj.dislikedPosts,
-                  };
-            }
-        });
-
-        // Create our request constructor with all the parameters we need
-        const request = new Request('/api/account/'+ user_id, {
-            method: "PATCH",
-            body: JSON.stringify(user),
-            headers: {
-                Accept: "application/json, text/plain, */*",
-                "Content-Type": "application/json"
-            }
-        });
-
-        console.log(request)
-
-        // Send the request with fetch()
-        fetch(request)
-            .then(function (res) {
-                // Handle response we get from the API.
-                // Usually check the error codes to see what happened.
-                if (res.status === 200) {
-
-                    // TODO
-                    // If update was a success, tell the user.
-                    console.log('success::account info updated')
-                    
-                } else {
-                    // TODO
-                    // If update failed, tell the user.
-                    // Here we are adding a generic message, but you could be more specific in your app.
-                    console.log('fail::account info not updated')
-
+        if (((username_val.length>0) && (age_val.length>0) && (password_val.length>0) && (favmeal_val.length>0))) {
+            // API call: PATCH request to server updating user account info in MongoDB 
+            let users = this.state.users
+            let user, user_id
+            users.forEach(userObj => {
+                if (userObj.userName===oldUserName) {
+                    user_id = userObj._id
+                    let final_password 
+                    password_val === ""? final_password = userObj.password: final_password = password_val
+                    user = {
+                        userName: username_val,
+                        profilePic: userObj.profilePic,
+                        password: final_password,
+                        age: age_val,
+                        favMeal: favmeal_val,
+                        savedPosts: userObj.savedPosts,
+                        isAdmin: userObj.isAdmin,
+                        likedPosts: userObj.likedPosts,  // 1 = like, 0 = dislike
+                        dislikedPosts: userObj.dislikedPosts,
+                    };
                 }
+            });
+
+            // Create our request constructor with all the parameters we need
+            const request = new Request('/api/account/'+ user_id, {
+                method: "PATCH",
+                body: JSON.stringify(user),
+                headers: {
+                    Accept: "application/json, text/plain, */*",
+                    "Content-Type": "application/json"
+                }
+            });
+
+            console.log(request)
+
+            // Send the request with fetch()
+            fetch(request)
+                .then(function (res) {
+                    // Handle response we get from the API.
+                    // Usually check the error codes to see what happened.
+                    if (res.status === 200) {
+
+                        // TODO
+                        // If update was a success, tell the user.
+                        console.log('success::account info updated')
+                        
+                    } else {
+                        // TODO
+                        // If update failed, tell the user.
+                        // Here we are adding a generic message, but you could be more specific in your app.
+                        console.log('fail::account info not updated')
+
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+            });
+
+            const data = await this.getAllData()
+            users = data.users
+            const posts = data.posts
+            this.setState({
+                users: users,
+                posts: posts,
+                table_len: users.length
             })
-            .catch(error => {
-                console.log(error);
-        });
 
-        const data = await this.getAllData()
-        users = data.users
-        const posts = data.posts
-        this.setState({
-            users: users,
-            posts: posts,
-            table_len: users.length
-        })
+            document.getElementById("username"+no).innerHTML=username_val;
+            document.getElementById("age"+no).innerHTML=age_val;
+            /* document.getElementById("password"+no).innerHTML=password_val; */
+            document.getElementById("password"+no).innerHTML="******";
+            document.getElementById("favmeal"+no).innerHTML=favmeal_val;
 
-        document.getElementById("username"+no).innerHTML=username_val;
-        document.getElementById("age"+no).innerHTML=age_val;
-        /* document.getElementById("password"+no).innerHTML=password_val; */
-        document.getElementById("password"+no).innerHTML="******";
-        document.getElementById("favmeal"+no).innerHTML=favmeal_val;
+            document.getElementById("edit_button"+no).style.display="block";
+            document.getElementById("save_button"+no).style.display="none";
 
-        document.getElementById("edit_button"+no).style.display="block";
-        document.getElementById("save_button"+no).style.display="none";
+            this.alertBox("update_s", user.userName)
+        } else {
+            this.alertBox("save")
+        }
+ 
+        
     }
 
      // Handle click event that deletes of user account info.
@@ -180,7 +186,9 @@ class AdminTable extends Component {
                 user = userObj
             }
         });
-         // Create our request constructor with all the parameters we need
+
+        if (!user.isAdmin) {
+             // Create our request constructor with all the parameters we need
          const request = new Request('/api/user/'+user_id, {
             method: "DELETE",
             body: JSON.stringify(user),
@@ -239,10 +247,33 @@ class AdminTable extends Component {
              //columns would be accessed using the "col" variable assigned in the for loop
            }   */
         }
+            this.alertBox("delete_s", user.userName)
+        } else {
+            this.alertBox("delete")
+        }
 
-   
+    }
 
+    checkInput(username, age, password, favmeal) {
+        return (username.length>0) && (age.length>0) && (password.length>0) && (favmeal.length>0)
+    }
 
+    alertBox (cased, username) {
+
+        if (cased === "add") {
+            alert("Complete all inputs before creating or updating user info.")
+        } else if (cased === "save") {
+            alert("Complete all inputs before creating or updating user info.")
+        } else if (cased === "delete") {
+            alert("UNAUTHORIZED: User Type Admin cannot be deleted.")
+        } else if (cased === "create_s") {
+            alert("CREATE-SUCCESS: " + username + " account created.")
+        } else if (cased === "update_s") {
+            alert("UPDATE-SUCCESS: " + username + " account updated.")
+        } else if (cased === "delete_s") {
+            alert("DELETE-SUCCESS: " + username + " account deleted.")
+        }
+        
     }
 
     // Handle click event that creates new user account info.
@@ -251,70 +282,77 @@ class AdminTable extends Component {
         let new_age=document.getElementById("new_age").value;
         let new_password=document.getElementById("new_password").value;
         let new_favmeal=document.getElementById("new_favmeal").value;
+
+        if (this.checkInput(new_username, new_age, new_password, new_favmeal)) {
+            let table=document.getElementById("adminTable");
+            let table_rows=(table.rows.length);
+            let table_len=(this.state.table_len)-1
             
-        let table=document.getElementById("adminTable");
-        let table_rows=(table.rows.length);
-        let table_len=(this.state.table_len)-1
-        
-        let user = {
-                userName: new_username,
-                profilePic: "../../images/profile.png",
-                password: new_password,
-                age: new_age,
-                favMeal: new_favmeal,
-                savedPosts: [],
-                isAdmin:false,
-                likedPosts: [],  // 1 = like, 0 = dislike
-                dislikedPosts: []
-            }
-
-        // API call: POST request to server creating new user account info in MongoDB 
-        // Create our request constructor with all the parameters we need
-        const request = new Request('/api/user', {
-            method: "POST",
-            body: JSON.stringify(user),
-            headers: {
-                Accept: "application/json, text/plain, */*",
-                "Content-Type": "application/json"
-            }
-        });
-
-        console.log(request)
-
-        // Send the request with fetch()
-        fetch(request)
-            .then(function (res) {
-                // Handle response we get from the API.
-                // Usually check the error codes to see what happened.
-                if (res.status === 200) {
-
-                    // TODO
-                    // If account creation was a success, tell the admin.
-                    console.log('success::user: '+user.userName+' account created')
-                    
-                } else {
-                    // TODO
-                    // If account creation failed, tell the user.
-                    // Here we are adding a generic message, but you could be more specific in your app.
-                    console.log('fail::user: '+user.userName+' not account created')
-
+            let user = {
+                    userName: new_username,
+                    profilePic: "../../images/profile.png",
+                    password: new_password,
+                    age: new_age,
+                    favMeal: new_favmeal,
+                    savedPosts: [],
+                    isAdmin:false,
+                    likedPosts: [],  // 1 = like, 0 = dislike
+                    dislikedPosts: []
                 }
-            })
-            .catch(error => {
-                console.log(error);
-        });
-
-        document.getElementById("new_username").value="";
-        document.getElementById("new_age").value="";
-        document.getElementById("new_password").value="";
-        document.getElementById("new_favmeal").value="";
-
-        const users = this.state.users
-        users.push(user)
-        this.setState({
-            table_len: table_len +2,
-            users: users
-          });
+    
+            // API call: POST request to server creating new user account info in MongoDB 
+            // Create our request constructor with all the parameters we need
+            const request = new Request('/api/user', {
+                method: "POST",
+                body: JSON.stringify(user),
+                headers: {
+                    Accept: "application/json, text/plain, */*",
+                    "Content-Type": "application/json"
+                }
+            });
+    
+            console.log(request)
+    
+            // Send the request with fetch()
+            fetch(request)
+                .then(function (res) {
+                    // Handle response we get from the API.
+                    // Usually check the error codes to see what happened.
+                    if (res.status === 200) {
+    
+                        // TODO
+                        // If account creation was a success, tell the admin.
+                        console.log('success::user: '+user.userName+' account created')
+                        
+                    } else {
+                        // TODO
+                        // If account creation failed, tell the user.
+                        // Here we are adding a generic message, but you could be more specific in your app.
+                        console.log('fail::user: '+user.userName+' not account created')
+    
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+            });
+    
+            document.getElementById("new_username").value="";
+            document.getElementById("new_age").value="";
+            document.getElementById("new_password").value="";
+            document.getElementById("new_favmeal").value="";
+    
+            const users = this.state.users
+            users.push(user)
+            this.setState({
+                table_len: table_len +2,
+                users: users
+              });
+            this.alertBox("create_s", user.userName)
+        } else {
+            this.alertBox("add")
+        }
+            
+      
     }
 
     // Handle click event that renders a modal box display user timeline.
