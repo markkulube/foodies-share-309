@@ -9,13 +9,7 @@ import "./Admin.css"
 // styles and images
 import logo from "../../images/foodies.png";
 import homePic from "../../images/home.png";
-import breakfastPic from "../../images/breakfast.png";
-import lunchPic from "../../images/lunch.png";
-import dinnerPic from "../../images/dinner.png";
-import dessertPic from "../../images/dessert.png";
-import otherPic from "../../images/other.png";
 import signOutPic from "../../images/signout.png";
-import adminPic from "../../images/admin.png";
 import postsPic from "../../images/posts.png";
 
 import { signOut } from "../../actions/user";

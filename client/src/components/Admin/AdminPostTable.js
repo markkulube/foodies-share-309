@@ -82,49 +82,7 @@ class AdminPostTable extends Component {
             console.log(error)
         }
 
-        
-        
-
-        /* let accounts = this.props.app.accounts
-     
-        let posts
-        accounts.forEach(account => {
-
-            if (account.userName === username) {
-                posts = account.posts
-            }
-        }); 
-
-        let posts = this.state.posts
-
-        // API Call: POST request to delete post from users post collection in MongoDB
-         for (let index = 0; index < posts.length; index++) {
-            const post = posts[index];
-
-            if (post.datePosted.toString() == datePosted) {
-                posts.splice(index, 1)
-            }
-        } */
-        //document.getElementById("post_row"+no+"").outerHTML="";
-
     }
-
-    /* getAllPosts() {
-
-        // API Call: GET all user posts from server/MongoDB
-        let allPosts = []
-        let accounts = this.props.app.accounts
-
-        for (let index = 0; index < accounts.length; index++) {
-            const account = accounts[index];
-            allPosts.push(...account.posts)
-        }
-
-        // sort the posts by descending date posted
-        allPosts.sort((a, b) => b.datePosted - a.datePosted);
-        
-        return allPosts
-    } */
 
     generateTableRows() {
 

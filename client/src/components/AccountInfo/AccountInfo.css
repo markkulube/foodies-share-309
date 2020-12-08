@@ -4,8 +4,7 @@ body {
 }
 
 #account-info {
-    /* text-align: center;
-    height: 100%; */
+
 }
 
 
@@ -111,10 +110,6 @@ span.psw {
 
 /* Styling for nav side bar. */
 
-/* #timeline {
-  display: flex;
-}
- */
  #logo {
   width: 100px;
   margin-left: 105px;
@@ -141,13 +136,7 @@ span.psw {
 
 
 .side-container-accinfo {
- /*  display: block; */
   background-color: #568c4a;
-  /* width: 27%; */
-  /* position: sticky; */
- /*  position: fixed; */
- /*  top: 0; */
-  /* height: 100vh; */
 }
 
 .side-container-accinfo button {
