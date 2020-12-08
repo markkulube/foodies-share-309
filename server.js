@@ -154,14 +154,14 @@ app.get('/api/all', mongoChecker, authenticate, async (req, res) => {
 
 // Retrieve the currently authenticated user.
 // TODO: This is an example route, feel free to delete if it conflicts with a route you need to create.
-app.get('/api/user', mongoChecker, authenticate, async (req, res) => {
+app.get('/api/user', mongoChecker, async (req, res) => {
     console.log(`GET request for api/user: user=${req.user._id}`);
     res.send(req.user);
 });
 
 // Create a new user with the given request data.
 // TODO: This is an example route, feel free to delete if it conflicts with a route you need to create.
-app.post('/api/user', mongoChecker, authenticate, async (req, res) => {
+app.post('/api/user', mongoChecker, async (req, res) => {
     console.log("POST request for api/user");
 
     const user = new User({

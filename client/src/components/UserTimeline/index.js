@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import UserFeed from "./UserFeed";
 import { handleFilter, handleSearchFilter, handleSavedFilter,getUserPosts,getAllSavedPosts } from "./UserTimelineLogic";
-import {signOut} from "../../actions/signup";
+import {signOut} from "../../actions/user";
 //stylesheet
 import "../Timeline/Timeline.css";
 //images for sidebar
@@ -32,7 +32,7 @@ class UserTimeline extends React.Component{
             currentUser: {}
         }
 
-         this.props.history.push("/UserTimeline");
+        this.props.history.push("/UserTimeline");
 
         console.log(props)
     }
@@ -70,9 +70,18 @@ class UserTimeline extends React.Component{
 
     render(){
         //retrieve the current user's username and profile pictures from appState 
-        const username = this.props.app.state.currentUser.userName;
-        const profilePic = this.props.app.state.currentUser.profilePic;
-        const flag=true;
+
+        let username;
+        let profilePic;
+        let flag=true;
+        if(this.props.app.state.currentUser===null)
+        {
+          this.props.history.push("/");
+        }
+        else{
+            username = this.props.app.state.currentUser.userName;
+            profilePic = this.props.app.state.currentUser.profilePic;
+        }
         return(
             <div id={"timeline"}>
                 <div className={"side-container"}>

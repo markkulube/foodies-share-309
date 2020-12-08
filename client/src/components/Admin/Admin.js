@@ -23,6 +23,11 @@ class Admin extends Component {
     constructor(props) {
         super(props);
         this.props.history.push("/Admin");
+
+        if(this.props.app.state.currentUser===null)
+        {
+          this.props.history.push("/");
+        }
       }
 
 

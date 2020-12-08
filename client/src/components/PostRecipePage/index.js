@@ -12,7 +12,12 @@ class PostRecipePage extends React.Component {
 
 constructor(props) {
     super(props);
-     this.props.history.push("/PostRecipePage");
+    this.props.history.push("/PostRecipePage");
+
+    if(this.props.app.state.currentUser===null)
+        {
+          this.props.history.push("/");
+        }
 }
 
  state = {
