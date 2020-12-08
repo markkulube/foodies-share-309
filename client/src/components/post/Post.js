@@ -1,6 +1,7 @@
 import React from "react";
 import "../../actions/addRecipe"
 import Recipe from "../Recipe/Recipe"
+import ModalPosts from "../ModalPosts/ModalPosts"
 import { UnmountClosed } from "react-collapse";
 
 import "./Post.css"
@@ -26,8 +27,13 @@ class Post extends React.Component{
             isOpened: false,
             reviewsButton: "Reviews",  // text displayed on the show/hide reviews button
             liked: false,
-            disliked: false
+            disliked: false,
+            modalDisplay: false,
+            users: [],
+            userName: ""
         }
+
+        this.showModalPosts = this.showModalPosts.bind(this)  
     }
 
     componentDidMount() {
@@ -45,6 +51,10 @@ class Post extends React.Component{
             default:
                 // neither is clicked, pass
         }
+
+        this.setState({
+            userName: this.props.post.userName
+        })
     }
 
     /**
@@ -100,9 +110,27 @@ class Post extends React.Component{
         }
     }
 
+    // Handle click event that renders a modal box display user timeline.
+    showModalPosts(e) {
+
+        let row = e.target.name
+
+       /*  if (!this.state.modalDisplay) {
+            let userName = document.getElementById("username"+row).innerHTML
+            this.setState({
+                currentUser: userName
+            }
+            )
+        } */
+
+        this.setState({
+            modalDisplay: !this.state.modalDisplay
+          });     
+    }
+
     render() {
         let { currentUser, post, canSave, context } = this.props;
-        const canEdit = ((typeof currentUser)!=='undefined') && (currentUser.userName === post.userName)
+        const canEdit = ((typeof currentUser)!=='undefined') && (currentUser !== null) && (currentUser.userName === post.userName)
 
         if(canEdit && (post.userName===currentUser.userName))
         {
@@ -120,7 +148,7 @@ class Post extends React.Component{
             <div className="App reviews-container">
             <br/>
                 <div className ="block">
-                    <img src={post.profilePic} className="profilePic" alt="profile picture"/>
+                    <img onClick={this.showModalPosts} src={post.profilePic} className="profilePic" alt="profile picture"/>
                     <h3 className="username">{post.userName}</h3>
                     {canSave &&
                         <button className="save" onClick={() => handleSave(post._id)}>
@@ -155,6 +183,7 @@ class Post extends React.Component{
                 <UnmountClosed isOpened={this.state.isOpened}>
                     <ReviewList currentUser={currentUser} reviews={post.reviews} postId={post._id}/>
                 </UnmountClosed>
+                <ModalPosts currentUser={this.state.userName} app={this.state} onClose={this.showModalPosts} show={this.state.modalDisplay}>Message in Modal</ModalPosts>
             </div>
         );
     }

@@ -22,7 +22,7 @@ export default class UserFeed extends React.Component{
 
         return(         
             
-            <div id={"feed-container"}>
+            <div id={"feed-container-usertimeline"}>
                 <div className={"feed-header"}>
                     <Link id={"profile-container"} to={"AccountInfo"}>
                         <img id={"profile"} src={profilePic} alt={"profile picture"}/>
