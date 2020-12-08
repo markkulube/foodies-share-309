@@ -48,10 +48,6 @@
 
 /* Styling for nav side bar. */
 
-/* #timeline {
-  display: flex;
-}
- */
 #logo {
   width: 100px;
   margin-left: 105px;
@@ -78,13 +74,7 @@
 
 
 .side-container-admin {
- /*  display: block; */
   background-color: #568c4a;
-  /* width: 27%; */
-  /* position: sticky; */
- /*  position: fixed; */
- /*  top: 0; */
-  /* height: 100vh; */
 }
 
 .side-container-admin button {

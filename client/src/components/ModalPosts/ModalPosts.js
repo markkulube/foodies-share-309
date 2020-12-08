@@ -53,12 +53,6 @@ class ModalPosts extends Component {
 
     }
 
-    /* componentDidMount() {
-        if(this.props.isModalPosts) {
-            document.getElementById('feed-container').style.width='100%'
-        }
-    } */
-
     // Fetch the user's posts
     getAllPosts = () => {
 
