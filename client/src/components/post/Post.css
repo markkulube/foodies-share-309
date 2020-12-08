@@ -3,6 +3,7 @@
     float:left;
     margin-left:10px;
     border-radius: 50%;
+    cursor: pointer;
 }
 
 .save{
