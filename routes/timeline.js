@@ -277,6 +277,7 @@ router.post("/save", mongoChecker, authenticate, async (req, res) => {
         if (!user) {
             res.status(400).send("Bad request");
         } else {
+            req.session.user = user;
             res.send(user);
         }
     } catch (error) {
