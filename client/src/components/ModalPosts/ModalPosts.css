@@ -13,6 +13,10 @@
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
+.modal .profilePic {
+  cursor: none;
+}
+
 /* Modal Content */
 .modal-content {
   background-color: #fefefe;

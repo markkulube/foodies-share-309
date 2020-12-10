@@ -21,9 +21,10 @@
   cursor: pointer;
 }
 
-#admin-post-table #post-table-search {
+#post-table-search {
   background-color: #dddddd;
   font-size: 2pc;
+  width: 50%;
 }
 
 #adminPostTable {

@@ -5,7 +5,6 @@ import Feed from "./Feed";
 // styles and images
 import "./Timeline.css";
 import logo from "../../images/foodies.png";
-import profilePic from "../../images/profile.png";  // TODO: remove once account data contains profilePic
 import homePic from "../../images/home.png";
 import breakfastPic from "../../images/breakfast.png";
 import lunchPic from "../../images/lunch.png";
@@ -17,8 +16,9 @@ import adminPic from "../../images/admin.png";
 import postsPic from "../../images/posts.png";
 
 // import logic from logic file
-import { handleFilter, handleSearchFilter, deletePost, getAllPosts } from "./TimelineLogic";
-import { signOut } from "../../actions/signup";
+import { handleFilter, handleSearchFilter, getAllPosts } from "./TimelineLogic";
+import { signOut } from "../../actions/user";
+import { ObjectID } from "mongodb";
 
 /**
  * The main page after the login procedure. Display timeline of posts, option to create a post, and other navigation
@@ -31,23 +31,55 @@ export default class Timeline extends React.Component {
 
     constructor(props) {
         super(props);
+        this.props.history.push("/Timeline");
         this.state = {
-            posts: []
+            posts: [],
+            allPosts: [],
+            currentUser: {}
+        }
+
+       if(this.props.app.state.currentUser===null)
+        {
+          this.props.history.push("/");
         }
     }
 
-    componentDidMount() {
-        // begin by showing all posts
-        this.setState({ posts: getAllPosts(this) })
-        
-        if (this.props.appState.currentUser.isAdmin) {
+    async componentDidMount() {
+        // Fetch all posts and the current user.
+        const posts = await getAllPosts();
+        let user;
+        try {
+            const response = await fetch("/user/check-session");
+            user = (await response.json()).currentUser;
+        } catch (error) {
+            console.error(error);
+            return;
+        }
+
+        // Conditionally render the admin button based.
+        if (user.isAdmin) {
             document.getElementById('admin-button').style.display = 'inline-block';
-        } 
+        }
+
+        // Set liked or disliked status of each post according to the current user.
+        posts.forEach(post => {
+            if (user.likedPosts.find(postId => ObjectID(postId).equals(ObjectID(post._id)))) {
+                post.liked = 1;
+            } else if (user.dislikedPosts.find(postId => ObjectID(postId).equals(ObjectID(post._id)))) {
+                post.liked = 0;
+            } else {
+                post.liked = -1;
+            }
+        });
+
+        this.setState({
+            allPosts: posts,
+            posts: posts,
+            currentUser: user
+        });
     }
 
     render() {
-        const username = this.props.appState.currentUser.userName;
-
         return(
             <div id={"timeline"}>
                 <div className={"side-container"}>
@@ -59,7 +91,7 @@ export default class Timeline extends React.Component {
                     </Link>
                     <Link id={"profile-link"} to={"AccountInfo"}>
                      <button> 
-                         <img id={"symbol"} src={profilePic} alt={profilePic}/>
+                         <img id={"symbol"} src={this.state.currentUser.profilePic} alt={"profile-pic"}/>
                      Account</button>
                     </Link>
 
@@ -87,7 +119,7 @@ export default class Timeline extends React.Component {
                     <button onClick={() => handleFilter(this, "other")}>
                     <img id={"symbol"} src={otherPic} alt={otherPic}/>
                     Other</button>
-                    <Link id={"signout-link"} to={""}>
+                    <Link id={"signout-link"} to={"/"}>
                         <button onClick={() => signOut(this)}>
                         <img id={"symbol"} src={signOutPic} alt={signOutPic}/>
                         Sign Out</button>
@@ -95,11 +127,9 @@ export default class Timeline extends React.Component {
                 </div>
                 <Feed
                     posts={this.state.posts}
-                    profilePic={profilePic}
-                    username={username}
+                    currentUser={this.state.currentUser}
                     handleSearchFilter={handleSearchFilter}
                     parent={this}
-                    deletePost={deletePost}
                 />
                 <div className={"side-container"}>
                 </div>

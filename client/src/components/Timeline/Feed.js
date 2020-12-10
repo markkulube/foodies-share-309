@@ -19,27 +19,25 @@ export default class Feed extends React.Component {
 
     render() {
         // obtain the list of post objects, profile picture, and current user from props
-        const { posts, profilePic, username, handleSearchFilter, parent, deletePost } = this.props;
+        const { posts, currentUser, handleSearchFilter, parent } = this.props;
 
         return (
             <div id={"feed-container"}>
                 <div className={"feed-header"}>
                     <Link id={"profile-container"} to={"AccountInfo"}>
-                        <img id={"profile"} src={profilePic} alt={"profile picture"}/>
+                        <img id={"profile"} src={currentUser.profilePic} alt={"profile picture"}/>
                     </Link>
-                    <Link id={"post-button"} to={"./PostRecipePage"}>  {/* TODO: replace with link to "create post" page */}
+                    <Link id={"post-button"} to={"./PostRecipePage"}>
                         <button>Post A Recipe</button>
                     </Link>
                 </div>
 
                 <input onChange={(event) => handleSearchFilter(event, parent)} placeholder={"Search for a recipe"}/>
                 {
-
                     posts.map(post => {
                         return (
                             <div key={uid(post)}>
-                                <Post username={username} profilePic={profilePic} post={post} canSave={true}
-                                      appState={parent.props.appState} deletePost={deletePost} timeline={parent}/>
+                                <Post currentUser={currentUser} post={post} canSave={true} context={parent}/>
                                 <hr />
                             </div>
                         );

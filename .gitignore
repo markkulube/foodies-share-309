@@ -9,6 +9,8 @@ lerna-debug.log*
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
+.DS_Store
+
 # Runtime data
 pids
 *.pid
@@ -39,6 +41,9 @@ build/Release
 
 # Dependency directories
 node_modules/
+mongo-data/
+client/build/
+client/node_modules/
 jspm_packages/
 
 # Snowpack dependency directory (https://snowpack.dev/)

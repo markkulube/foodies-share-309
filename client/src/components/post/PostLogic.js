@@ -1,103 +1,116 @@
 /* Logic file for the Post component. */
 
 /**
- * Update the like/dislike state of this post and the global app state with a like action.
+ * Delete the post with the given _id.
+ * This process should only succeed when the current user matches the given creator.
  *
- * @param component {Post} The post component to update state for.
- * @param appState {Object} The global app state.
- * @param username {string} The username of the current user.
- * @param post {Object} The post the current user is interacting with.
- * @param liking {boolean} Whether or not we're liking or disliking.
+ * @param {string} creator -- The ObjectID string of the given post's creator.
+ * @param {string} postId -- The ObjectID string of the post to delete.
+ * @param {Timeline} context -- The timeline component to re-render after updating.
+ * @returns {Promise<void>}
  */
-export const handleLikeDislike = (component, appState, username, post, liking) => {
-    console.log("clicked like button");
+export const deletePost = async (creator, postId, context) => {
+    console.log(`Current user is deleting post ${postId}`);
 
-    // TODO: most logic below will be implemented by API in a POST request to like a post.
+    try {
+        await fetch(new Request('/api/timeline/post', {
+            method: 'delete',
+            body: JSON.stringify({
+                creator: creator,
+                postId: postId
+            }),
+            headers: {
+                Accept: "application/json, text/plain, */*",
+                "Content-Type": "application/json"
+            }
+        }));
 
-    // find index of the user's account
-    const userIndex = appState.accounts.findIndex((account) => account.userName === username);
-    // find index of like status if it exists
-    const likeIndex = appState.accounts[userIndex].likes.findIndex((like) => {
-        return like[0] === post.userName && like[1].getTime() === post.datePosted.getTime();
-    })
-
-    // find index of user who made this post...
-    const posterIndex = appState.accounts.findIndex((account) => account.userName === post.userName)
-    // then find index of this post
-    const postIndex = appState.accounts[posterIndex].posts.findIndex((post) => (
-        post.datePosted.getTime() === post.datePosted.getTime()
-    ));
-
-    // update like/dislike instance and count
-
-    if (liking) {  // like the post
-        if (likeIndex === -1) {
-            // the user has not liked the post, add new instance
-            appState.accounts[userIndex].likes.push([post.userName, post.datePosted, 1])
-            appState.accounts[posterIndex].posts[postIndex].likes++;
-            console.log("TESTING", appState.accounts[posterIndex].posts[postIndex].likes);
-            component.setState({ liked: true })
-        } else if (appState.accounts[userIndex].likes[likeIndex][2] === 0) {
-            // user originally disliked the post
-            appState.accounts[userIndex].likes[likeIndex][2] = 1;
-            appState.accounts[posterIndex].posts[postIndex].likes++;
-            appState.accounts[posterIndex].posts[postIndex].dislikes--;
-            component.setState({ liked: true })
-            component.setState({ disliked: false });
-        } else {
-            // user already likes the post, we should undo the like
-            appState.accounts[userIndex].likes.splice(likeIndex, 1);
-            appState.accounts[posterIndex].posts[postIndex].likes--;
-            component.setState({ liked: false })
-        }
-    } else {  // dislike the post
-        if (likeIndex === -1) {
-            // the user has not disliked the post, add new instance
-            appState.accounts[userIndex].likes.push([post.userName, post.datePosted, 0])
-            appState.accounts[posterIndex].posts[postIndex].dislikes++;
-            component.setState({ disliked: true })
-        } else if (appState.accounts[userIndex].likes[likeIndex][2] === 1) {
-            // user originally liked the post
-            appState.accounts[userIndex].likes[likeIndex][2] = 0;
-            appState.accounts[posterIndex].posts[postIndex].dislikes++;
-            appState.accounts[posterIndex].posts[postIndex].likes--;
-            component.setState({ disliked: true });
-            component.setState({ liked: false });
-        } else {
-            // user already disliked the post, we should undo the dislike
-            appState.accounts[userIndex].likes.splice(likeIndex, 1);
-            appState.accounts[posterIndex].posts[postIndex].dislikes--;
-            component.setState({ disliked: false })
-        }
+        // Re-render the timeline.
+        context.componentDidMount().catch(error => console.error(error));
+    } catch (error) {
+        console.error(error);
     }
 }
 
 /**
- * Return a status for what the like and dislike buttons should be rendered as.
- *  - If the post should be disliked, return 0.
- *  - If the post should be liked, return 1.
- *  - Otherwise, if both should be untouched, return -1.
+ * Have the current user dislike the given post.
  *
- * @param component {Post} The post component to determine state for.
- * @param accounts {Object[]} The complete list of accounts.
- * @param username {string} The username of the current user.
- * @param post {Object} The data for the post to render like/dislike for.
- * @returns {int} Status code describing what state like/dislike should be in.
+ * @param {string} postId -- The ObjectID string of the post to dislike.
+ * @param {Timeline} context -- The timeline component to re-render after disliking.
  */
-export const getLikeStatus = (component, accounts, username, post) => {
-    // TODO: accounts will be replaced with an API call to GET like/dislike status of the post.
+export const handleDislike = async (postId, context) => {
+    console.log(`Current user is disliking post ${postId}`);
 
-    // according to the likes of the user, decide whether or not to toggle like/dislike buttons on/off
-    const account = accounts.find((account) => account.userName === username);
-    const liked = account.likes.filter((curr) => (  // this should only ever return 0 or 1 post
-        curr[1].getTime() === post.datePosted.getTime() && curr[0] === post.userName
-    ))
+    try {
+        await fetch(new Request('/api/timeline/dislike', {
+            method: 'post',
+            body: JSON.stringify({
+                postId: postId
+            }),
+            headers: {
+                Accept: "application/json, text/plain, */*",
+                "Content-Type": "application/json"
+            }
+        }));
 
-    if (liked.length > 0) {  // user either liked of disliked this post
-        // if status is 1, user liked the post, otherwise, it's 0 -> user disliked the post
-        return liked[0][2];
-    } else {
-        // liked and disliked both stay inactive
-        return -1
+        // Re-render the timeline.
+        context.componentDidMount().catch(error => console.error(error));
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+/**
+ * Have the current user like the given post.
+ *
+ * @param {string} postId -- The ObjectID string of the post to like.
+ * @param {Timeline} context -- The timeline component to re-render after liking.
+ * @returns {Promise<void>}
+ */
+export const handleLike = async (postId, context) => {
+    console.log(`Current user is liking post ${postId}`);
+
+    try {
+        await fetch(new Request('/api/timeline/like', {
+            method: 'post',
+            body: JSON.stringify({
+                postId: postId
+            }),
+            headers: {
+                Accept: "application/json, text/plain, */*",
+                "Content-Type": "application/json"
+            }
+        }));
+
+        // Re-render the timeline.
+        context.componentDidMount().catch(error => console.error(error));
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+/**
+ * Have the current user save the given post to their saved posts (favourites).
+ *
+ * @param {string} postId -- The ObjectID string of the post to save.
+ * @returns {Promise<void>}
+ */
+export const handleSave = async (postId) => {
+    try {
+        const response = await fetch(new Request("/api/timeline/save", {
+            method: "post",
+            body: JSON.stringify({
+                postId: postId
+            }),
+            headers: {
+                Accept: "application/json, text/plain, */*",
+                "Content-Type": "application/json"
+            }
+        }));
+        const user = await response.json();
+
+        console.log(`User ${user._id} saved post ${postId} to favourites.`);
+    } catch (error) {
+        console.error(error);
     }
 }

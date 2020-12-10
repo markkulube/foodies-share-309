@@ -13,39 +13,86 @@ class ModalPosts extends Component {
         super(props)
     
         this.state = {
-            posts: []
+            users: [], 
+            posts: [],
+            userPosts:[],
+            savedPosts:[],
+            profilePic: ""
         }
 
         this.onClose = this.onClose.bind(this)
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        
         if(this.props.isModalPosts) {
             document.getElementById('feed-container').style.width='100%'
         }
+
+        const data = await this.getAllData()
+        const posts = data.posts
+        const users = data.users
+        this.setState({
+            users: users,
+            posts: posts
+        })
+
+    }
+
+     getAllData = async () => {
+         // Create our request constructor with all the parameters we need
+         let data = []
+         try {
+            const response = await fetch("/api/all");
+            data = await response.json();
+         } catch (error) {
+             console.log(error)
+         }
+
+         return data
+
     }
 
     // Fetch the user's posts
     getAllPosts = () => {
 
         // API Call: GET the user's posts from the server/MongoDB
-        let accounts = this.props.appState.accounts
-
+        let users = this.state.users
+        let currentUser = null
+        
+        for(let i=0;i<this.props.app.users.length;i++)
+        {
+            if (this.props.currentUser===this.props.app.users[i].userName)
+            {
+                   currentUser = this.props.app.users[i]
+            }
+        }
         // get a list of all existing posts from appState
-        let posts = []
+        let posts = this.state.posts
         let profilePic
-        accounts.forEach(account => {
-            if (account.userName==this.props.currentUser) {
-                console.log(account.posts)
-                posts=account.posts;
-                // sort the posts by descending date posted
-                posts.sort((a, b) => b.datePosted - a.datePosted);
-                profilePic = account.profilePic
-                
+        let user_posts = []
+        let saved_posts = []
+        posts.forEach(post => {
+            if (post.userName==this.props.currentUser) {
+                user_posts.push(post)
+                profilePic = post.profilePic   
+            }
+        });
+        
+        console.log(this.props)
+        posts.forEach(post => {
+            if(currentUser!==null){
+            if (currentUser.savedPosts.includes(post._id)) {
+                saved_posts.push(post) 
+            }
             }
         });
 
-        return [posts, profilePic]
+        // sort the posts by descending date posted
+        user_posts.sort((a, b) => b.datePosted - a.datePosted);
+        saved_posts.sort((a, b) => b.datePosted - a.datePosted);
+
+        return [user_posts, saved_posts, currentUser, profilePic]
     }
 
     onClose = e => {
@@ -55,7 +102,7 @@ class ModalPosts extends Component {
     render() {
 
         const username = this.props.currentUser;
-        const [posts, profilePic] = this.getAllPosts()
+        const [userPosts, savedPosts, currentUser, profilePic] = this.getAllPosts()
         const flag = false;
 
         if(!this.props.show){
@@ -66,18 +113,19 @@ class ModalPosts extends Component {
             <div className="modal" id="modal">
                 <div className={"modal-content"}>
                     <div>
-          
                         <button className={"close"} onClick={this.onClose}>
                             Close
                         </button>
-
                         <UserFeed
-                        posts={posts}
+                        userPosts={userPosts}
+                        favPosts={savedPosts}
+                        currentUser={currentUser}
                         profilePic={profilePic}
                         username={username}
                         handleSearchFilter={handleSearchFilter}
                         flag={flag}
                         parent={this}
+                        isModalPosts={true}
                         />
                       
                     </div>

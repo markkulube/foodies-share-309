@@ -35,9 +35,9 @@
     padding-left: 40px;
 }
 
-#feed-container {
-    width: 46%;
+#feed-container-usertimeline {
     min-width: 600px;
+    width: 100%;
 }
 
 input
