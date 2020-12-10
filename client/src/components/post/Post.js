@@ -180,7 +180,7 @@ class Post extends React.Component{
                     <button className="delete red" onClick={() => deletePost(post.creator, post._id, context)}>Delete</button>
                 }
                 <UnmountClosed isOpened={this.state.isOpened}>
-                    <ReviewList currentUser={currentUser} reviews={post.reviews} postId={post._id}/>
+                    <ReviewList currentUser={currentUser} postId={post._id}/>
                 </UnmountClosed>
                 <ModalPosts currentUser={this.state.userName} app={this.state} onClose={this.showModalPosts} show={this.state.modalDisplay}>Message in Modal</ModalPosts>
             </div>
