@@ -34,14 +34,12 @@ export default class ReviewList extends React.Component {
             const response = await fetch(`/api/timeline/review/${this.props.postId}`);
             const reviews = await response.json();
 
+            reviews.sort((a, b) => (new Date(b.datePosted)).getTime() - (new Date(a.datePosted)).getTime());
             this.setState({ reviews: reviews });
         } catch (error) {
             console.error(error);
             this.setState({ reviews: [] });
         }
-
-        // this.props.reviews.sort((a, b) => (new Date(b.datePosted)).getTime() - (new Date(a.datePosted)).getTime());
-        // this.setState({ reviews: this.props.reviews });
     }
 
     /**
