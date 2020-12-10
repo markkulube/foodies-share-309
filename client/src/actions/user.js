@@ -54,19 +54,19 @@ export const addAccount = signup => {
             // Handle response we get from the API.
             // Usually check the error codes to see what happened.
             if (res.status === 200) {
-                // If student was added successfully, tell the user.
+                // If user was added successfully, tell the user.
                 signup.setState({
                     message: {
-                        body: "Success: Added a student.",
+                        body: "Success: Added a user.",
                         type: "success"
                     }
                 });
             } else {
-                // If server couldn't add the student, tell the user.
+                // If server couldn't add the user, tell the user.
                 // Here we are adding a generic message, but you could be more specific in your app.
                 signup.setState({
                     message: {
-                        body: "Error: Could not add student.",
+                        body: "Could not add user. Try again.",
                         type: "error"
                     }
                 });

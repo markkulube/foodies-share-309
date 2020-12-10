@@ -51,6 +51,7 @@ export default class Timeline extends React.Component {
         try {
             const response = await fetch("/user/check-session");
             user = (await response.json()).currentUser;
+
         } catch (error) {
             console.error(error);
             return;
@@ -58,7 +59,7 @@ export default class Timeline extends React.Component {
 
         // Conditionally render the admin button based.
         if (user.isAdmin) {
-            document.getElementById('admin-button').style.display = 'inline-block';
+                document.getElementById('admin-button').style.display = 'inline-block';
         }
 
         // Set liked or disliked status of each post according to the current user.

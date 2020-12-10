@@ -1,5 +1,5 @@
 import React from "react";
-import "../../actions/addRecipe"
+import "../../actions/post"
 import Recipe from "../Recipe/Recipe"
 import ModalPosts from "../ModalPosts/ModalPosts"
 import { UnmountClosed } from "react-collapse";
@@ -9,7 +9,6 @@ import ReviewList from "../ReviewList/ReviewList";
 
 // logic imports
 import { handleLike, handleDislike, deletePost, handleSave } from "./PostLogic";
-import { addtoFavourites } from "../../actions/addRecipe";
 
 /**
  * A post of a recipe.

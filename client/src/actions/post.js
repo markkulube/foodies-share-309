@@ -25,7 +25,7 @@ export const addRecipeFunc = addRecipe => {
 
 
     // Create our request constructor with all the parameters we need
-  const request = new Request(url, {
+    const request = new Request(url, {
         method: "post",
         body: JSON.stringify(post),
         headers: {
