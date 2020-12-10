@@ -16,9 +16,6 @@ export default class UserFeed extends React.Component{
     render(){
         //getting neccessary objects from post
         const { userPosts, favPosts, currentUser, handleSearchFilter, handleSavedFilter, profilePic, flag, parent } = this.props;
-        console.log(this.props)
-        console.log(userPosts)
-        console.log(favPosts)
 
         return(         
             

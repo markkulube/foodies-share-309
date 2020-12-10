@@ -46,7 +46,6 @@ constructor(props) {
   };
 
   render() {
-    console.log(this.state.message.type)
     return (
       <div className="App">
       {/* Sign Up Form component with text and function props*/}

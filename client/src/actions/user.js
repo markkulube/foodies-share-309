@@ -80,9 +80,15 @@ export const addAccount = signup => {
 // A function to send a POST request with the user to be logged in
 export const checkAccount = (loginComp, app) => {
    // Create our request constructor with all the parameters we need
+
+    const user = {
+      userName: loginComp.state.userName,
+      password: loginComp.state.password
+    };
+
     const request = new Request("/user/login", {
         method: "post",
-        body: JSON.stringify(loginComp.state),
+        body: JSON.stringify(user),
         headers: {
             Accept: "application/json, text/plain, */*",
             "Content-Type": "application/json"
@@ -103,6 +109,12 @@ export const checkAccount = (loginComp, app) => {
         })
         .catch(error => {
             console.log(error);
+             loginComp.setState({
+                    message: {
+                        body: "Could not login. Try again.",
+                        type: "error"
+                    }
+             })
         });
 };
 

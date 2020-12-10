@@ -54,15 +54,8 @@ export default class Recipe extends React.Component {
      * @param event {Object} The event with the value of the input.
      */
     handleChangeSpecial = (event) => {
-        // TODO: edits to appState will be replaced with POST requests to server API.
 
         const value = event.target.value;
-
-        // for (let i = 0; i < this.props.appState.currentUser.posts.length; i++) {
-        //     if (this.props.appState.currentUser.posts[i].title === this.state.title) {
-        //         this.props.appState.currentUser.posts[i].category = value;
-        //     }
-        // }
 
         this.setState({ "category": value });
     }
@@ -74,16 +67,9 @@ export default class Recipe extends React.Component {
      * @param field {string} The field we are editing.
      */
     handleChangeArray = (event, field) => {
-        // TODO: edits to appState will be replaced with POST requests to server API.
-
+       
         const value = event.target.value;
         let newValue = value.split(",");
-
-        // for (let i = 0; i < this.props.appState.currentUser.posts.length; i++) {
-        //     if (this.props.appState.currentUser.posts[i].title === this.state.title) {
-        //         this.props.appState.currentUser.posts[i].ingredients = newValue;
-        //     }
-        // }
 
         this.setState({ [field]: newValue });
     }
