@@ -79,7 +79,6 @@ class ModalPosts extends Component {
             }
         });
         
-        console.log(this.props)
         posts.forEach(post => {
             if(currentUser!==null){
             if (currentUser.savedPosts.includes(post._id)) {
