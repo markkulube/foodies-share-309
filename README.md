@@ -24,7 +24,7 @@ The above examples are for TA use.
 The web app is a social-media style interaction-based feed that revolves around users posting recipes, searching for recipes, rating/commenting on recipes and saving recipes.
 
 ### Posting a Recipe
-Users can post their own unique recipes to the timeline with a title, description, category, ingredients and instructions. To do this, a user just has to click the "Post a Recipe" button on the main timeline and they will be redirected to another page where they can input their information for a recipe. Note: please put comments between instruction steps and ingredients (ex. 1 egg, 1 cup cocoa, etc).
+Users can post their own unique recipes to the timeline with a title, description, category, ingredients and instructions. To do this, a user just has to click the "Post a Recipe" button on the main timeline and they will be redirected to another page where they can input their information for a recipe. Note: please put comments between instruction steps and ingredients (ex. 1 egg, 1 cup cocoa, etc). In addition, the user must provide input for every section of the recipe or else it will not be saved to the database or posted to the timeline.
 
 After you press the "Post it on Foodies" button, the recipe will be posted on the main timeline and will redirect you back to the main timeline as well. The recipe will also be saved to the database.
 
