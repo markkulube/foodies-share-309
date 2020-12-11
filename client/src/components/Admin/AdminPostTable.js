@@ -70,11 +70,13 @@ class AdminPostTable extends Component {
                 // TODO
                 console.log('success::post: '+post_id+' deleted')
                 document.getElementById("post_row"+no+"").outerHTML="";
+                alert("DELETE-SUCCESS: post " + post_id + " deleted.")
                 
             } else {
                 // TODO
                 // If account creation failed, tell the user.
                 console.log('success::post: '+post_id+' not deleted')
+                alert("DELETE-FAIL: post " + post_id + " not deleted.")
 
                 }
             

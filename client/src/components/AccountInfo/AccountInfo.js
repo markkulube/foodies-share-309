@@ -170,8 +170,6 @@ class AccountInfo extends Component {
                 "Content-Type": "application/json"
             }
           });
-    
-          console.log(request)
           
             // Send the request with fetch()
             fetch(request)
@@ -183,12 +181,14 @@ class AccountInfo extends Component {
                         // TODO
                         // If update was a success, tell the user.
                         console.log('success::account info updated')
+                        alert("UPDATE-SUCCESS: " + user.userName + " account updated.")
                        
                     } else {
                         // TODO
                         // If update failed, tell the user.
                         // Here we are adding a generic message, but you could be more specific in your app.
                         console.log('fail::account info not updated')
+                        alert("UPDATE-FAIL: " + user.userName + " account not updated.")
     
                     }
                 })
@@ -223,7 +223,7 @@ class AccountInfo extends Component {
                 elems[index].style.display="block"
             }
 
-            this.alertBox("success")
+            //this.alertBox("success")
       } else {
           this.alertBox()
       }

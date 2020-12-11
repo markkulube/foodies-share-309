@@ -1,7 +1,7 @@
 import profilePic from "../images/profile.png";
 
 // A function to send a POST request with a new user
-export const addRecipeFunc = addRecipe => {
+export const addRecipeFunc = async(addRecipe) => {
     const currentUser = addRecipe.props.app.state.currentUser;
   
     // the URL for the request
@@ -62,5 +62,20 @@ export const addRecipeFunc = addRecipe => {
         .catch(error => {
             console.log(error);
         });
+   await timerTimeline();
 
 };
+
+
+export const timerTimeline = async () => {
+   
+   function waitFor(milli){
+       var startTime = new Date().getTime();
+       var endTime = startTime;
+       while(endTime < startTime + milli) {
+         endTime = new Date().getTime();
+       }
+    }
+    
+    waitFor(50); 
+}

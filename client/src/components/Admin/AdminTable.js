@@ -132,12 +132,14 @@ class AdminTable extends Component {
                         // TODO
                         // If update was a success, tell the user.
                         console.log('success::account info updated')
+                        alert("UPDATE-SUCCESS: " + oldUserName + " account updated.")
                         
                     } else {
                         // TODO
                         // If update failed, tell the user.
                         // Here we are adding a generic message, but you could be more specific in your app.
                         console.log('fail::account info not updated')
+                        alert("UPDATE-FAIL: " + oldUserName + " account not updated.")
 
                     }
                 })
@@ -163,7 +165,7 @@ class AdminTable extends Component {
             document.getElementById("edit_button"+no).style.display="block";
             document.getElementById("save_button"+no).style.display="none";
 
-            this.alertBox("update_s", user.userName)
+            // this.alertBox("update_s", user.userName)
         } else {
             this.alertBox("save")
         }
@@ -210,12 +212,14 @@ class AdminTable extends Component {
                     // TODO
                     // If delete was a success, tell the admin.
                     console.log('success::user: '+user.userName+' account deleted')
+                    alert("DELETE-SUCCESS: " + user.userName + " account deleted.")
                     
                 } else {
                     // TODO
                     // If update failed, tell the admin.
                     // Here we are adding a generic message, but you could be more specific in your app.
-                    console.log('fail::user: '+user.userName+' not account deleted')
+                    console.log('fail::user: '+user.userName+' account not deleted')
+                    alert("DELETE-FAIL: " + user.userName + " account not deleted.")
 
                 }
             })
@@ -247,7 +251,7 @@ class AdminTable extends Component {
              //columns would be accessed using the "col" variable assigned in the for loop
            }   */
         }
-            this.alertBox("delete_s", user.userName)
+            //this.alertBox("delete_s", user.userName)
         } else {
             this.alertBox("delete")
         }
@@ -323,12 +327,14 @@ class AdminTable extends Component {
                         // TODO
                         // If account creation was a success, tell the admin.
                         console.log('success::user: '+user.userName+' account created')
+                        alert("CREATE-SUCCESS: " + user.userName + " account created.")
                         
                     } else {
                         // TODO
                         // If account creation failed, tell the user.
                         // Here we are adding a generic message, but you could be more specific in your app.
-                        console.log('fail::user: '+user.userName+' not account created')
+                        console.log('fail::user: '+user.userName+' account not created')
+                        alert("CREATE-FAIL: " + user.userName + " account not created.")
     
                     }
                 })
@@ -347,7 +353,7 @@ class AdminTable extends Component {
                 table_len: table_len +2,
                 users: users
               });
-            this.alertBox("create_s", user.userName)
+            //this.alertBox("create_s", user.userName)
         } else {
             this.alertBox("add")
         }
