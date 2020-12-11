@@ -279,5 +279,12 @@ requires: {
     postId: ObjectID  // The ID of the post to delete the review from.
     reviewId: ObjectID  // The ID of the review to delete.
 }
-eact-router-dom  
-- material-ui  
+
+
+# Third-party libraries
+react
+react-collapse
+react-uid
+react-router-dom
+material-ui
+
