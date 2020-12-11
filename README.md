@@ -61,8 +61,8 @@ Admins can search for users by username in the user table. The admin just needs 
 ### Add/Edit/Delete users
 Admins can add users by typing in account info on the user table and pressing "Add Row". Admins can change a user's account info by pressing "Edit" and editing the credentials in the table (and then pressing save). Admins can delete a user from the webpage by pressing "Delete" next to a user in the user table.
 
-### View a user's timeline
-Admins can view a specific user's timeline, including their posts and saved posts by clicking the "Timeline" button next to the user.
+### View/edit a user's timeline
+Admins can view a specific user's timeline, including their posts and saved posts by clicking the "Timeline" button next to the user. If the admin wants, they can also edit the posts of the user that they click on and it will be updated in the database/timeline.
 
 ### Review posts on a user's timeline
 Admins can review posts on a specific user's timeline, including their posts and saved posts. The review will be from the admin.
