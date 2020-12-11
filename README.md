@@ -6,13 +6,6 @@ https://foodies309.herokuapp.com/
 
 # Instructions
 
-## Installation
-To use the Foodies web app, please run a local development server with React. Afterwards you may either sign-up or log in to the web application.
-- git clone https://github.com/csc309-fall-2020/team53.git  
-- cd team53/client  
-- npm install  
-- npm start  
-
 ## Sign Up
 To sign up, press the "Sign Up" button and you will be directed to a new page where you can enter credentials such as a username, password, age and favourite meal. After you sign up, you will be redirected to the user log in page. If you do not enter the correct credentials (for example, a string value for Age) then you will be given an error message and must try again. 
 
