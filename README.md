@@ -80,6 +80,8 @@ In Phase 2, we implemented the feature that allows users to look at the profiles
 
 # Routes Overview
 
+## Please note that some of our routes are in server.js and the rest are in the ./routes directory. Please keep this in mind when testing for routes.
+
 ### POST @ /user/login
 Log's in the user with the given credentials.
 
@@ -87,32 +89,144 @@ Log's in the user with the given credentials.
         "userName": String,  
         "password": String  
     }
+    
+     output : {  
+        "_id": ObjectID,  
+        "savedPosts":[ObjectID],  
+        "likedPosts":[ObjectID],  
+        "dislikedPosts":[ObjectID],  
+        "userName":String,  
+        "profilePic":String,  
+        "password":String,  
+        "age":Int,  
+        "favMeal":String,  
+        "isAdmin":Boolean,  
+        "__v":Int  
+    }  
 
 ### GET @ /api/logout
-Log's out a user by destroying the session
+Log's out a user by destroying the session.
 
 ### GET @ /user/check-session
-A route to check if a user is logged in on the session.
+A route to check if a user is logged in on the session. Requires a user object and outputs a user object.
 
     requires: {
-        user: Object
+        "_id": ObjectID,  
+        "savedPosts":[ObjectID],  
+        "likedPosts":[ObjectID],  
+        "dislikedPosts":[ObjectID],  
+        "userName":String,  
+        "profilePic":String,  
+        "password":String,  
+        "age":Int,  
+        "favMeal":String,  
+        "isAdmin":Boolean,  
+        "__v":Int  
+    }
+    
+     output: {
+        "_id": ObjectID,  
+        "savedPosts":[ObjectID],  
+        "likedPosts":[ObjectID],  
+        "dislikedPosts":[ObjectID],  
+        "userName":String,  
+        "profilePic":String,  
+        "password":String,  
+        "age":Int,  
+        "favMeal":String,  
+        "isAdmin":Boolean,  
+        "__v":Int  
     }
 
 ### GET @ /api/all
-A route that retrieves all existing data from server as a test.
+A route that retrieves all existing data from server as a test. Outputs a list of user objects and a list of post objects.
+
+    output: {
+        "users": [{
+            "_id": ObjectID,  
+            "savedPosts":[ObjectID],  
+            "likedPosts":[ObjectID],  
+            "dislikedPosts":[ObjectID],  
+            "userName":String,  
+            "profilePic":String,  
+            "password":String,  
+            "age":Int,  
+            "favMeal":String,  
+            "isAdmin":Boolean,  
+            "__v":Int  
+        }],
+        "posts": [{
+            "_id": ObjectID,  
+            "userName": String,
+            "profilePic": String (directs to a profile picture png in another directory),
+            "title": String,
+            "category": String,
+            "desc": String,
+            "datePosted": Date,
+            "ingredients": [String],
+            "steps": [String],
+            "reviews": [Objects],
+            "likes": Int,
+            "dislikes": Int,
+            "creator": ObjectID,
+            "__v":Int  
+        }]
+    }
 
 ### GET @ /api/user
-Retrieves the currently authenticated user.
+Retrieves the currently authenticated user. Requires a user object and outputs a user object.
+
+    requires: {
+         "_id": ObjectID,  
+         "savedPosts":[ObjectID],  
+         "likedPosts":[ObjectID],  
+         "dislikedPosts":[ObjectID],  
+         "userName":String,  
+         "profilePic":String,  
+         "password":String,  
+         "age":Int,  
+         "favMeal":String,  
+          "isAdmin":Boolean,  
+          "__v":Int  
+    }
+    
+     output: {
+         "_id": ObjectID,  
+         "savedPosts":[ObjectID],  
+         "likedPosts":[ObjectID],  
+         "dislikedPosts":[ObjectID],  
+         "userName":String,  
+         "profilePic":String,  
+         "password":String,  
+         "age":Int,  
+         "favMeal":String,  
+          "isAdmin":Boolean,  
+          "__v":Int  
+    }
 
 ### POST @ /api/user
 Create a new user with the given request data.
 
     requires : {
-        userName: String,
-        profilePic: String (directs to a profile picture png in another directory),
-        password: String,
-        age: Int,
-        favMeal: String,
+        "userName": String,
+        "profilePic": String (directs to a profile picture png in another directory),
+        "password": String,
+        "age": Int,
+        "favMeal": String,
+    }
+    
+    output: {
+         "_id": ObjectID,  
+         "savedPosts":[ObjectID],  
+         "likedPosts":[ObjectID],  
+         "dislikedPosts":[ObjectID],  
+         "userName":String,  
+         "profilePic":String,  
+         "password":String,  
+         "age":Int,  
+         "favMeal":String,  
+          "isAdmin":Boolean,  
+          "__v":Int  
     }
 
 ### DELETE @ /api/user/:id
@@ -205,18 +319,35 @@ Update the given user from the database.
 A POST route to *create* a post
 
     requires : {
-        userName: String,
-        profilePic: String (directs to a profile picture png in another directory),
-        title: String,
-        category: String,
-        desc: String,
-        datePosted: Date,
-        ingredients: [String],
-        steps: [String],
-        reviews: [Objects],
-        likes: Int,
-        dislikes: Int,
-        creator: ObjectID 
+        "userName": String,
+        "profilePic": String (directs to a profile picture png in another directory),
+        "title": String,
+        "category": String,
+        "desc": String,
+        "datePosted": Date,
+        "ingredients": [String],
+        "steps": [String],
+        "reviews": [Objects],
+        "likes": Int,
+        "dislikes": Int,
+        "creator": ObjectID,
+    }
+    
+    outputs : {
+        "_id": ObjectID,  
+        "userName": String,
+        "profilePic": String (directs to a profile picture png in another directory),
+        "title": String,
+        "category": String,
+        "desc": String,
+        "datePosted": Date,
+        "ingredients": [String],
+        "steps": [String],
+        "reviews": [Objects],
+        "likes": Int,
+        "dislikes": Int,
+        "creator": ObjectID,
+        "__v":Int  
     }
 
 ### PATCH @ /api/post/:id
