@@ -1,5 +1,5 @@
 # Foodies Web App
-
+#
 # URL for the Webpage
 
 https://foodies309.herokuapp.com/
@@ -113,11 +113,43 @@ requires : {
 }
 
 ### DELETE @ /api/user/:id
-Delete the given user from the database
-requires : {
-    user_id: ObjectID
-}
-
+Delete the given user from the database 
+requires : { 
+    _id: ObjectID 
+} 
+ 
+example : { 
+    _id: "5fd314a76a1a4904cbea3569", 
+} 
+ 
+output : { 
+    "_id": ObjectID, 
+    "savedPosts":[ObjectID], 
+    "likedPosts":[ObjectID], 
+    "dislikedPosts":[ObjectID], 
+    "userName":String, 
+    "profilePic":String, 
+    "password":String, 
+    "age":Int, 
+    "favMeal":String, 
+    "isAdmin":Boolean, 
+    "__v":Int 
+} 
+ 
+example : { 
+    "_id": "5fd314a76a1a4904cbea3569", 
+    "savedPosts":[], 
+    "likedPosts":[], 
+    "dislikedPosts":[], 
+    "userName":"user41", 
+    "profilePic":"/static/media/profile.8813c39a.png", 
+    "password":"$2a$10$a..0cqAN7YK.a7LQfWICgOZKwTsQVVSNCcZS7SIWv/4CPazULKdUO", 
+    "age":45, 
+    "favMeal":"Beef Burgundy", 
+    "isAdmin":false, 
+    "__v":0 
+} 
+ 
 ### PATCH @ /api/account/:id
 Update the given user from the database.
 requires : {
@@ -126,7 +158,44 @@ requires : {
     password: String,
     age: Int,
     favMeal: String
+} 
+
+example: {
+  "_id": "5fd314a76a1a4904cbea3569", 
+  "userName": "user41", 
+  "password": "newpass124", 
+  "age": 41, 
+  "favMeal": "Lasagna & Wine", 
 }
+
+output : { 
+    "_id": ObjectID, 
+    "savedPosts":[ObjectID], 
+    "likedPosts":[ObjectID], 
+    "dislikedPosts":[ObjectID], 
+    "userName":String, 
+    "profilePic":String, 
+    "password":String, 
+    "age":Int, 
+    "favMeal":String, 
+    "isAdmin":Boolean, 
+    "__v":Int 
+} 
+ 
+example : { 
+    "_id": "5fd314a76a1a4904cbea3569", 
+    "savedPosts":[], 
+    "likedPosts":[], 
+    "dislikedPosts":[], 
+    "userName":"user41", 
+    "profilePic":"/static/media/profile.8813c39a.png", 
+    "password":"$2a$10$a..0cqAN7YK.a7LQfWICgOZKwTsQVVSNCcZS7SIWv/4CPazULKdUO", 
+    "age":45, 
+    "favMeal":"Beef Burgundy", 
+    "isAdmin":false, 
+    "__v":0 
+}
+
 
 ### POST @ /api/post
 A POST route to *create* a post
@@ -211,10 +280,5 @@ requires: {
     postId: ObjectID  // The ID of the post to delete the review from.
     reviewId: ObjectID  // The ID of the review to delete.
 }
-
-# Third-party libraries
-- react  
-- react-collapse  
-- react-uid  
-- react-router-dom  
+eact-router-dom  
 - material-ui  
