@@ -83,8 +83,8 @@ In Phase 2, we implemented the feature that allows users to look at the profiles
 ### POST @ /user/login
 Log's in the user with the given credentials.
 requires: {
-    userName: String
-    password: String
+    "userName": String,  
+    "password": String  
 }
 
 ### GET @ /api/logout
@@ -282,9 +282,9 @@ requires: {
 
 
 # Third-party libraries
-react
-react-collapse
-react-uid
-react-router-dom
-material-ui
+- react
+- react-collapse
+- react-uid
+- react-router-dom
+- material-ui
 
