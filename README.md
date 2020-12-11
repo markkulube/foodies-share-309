@@ -82,19 +82,21 @@ In Phase 2, we implemented the feature that allows users to look at the profiles
 
 ### POST @ /user/login
 Log's in the user with the given credentials.
-requires: {
-    "userName": String,  
-    "password": String  
-}
+
+    requires: {
+        "userName": String,  
+        "password": String  
+    }
 
 ### GET @ /api/logout
 Log's out a user by destroying the session
 
 ### GET @ /user/check-session
 A route to check if a user is logged in on the session.
-requires: {
-    user: Object
-}
+
+    requires: {
+        user: Object
+    }
 
 ### GET @ /api/all
 A route that retrieves all existing data from server as a test.
@@ -104,182 +106,308 @@ Retrieves the currently authenticated user.
 
 ### POST @ /api/user
 Create a new user with the given request data.
-requires : {
-    userName: String,
-    profilePic: String (directs to a profile picture png in another directory),
-    password: String,
-    age: Int,
-    favMeal: String,
-}
+
+    requires : {
+        userName: String,
+        profilePic: String (directs to a profile picture png in another directory),
+        password: String,
+        age: Int,
+        favMeal: String,
+    }
 
 ### DELETE @ /api/user/:id
-Delete the given user from the database 
-requires : {  
-    _id: ObjectID  
-}  
+Delete the given user from the database
+
+    requires : {  
+        _id: ObjectID  
+    }  
   
-example : {  
-    _id: "5fd314a76a1a4904cbea3569",  
-}  
+    example : {  
+        _id: "5fd314a76a1a4904cbea3569",  
+    }  
   
-output : {  
-    "_id": ObjectID,  
-    "savedPosts":[ObjectID],  
-    "likedPosts":[ObjectID],  
-    "dislikedPosts":[ObjectID],  
-    "userName":String,  
-    "profilePic":String,  
-    "password":String,  
-    "age":Int,  
-    "favMeal":String,  
-    "isAdmin":Boolean,  
-    "__v":Int  
-}  
-  
-example : {  
-    "_id": "5fd314a76a1a4904cbea3569",  
-    "savedPosts":[],  
-    "likedPosts":[],  
-    "dislikedPosts":[],  
-    "userName":"user41",  
-    "profilePic":"/static/media/profile.8813c39a.png",  
-    "password":"$2a$10$a..0cqAN7YK.a7LQfWICgOZKwTsQVVSNCcZS7SIWv/4CPazULKdUO",  
-    "age":45,  
-    "favMeal":"Beef Burgundy",  
-    "isAdmin":false,  
-    "__v":0  
-} 
+    output : {  
+        "_id": ObjectID,  
+        "savedPosts":[ObjectID],  
+        "likedPosts":[ObjectID],  
+        "dislikedPosts":[ObjectID],  
+        "userName":String,  
+        "profilePic":String,  
+        "password":String,  
+        "age":Int,  
+        "favMeal":String,  
+        "isAdmin":Boolean,  
+        "__v":Int  
+    }  
+
+    example : {  
+        "_id": "5fd314a76a1a4904cbea3569",  
+        "savedPosts":[],  
+        "likedPosts":[],  
+        "dislikedPosts":[],  
+        "userName":"user41",  
+        "profilePic":"/static/media/profile.8813c39a.png",  
+        "password":"$2a$10$a..0cqAN7YK.a7LQfWICgOZKwTsQVVSNCcZS7SIWv/4CPazULKdUO",  
+        "age":45,  
+        "favMeal":"Beef Burgundy",  
+        "isAdmin":false,  
+        "__v":0  
+    } 
  
 ### PATCH @ /api/account/:id
 Update the given user from the database.  
-requires : {  
-    user_id: ObjectID  
-    userName: String,  
-    password: String,  
-    age: Int,  
-    favMeal: String  
-}  
+
+    requires : {  
+        user_id: ObjectID  
+        userName: String,  
+        password: String,  
+        age: Int,  
+        favMeal: String  
+    }  
   
-example: {  
-  "_id": "5fd314a76a1a4904cbea3569",  
-  "userName": "user41",  
-  "password": "newpass124",  
-  "age": 41,  
-  "favMeal": "Lasagna & Wine",  
-}  
-  
-output : {  
-    "_id": ObjectID,  
-    "savedPosts":[ObjectID],  
-    "likedPosts":[ObjectID],  
-    "dislikedPosts":[ObjectID],  
-    "userName":String,  
-    "profilePic":String,  
-    "password":String,  
-    "age":Int,  
-    "favMeal":String,  
-    "isAdmin":Boolean,  
-    "__v":Int  
-}  
-  
-example : {  
-    "_id": "5fd314a76a1a4904cbea3569",  
-    "savedPosts":[],  
-    "likedPosts":[],  
-    "dislikedPosts":[],  
-    "userName":"user41",  
-    "profilePic":"/static/media/profile.8813c39a.png",  
-    "password":"$2a$10$a..0cqAN7YK.a7LQfWICgOZKwTsQVVSNCcZS7SIWv/4CPazULKdUO",  
-    "age":45,  
-    "favMeal":"Beef Burgundy",  
-    "isAdmin":false, 
-    "__v":0  
-}  
+    example: {  
+      "_id": "5fd314a76a1a4904cbea3569",  
+      "userName": "user41",  
+      "password": "newpass124",  
+      "age": 41,  
+      "favMeal": "Lasagna & Wine",  
+    }  
+
+    output : {  
+        "_id": ObjectID,  
+        "savedPosts":[ObjectID],  
+        "likedPosts":[ObjectID],  
+        "dislikedPosts":[ObjectID],  
+        "userName":String,  
+        "profilePic":String,  
+        "password":String,  
+        "age":Int,  
+        "favMeal":String,  
+        "isAdmin":Boolean,  
+        "__v":Int  
+    }  
+
+    example : {  
+        "_id": "5fd314a76a1a4904cbea3569",  
+        "savedPosts":[],  
+        "likedPosts":[],  
+        "dislikedPosts":[],  
+        "userName":"user41",  
+        "profilePic":"/static/media/profile.8813c39a.png",  
+        "password":"$2a$10$a..0cqAN7YK.a7LQfWICgOZKwTsQVVSNCcZS7SIWv/4CPazULKdUO",  
+        "age":45,  
+        "favMeal":"Beef Burgundy",  
+        "isAdmin":false, 
+        "__v":0  
+    }  
 
 ### POST @ /api/post
 A POST route to *create* a post
-requires : {
-    userName: String,
-    profilePic: String (directs to a profile picture png in another directory),
-    title: String,
-    category: String,
-    desc: String,
-    datePosted: Date,
-    ingredients: [String],
-    steps: [String],
-    reviews: [Objects],
-    likes: Int,
-    dislikes: Int,
-    creator: ObjectID 
-}
+
+    requires : {
+        userName: String,
+        profilePic: String (directs to a profile picture png in another directory),
+        title: String,
+        category: String,
+        desc: String,
+        datePosted: Date,
+        ingredients: [String],
+        steps: [String],
+        reviews: [Objects],
+        likes: Int,
+        dislikes: Int,
+        creator: ObjectID 
+    }
 
 ### PATCH @ /api/post/:id
 Update the given post from the database.
-requires : {
-    userName: String,
-    profilePic: String (directs to a profile picture png in another directory),
-    title: String,
-    category: String,
-    desc: String,
-    datePosted: Date,
-    ingredients: [String],
-    steps: [String],
-    reviews: [Objects],
-    likes: Int,
-    dislikes: Int,
-    creator: ObjectID 
-}
+
+    requires : {
+        userName: String,
+        profilePic: String (directs to a profile picture png in another directory),
+        title: String,
+        category: String,
+        desc: String,
+        datePosted: Date,
+        ingredients: [String],
+        steps: [String],
+        reviews: [Objects],
+        likes: Int,
+        dislikes: Int,
+        creator: ObjectID 
+    }
 
 ### GET @ /api/timeline/post
-Sends an array of all existing posts.
+Get an array of all existing posts.
 
-### GET @ /api/timeline/post
-Sends an array of all existing posts.
+    output: [{
+        userName: string,
+        profilePic: string,
+        title: string,
+        category: string,
+        desc: string,
+        datePosted: Date,
+        ingredients: [string],
+        steps: [string],
+        reviews: [{
+            userName: string,
+            profilePic: string,
+            content: string,
+            datePosted: Date,
+            rating: number,
+            creator: ObjectID
+        }],
+        likes: number,
+        dislikes: number,
+        creator: ObjectID
+    }]
 
 ### DELETE @ /api/timeline/post
 Deletes the requested post.
-requires: {
-    creator: ObjectID,  // The ID of the user who created the post.
-    postId: ObjectID  // The ID of the post to delete.
-}
+
+    requires: {
+        creator: ObjectID,
+        postId: ObjectID
+    }
+    
+    output: {
+        userName: string,
+        profilePic: string,
+        title: string,
+        category: string,
+        desc: string,
+        datePosted: Date,
+        ingredients: [string],
+        steps: [string],
+        reviews: [{
+            userName: string,
+            profilePic: string,
+            content: string,
+            datePosted: Date,
+            rating: number,
+            creator: ObjectID
+        }],
+        likes: number,
+        dislikes: number,
+        creator: ObjectID
+    }
 
 ### POST @ /api/timeline/like
 Likes the requested post. If the post is already liked, undo the like. If the post has previously been disliked, remove the dislike.
-requires: {
-    postId: ObjectID  // The ID of the post to like.
-}
+
+    requires: {
+        postId: ObjectID
+    }
+    
+    output: {
+        user: {
+            userName: string,
+            profilePic: string,
+            password: string,
+            age: number,
+            favMeal: string,
+            savedPosts: [ObjectID],
+            isAdmin: boolean,
+            likedPosts: [ObjectID],
+            dislikedPosts: [ObjectID]
+        },
+        post: {
+            userName: string,
+            profilePic: string,
+            title: string,
+            category: string,
+            desc: string,
+            datePosted: Date,
+            ingredients: [string],
+            steps: [string],
+            reviews: [{
+                userName: string,
+                profilePic: string,
+                content: string,
+                datePosted: Date,
+                rating: number,
+                creator: ObjectID
+            }],
+            likes: number,
+            dislikes: number,
+            creator: ObjectID
+        }
+    }
 
 ### POST @ /api/timeline/dislike
 Dislikes the requested post. If the post is already disliked, undo the dislike. If the post has previously been liked, remove the like.
-requires: {
-    postId: ObjectID  // The ID of the post to dislike.
-}
+
+    requires: {
+        postId: ObjectID
+    }
 
 ### POST @ /api/timeline/save
 Save the requested post to the current user's favourite posts.
-requires: {
-    postId: ObjectID  // The ID of the post to save.
-}
+
+    requires: {
+        postId: ObjectID
+    }
+    
+    output: {
+        userName: string,
+        profilePic: string,
+        password: string,
+        age: number,
+        favMeal: string,
+        savedPosts: [ObjectID],
+        isAdmin: boolean,
+        likedPosts: [ObjectID],
+        dislikedPosts: [ObjectID]
+    },
 
 ### GET @ /api/timeline/review/:postId
 Get all reviews on the post with the given ID.
-wildcard: postId - The ID of the post to get reviews for.
+
+    @param postId -- The ObjectID string of the post to get reviews from.
+    
+    output: [{
+        userName: string,
+        profilePic: string,
+        content: string,
+        datePosted: Date,
+        rating: number,
+        creator: ObjectID
+    }]
 
 ### POST @ /api/timeline/review
 Create a new review for the requested post.
-requires: {
-    content: string  // The content of the review.
-    rating: number  // The rating for the review from 1-5.
-    postId: ObjectID  // The ID of the post to write the review for.
-}
+
+    requires: {
+        content: string,
+        rating: number,
+        postId: ObjectID
+    }
+    
+    output: [{
+        userName: string,
+        profilePic: string,
+        content: string,
+        datePosted: Date,
+        rating: number,
+        creator: ObjectID
+    }]
 
 ### DELETE @ /api/timeline/review
 Delete the requested review from the requested post.
-requires: {
-    postId: ObjectID  // The ID of the post to delete the review from.
-    reviewId: ObjectID  // The ID of the review to delete.
-}
 
+    requires: {
+        postId: ObjectID,
+        reviewId: ObjectID
+    }
+    
+    output: [{
+        userName: string,
+        profilePic: string,
+        content: string,
+        datePosted: Date,
+        rating: number,
+        creator: ObjectID
+    }]
 
 # Third-party libraries
 - react
