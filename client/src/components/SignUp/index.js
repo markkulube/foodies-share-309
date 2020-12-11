@@ -1,11 +1,13 @@
 import React from "react";
-import { Route, Switch, BrowserRouter } from 'react-router-dom';
+import { Route, Switch, BrowserRouter, Redirect } from 'react-router-dom';
 
 import SignUpForm from "./../SignUpForm";
 import LogIn from "../../components/LogIn";
 
 // Importing actions/required methods
 import { addAccount } from "../../actions/user";
+
+import "./styles.css";
 
 /* Component for the SignUp page */
 class SignUp extends React.Component {
@@ -24,7 +26,11 @@ constructor(props) {
       username: "",
       password: "",
       age: "",
-      favMeal: "" 
+      favMeal: "",
+      message: {
+        body: "",
+        type: ""
+      } 
   };
 
   // Generic handler for whenever we type in an input box.
@@ -40,7 +46,6 @@ constructor(props) {
   };
 
   render() {
-
     return (
       <div className="App">
       {/* Sign Up Form component with text and function props*/}
@@ -52,11 +57,11 @@ constructor(props) {
           handleChange={this.handleInputChange}
           addAccount={() => addAccount(this)}
         />
-        <BrowserRouter>
-          <Switch>
-             <Route exact path='/LogIn' render={props => <LogIn {...props} app={this}/>} />
-          </Switch>
-        </BrowserRouter>
+        <br/>
+        <p className="message">{this.state.message.body}</p>
+        {this.state.message.type==="success"&&
+             <Redirect to='/Login' render={props => <LogIn {...props} app={this}/>} />
+        }
       </div>
     );
   }

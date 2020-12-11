@@ -1,11 +1,6 @@
 /* This file contains the User schema. */
 "use strict";
 
-// TODO: Insights
-//  1) Instead of each user having a list of posts, each post should have a "created by" field (db design!).
-//     When rendering all of some user's posts, simply filter posts by "created by" field.
-//  2) Can we add an image attribute to a model?
-
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
@@ -20,7 +15,7 @@ const UserSchema = new mongoose.Schema({
         unique: true
     },
 
-    // TODO: Refer to insight (2) for why "profilePic" is temporarily missing.
+    // The profile pic of the user
     profilePic: {
         type: String,
         required: true,
@@ -45,8 +40,6 @@ const UserSchema = new mongoose.Schema({
         minlength: 1,
         trim: true
     },
-
-    // TODO: Refer to insight (1) for why "posts" is missing.
 
     // A list of the _id's of posts this user has added to favourites.
     savedPosts: [{

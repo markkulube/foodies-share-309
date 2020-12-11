@@ -9,7 +9,7 @@ export const getAllPosts = async () => {
         const posts = await response.json();
 
         // Sort the posts by (descending) date posted.
-        posts.sort((a, b) => b.datePosted - a.datePosted);
+        posts.sort((a, b) => new Date(b.datePosted) - new Date(a.datePosted));
 
         return posts;
     } catch (error) {

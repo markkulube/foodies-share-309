@@ -11,7 +11,7 @@ import "./PostRecipe.css"
 /*
     component for post recipe, used in the PostRecipePage.
     will take input and assigned to the following variables, and stores it in
-    appState via addRecipeFunc
+    server via addRecipeFunc
 */
 class PostRecipe extends React.Component {
     
@@ -77,7 +77,6 @@ class PostRecipe extends React.Component {
                 />
                 <br/>
                 <br/>
-                {/* save all the input as an object to appState and return to timeline page*/}
                 <Link id={"timeline-link"} to={"Timeline"}>
                     <Button 
                         className="post-button"
@@ -88,7 +87,6 @@ class PostRecipe extends React.Component {
                 </Link>
                 <br/>
                 <br/>
-                {/*return to timeline page without saving*/}
                 <Link id={"timeline-link"} to={"Timeline"}>
                     <Button 
                         className="post-button"

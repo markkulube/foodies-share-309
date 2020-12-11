@@ -290,7 +290,7 @@ class AdminTable extends Component {
             
             let user = {
                     userName: new_username,
-                    profilePic: "../../images/profile.png",
+                    profilePic: "/static/media/profile.8813c39a.png",
                     password: new_password,
                     age: new_age,
                     favMeal: new_favmeal,

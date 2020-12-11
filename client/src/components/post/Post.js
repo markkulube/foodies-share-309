@@ -1,5 +1,5 @@
 import React from "react";
-import "../../actions/addRecipe"
+import "../../actions/post"
 import Recipe from "../Recipe/Recipe"
 import ModalPosts from "../ModalPosts/ModalPosts"
 import { UnmountClosed } from "react-collapse";
@@ -9,7 +9,6 @@ import ReviewList from "../ReviewList/ReviewList";
 
 // logic imports
 import { handleLike, handleDislike, deletePost, handleSave } from "./PostLogic";
-import { addtoFavourites } from "../../actions/addRecipe";
 
 /**
  * A post of a recipe.
@@ -181,7 +180,7 @@ class Post extends React.Component{
                     <button className="delete red" onClick={() => deletePost(post.creator, post._id, context)}>Delete</button>
                 }
                 <UnmountClosed isOpened={this.state.isOpened}>
-                    <ReviewList currentUser={currentUser} reviews={post.reviews} postId={post._id}/>
+                    <ReviewList currentUser={currentUser} postId={post._id}/>
                 </UnmountClosed>
                 <ModalPosts currentUser={this.state.userName} app={this.state} onClose={this.showModalPosts} show={this.state.modalDisplay}>Message in Modal</ModalPosts>
             </div>

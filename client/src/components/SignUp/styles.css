@@ -3,3 +3,8 @@ body
 {
   background-color:#ffd394;
 }
+
+.message {
+  color: #b30303;
+  padding-left:40px;
+}

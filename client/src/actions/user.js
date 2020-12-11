@@ -54,19 +54,19 @@ export const addAccount = signup => {
             // Handle response we get from the API.
             // Usually check the error codes to see what happened.
             if (res.status === 200) {
-                // If student was added successfully, tell the user.
+                // If user was added successfully, tell the user.
                 signup.setState({
                     message: {
-                        body: "Success: Added a student.",
+                        body: "Success: Added a user.",
                         type: "success"
                     }
                 });
             } else {
-                // If server couldn't add the student, tell the user.
+                // If server couldn't add the user, tell the user.
                 // Here we are adding a generic message, but you could be more specific in your app.
                 signup.setState({
                     message: {
-                        body: "Error: Could not add student.",
+                        body: "Could not add user. Try again.",
                         type: "error"
                     }
                 });
@@ -80,9 +80,15 @@ export const addAccount = signup => {
 // A function to send a POST request with the user to be logged in
 export const checkAccount = (loginComp, app) => {
    // Create our request constructor with all the parameters we need
+
+    const user = {
+      userName: loginComp.state.userName,
+      password: loginComp.state.password
+    };
+
     const request = new Request("/user/login", {
         method: "post",
-        body: JSON.stringify(loginComp.state),
+        body: JSON.stringify(user),
         headers: {
             Accept: "application/json, text/plain, */*",
             "Content-Type": "application/json"
@@ -103,6 +109,12 @@ export const checkAccount = (loginComp, app) => {
         })
         .catch(error => {
             console.log(error);
+             loginComp.setState({
+                    message: {
+                        body: "Could not login. Try again.",
+                        type: "error"
+                    }
+             })
         });
 };
 

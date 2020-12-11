@@ -25,7 +25,7 @@ export const addRecipeFunc = addRecipe => {
 
 
     // Create our request constructor with all the parameters we need
-  const request = new Request(url, {
+    const request = new Request(url, {
         method: "post",
         body: JSON.stringify(post),
         headers: {
@@ -42,7 +42,7 @@ export const addRecipeFunc = addRecipe => {
             // Handle response we get from the API.
             // Usually check the error codes to see what happened.
             if (res.status === 200) {
-                // If student was added successfully, tell the user.
+                // If post was added successfully, tell the user.
                 addRecipe.setState({
                     message: {
                         body: "Success: Added a recipe.",
@@ -50,8 +50,7 @@ export const addRecipeFunc = addRecipe => {
                     }
                 });
             } else {
-                // If server couldn't add the student, tell the user.
-                // Here we are adding a generic message, but you could be more specific in your app.
+                // If server couldn't add the post, tell the user.
                 addRecipe.setState({
                     message: {
                         body: "Error: Could not add recipe.",

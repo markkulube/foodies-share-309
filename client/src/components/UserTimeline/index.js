@@ -53,7 +53,7 @@ class UserTimeline extends React.Component{
             document.getElementById('admin-button').style.display = 'inline-block';
         }
 
-        // Set liked or disliked status of each post according to the current user.
+        // Get current user's posts and saved posts
        const userPosts = await getUserPosts()  
        const savedPosts = await getAllSavedPosts()
 
@@ -69,8 +69,6 @@ class UserTimeline extends React.Component{
 
 
     render(){
-        //retrieve the current user's username and profile pictures from appState 
-
         let username;
         let profilePic;
         let flag=true;

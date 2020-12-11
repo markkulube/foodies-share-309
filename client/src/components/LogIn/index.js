@@ -18,7 +18,11 @@ class LogIn extends React.Component {
 
    state = {
     userName: "",
-    password: ""
+    password: "",
+    message: {
+        body: "",
+        type: ""
+      } 
   };
 
   // Generic handler for whenever we type in an input box.
@@ -46,6 +50,7 @@ class LogIn extends React.Component {
           handleChange={this.handleInputChange}
           checkAccount={() => checkAccount(this, app)}
         />
+        <p className="message2">{this.state.message.body}</p>
           {app.state.currentUser&&
              <Redirect to='/Timeline' render={props => <Timeline {...props} app={this}/>} />
           }

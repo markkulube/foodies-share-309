@@ -70,6 +70,9 @@ export const handleSavedFilter = async(event, usertimeline) => {
     usertimeline.setState({ savedPosts: target.filter((post) => post.title.toLowerCase().includes(value))  })
 }
 
+/**
+ * Get all of the current user's posts
+ */
 export const getUserPosts = async () => {
     try {
         const response = await fetch("/api/timeline/post");
@@ -85,7 +88,7 @@ export const getUserPosts = async () => {
         }
 
         let userPosts = []
-        //search for post that thats created by user
+        //search for post that were created by user
         posts.forEach(post => {
             if (user.userName===post.userName) {
                 userPosts.push(post)
@@ -100,6 +103,9 @@ export const getUserPosts = async () => {
     }
 }
 
+/**
+ * Get all of the current user's saved posts
+ */
 export const getAllSavedPosts = async () => {
      try {
         const response = await fetch("/api/timeline/post");
@@ -115,7 +121,7 @@ export const getAllSavedPosts = async () => {
         }
 
         let savedPosts = []
-        //search for post that thats created by user
+        //search for posts that were saved by user
         posts.forEach(post => {
             if (user.savedPosts.includes(post._id)) {
                 savedPosts.push(post)

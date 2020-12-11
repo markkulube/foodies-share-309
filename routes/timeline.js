@@ -291,6 +291,29 @@ router.post("/save", mongoChecker, authenticate, async (req, res) => {
 });
 
 /**
+ * GET request to obtain all reviews for a given post.
+ */
+router.get("/review/:postId", mongoChecker, async (req, res) => {
+    console.log("GET request for api/timeline/review");
+
+    try {
+        const post = await Post.findById(req.params.postId);
+        if (!post) {
+            res.status(400).send("Bad request");
+        } else {
+            res.send(post.reviews);
+        }
+    } catch (error) {
+        console.error(error);
+        if (isMongoError(error)) {
+            res.status(500).send('Internal server error');
+        } else {
+            res.status(400).send('Bad Request');  // 400 for bad request gets sent to client.
+        }
+    }
+});
+
+/**
  * POST request to create a new review for the given post.
  *
  * @param {string} content -- The content of the review.

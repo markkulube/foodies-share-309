@@ -60,7 +60,6 @@ class SignUpForm extends React.Component {
           item
           xs={12}
         >
-         <Link className="signUp_button-link" to={"./Login"}>
           <Button
             variant="contained"
             color="primary"
@@ -69,7 +68,6 @@ class SignUpForm extends React.Component {
           >
             Sign Up
           </Button>
-        </Link>
         <Link className="signUp_button-link" to={"./"}>
           <Button
             variant="contained"

@@ -19,7 +19,7 @@
 
 .signUp-form {
   position:absolute;
-  top: 535px;
+  top: 560px;
   left: 30px;
   justify-content: right;
   direction:"column";
@@ -39,7 +39,7 @@
 
 .signUp_button-link {
   padding-top: 50px;
-  padding-right: 30px;
+  padding-left: 30px;
   text-decoration: none;
 }
 
